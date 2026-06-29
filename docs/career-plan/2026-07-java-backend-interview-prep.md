@@ -23,18 +23,17 @@
 ## 一、课时资源总库 — 按模块分类
 
 > 以下每个模块的「资源 ID」供后续课表引用，避免课表中重复写长链接。
-> 搜索关键词可直接在 B站 / Google 搜索。
 
 ### M1: JVM
 
 | 资源 ID | 名称 | 类型 | 链接 / 搜索关键词 | 时长 | 优先级 |
 |---|---|---|---|---|---|
-| M1-V1 | 宋红康 JVM 完整版（尚硅谷） | B站视频 | 搜 "宋红康 JVM" 2024版 | 22h | ⭐⭐⭐ 必看第2/3/6/7章 |
-| M1-V2 | 从内存模型到GC调优 | B站视频 | 搜 "JVM 面试 必考" | 2h | ⭐⭐ 碎片时间 |
-| M1-V3 | 极客时间《深入拆解Java虚拟机》 | 付费视频 | 极客时间郑雨迪 | 15h | ⭐⭐⭐ 有余力看 |
-| M1-D1 | 《深入理解Java虚拟机》第3版 | 书籍 | 周志明著 | — | ⭐⭐⭐ 必买 |
-| M1-D2 | JavaGuide JVM 篇 | 文档 | javaguide.cn | — | ⭐⭐⭐ 每日翻 |
-| M1-D3 | 美团技术 JVM 调优实战 | 文档 | tech.meituan.com 搜 JVM | — | ⭐⭐ 项目可引用 |
+| M1-V1 | 宋红康 JVM 完整版（尚硅谷） | B站视频 | [尚硅谷JVM全套教程](https://www.bilibili.com/video/BV1PJ411n7xZ)（官方版393万播放） | 22h | ⭐⭐⭐ 必看第2/3/6/7章 |
+| M1-V2 | 从内存模型到GC调优 | B站视频 | [JVM面试夺命连环25问](https://www.bilibili.com/video/BV1jTQ3YbE5N)（徐庶2.5h） | 2h | ⭐⭐ 碎片时间 |
+| M1-V3 | 极客时间《深入拆解Java虚拟机》 | 付费视频 | [极客时间郑雨迪](https://time.geekbang.org/column/intro/100010701) | 15h | ⭐⭐⭐ 有余力看 |
+| M1-D1 | 《深入理解Java虚拟机》第3版 | 书籍 | [豆瓣](https://book.douban.com/subject/34907497/) 周志明著 | — | ⭐⭐⭐ 必买 |
+| M1-D2 | JavaGuide JVM 篇 | 文档 | [javaguide.cn/java/](https://javaguide.cn/java/) | — | ⭐⭐⭐ 每日翻 |
+| M1-D3 | 美团技术 JVM 调优实战 | 文档 | [tech.meituan.com](https://tech.meituan.com/) 搜索 JVM | — | ⭐⭐ 项目可引用 |
 
 **M1 面试高频题清单**（每个都要能边说边画）：
 1. JVM 运行时数据区（画图：堆/栈/方法区/PC/本地方法栈）
@@ -54,12 +53,12 @@
 
 | 资源 ID | 名称 | 类型 | 链接 / 搜索关键词 | 优先级 |
 |---|---|---|---|---|
-| M2-V1 | AQS + JUC 源码分析（图灵/黑马） | B站视频 | 搜 "AQS 源码 原理 图解" | ⭐⭐⭐ |
-| M2-V2 | 极客时间《Java并发编程实战》 | 付费视频 | 王宝令 | ⭐⭐⭐ |
-| M2-V3 | ConcurrentHashMap 源码（JDK7/8） | B站视频 | 搜 "ConcurrentHashMap 源码" | ⭐⭐⭐ |
-| M2-D1 | 《Java并发编程的艺术》 | 书籍 | 方腾飞 | ⭐⭐⭐ |
-| M2-D2 | JavaGuide 并发篇 | 文档 | javaguide.cn | ⭐⭐⭐ |
-| M2-D3 | 图解 volatile + synchronized 原理 | 博客 | 搜 "xiaolincoding volatile" | ⭐⭐ |
+| M2-V1 | AQS + JUC 源码分析（图灵/黑马） | B站视频 | [AQS底层原理及源码分析](https://www.bilibili.com/video/BV14s4y1A7h1)（马士兵3h） | ⭐⭐⭐ |
+| M2-V2 | 极客时间《Java并发编程实战》 | 付费视频 | [极客时间王宝令](https://time.geekbang.org/column/intro/100061801) | ⭐⭐⭐ |
+| M2-V3 | ConcurrentHashMap 源码（JDK7/8） | B站视频 | [ConcurrentHashMap面试题及解答](https://www.bilibili.com/video/BV1oUGbzxEu7)（45min） | ⭐⭐⭐ |
+| M2-D1 | 《Java并发编程的艺术》 | 书籍 | [豆瓣](https://book.douban.com/subject/35530796/) 方腾飞 | ⭐⭐⭐ |
+| M2-D2 | JavaGuide 并发篇 | 文档 | [javaguide.cn/java/concurrent/](https://javaguide.cn/java/concurrent/) | ⭐⭐⭐ |
+| M2-D3 | 图解 volatile + synchronized 原理 | 博客 | [xiaolincoding.com](https://xiaolincoding.com/) 搜索 volatile | ⭐⭐ |
 
 **M2 面试高频题清单**：
 1. synchronized 底层原理（对象头 Mark Word → 锁升级过程）
@@ -79,13 +78,13 @@
 
 | 资源 ID | 名称 | 类型 | 链接 / 搜索关键词 | 优先级 |
 |---|---|---|---|---|
-| M3-V1 | Spring 注解驱动开发（尚硅谷） | B站视频 | 搜 "Spring 注解驱动" | ⭐⭐⭐ |
-| M3-V2 | Spring IoC 源码分析 | B站视频 | 搜 "Spring IoC 源码 Bean生命周期" | ⭐⭐⭐ |
-| M3-V3 | Spring AOP 源码 + 事务原理 | B站视频 | 搜 "Spring AOP 源码" | ⭐⭐⭐ |
-| M3-V4 | SpringBoot 自动配置原理 | B站视频 | 搜 "SpringBoot 自动配置 @EnableAutoConfiguration" | ⭐⭐ |
-| M3-D1 | 《Spring 实战》第6版 | 书籍 | Craig Walls | ⭐⭐ |
-| M3-D2 | Spring 官方文档 Core 部分 | 文档 | docs.spring.io | ⭐⭐ |
-| M3-D3 | Spring 循环依赖三级缓存解析 | 博客 | 搜 "Spring 三级缓存 循环依赖" | ⭐⭐⭐ |
+| M3-V1 | Spring 注解驱动开发（尚硅谷） | B站视频 | [尚硅谷Spring注解驱动教程](https://www.bilibili.com/video/BV1gW411W7wy)（源码级687min） | ⭐⭐⭐ |
+| M3-V2 | Spring IoC 源码分析 | B站视频 | [Spring Bean生命周期讲解](https://www.bilibili.com/video/BV1L14y1S7cf)（16min） | ⭐⭐⭐ |
+| M3-V3 | Spring AOP 源码 + 事务原理 | B站视频 | [源码级讲解SpringAOP原理](https://www.bilibili.com/video/BV1a84y1q7aX)（105min） | ⭐⭐⭐ |
+| M3-V4 | SpringBoot 自动配置原理 | B站视频 | [SpringBoot自动配置原理](https://www.bilibili.com/video/BV1NY411P7VX)（11min） | ⭐⭐ |
+| M3-D1 | 《Spring 实战》第6版 | 书籍 | [豆瓣](https://book.douban.com/subject/35526435/) Craig Walls | ⭐⭐ |
+| M3-D2 | Spring 官方文档 Core 部分 | 文档 | [docs.spring.io](https://docs.spring.io/spring-framework/reference/core.html) | ⭐⭐ |
+| M3-D3 | Spring 循环依赖三级缓存解析 | 博客 | [Spring三级缓存解决循环依赖](https://www.bilibili.com/video/BV1HwkvYmEXv)（B站视频7min） | ⭐⭐⭐ |
 
 **M3 面试高频题清单**：
 1. BeanFactory vs FactoryBean vs ApplicationContext
@@ -105,12 +104,12 @@
 
 | 资源 ID | 名称 | 类型 | 链接 / 搜索关键词 | 优先级 |
 |---|---|---|---|---|
-| M4-V1 | 极客时间《MySQL实战45讲》 | 付费视频 | 丁奇 | ⭐⭐⭐ 必看 |
-| M4-V2 | 尚硅谷周阳 MySQL 高级 | B站视频 | 搜 "尚硅谷 MySQL 高级" | ⭐⭐⭐ |
-| M4-V3 | Explain + 慢查询优化 | B站视频 | 搜 "MySQL explain 详解" | ⭐⭐ |
-| M4-D1 | 《高性能MySQL》第4版 | 书籍 | O'Reilly | ⭐⭐ |
-| M4-D2 | JavaGuide MySQL 篇 | 文档 | javaguide.cn | ⭐⭐⭐ |
-| M4-D3 | 小林 coding MySQL 基础 | 文档 | xiaolincoding.com/mysql | ⭐⭐⭐ |
+| M4-V1 | 极客时间《MySQL实战45讲》 | 付费视频 | [极客时间丁奇](https://time.geekbang.org/column/intro/100020801) | ⭐⭐⭐ 必看 |
+| M4-V2 | 尚硅谷周阳 MySQL 高级 | B站视频 | [尚硅谷MySQL数据库高级](https://www.bilibili.com/video/BV1KW411u7vy)（965万播放，680min） | ⭐⭐⭐ |
+| M4-V3 | Explain + 慢查询优化 | B站视频 | [4分钟精通MySQL explain核心](https://www.bilibili.com/video/BV1GG4y1d7Bk) | ⭐⭐ |
+| M4-D1 | 《高性能MySQL》第4版 | 书籍 | [豆瓣](https://book.douban.com/subject/35444945/) O'Reilly | ⭐⭐ |
+| M4-D2 | JavaGuide MySQL 篇 | 文档 | [javaguide.cn/database/mysql/](https://javaguide.cn/database/mysql/) | ⭐⭐⭐ |
+| M4-D3 | 小林 coding MySQL 基础 | 文档 | [xiaolincoding.com/mysql](https://xiaolincoding.com/mysql/) | ⭐⭐⭐ |
 
 **M4 面试高频题清单**：
 1. 索引结构（B+Tree vs B-Tree vs Hash）
@@ -130,12 +129,12 @@
 
 | 资源 ID | 名称 | 类型 | 链接 / 搜索关键词 | 优先级 |
 |---|---|---|---|---|
-| M5-V1 | 黑马 Redis 完整版（2024新版） | B站视频 | 搜 "黑马 Redis 入门到精通" | ⭐⭐⭐ |
-| M5-V2 | 极客时间《Redis核心技术与实战》 | 付费视频 | 蒋德钧 | ⭐⭐⭐ |
-| M5-V3 | Redis 缓存问题解决方案 | B站视频 | 搜 "Redis 缓存穿透 击穿 雪崩" | ⭐⭐⭐ |
-| M5-D1 | 《Redis深度历险》 | 书籍 | 钱文品 | ⭐⭐⭐ |
-| M5-D2 | 小林coding Redis 篇 | 文档 | xiaolincoding.com/redis | ⭐⭐⭐ |
-| M5-D3 | Redis 命令参考 | 文档 | redis.com.cn/commands.html | ⭐⭐ |
+| M5-V1 | 黑马 Redis 完整版（2024新版） | B站视频 | [黑马Redis入门到实战](https://www.bilibili.com/video/BV1cr4y1671t)（541万播放） | ⭐⭐⭐ |
+| M5-V2 | 极客时间《Redis核心技术与实战》 | 付费视频 | [极客时间蒋德钧](https://time.geekbang.org/column/intro/100056701) | ⭐⭐⭐ |
+| M5-V3 | Redis 缓存问题解决方案 | B站视频 | [Redis三大缓存问题：击穿/雪崩/穿透](https://www.bilibili.com/video/BV1fbcbezE3u) | ⭐⭐⭐ |
+| M5-D1 | 《Redis深度历险》 | 书籍 | [豆瓣](https://book.douban.com/subject/30386804/) 钱文品 | ⭐⭐⭐ |
+| M5-D2 | 小林coding Redis 篇 | 文档 | [xiaolincoding.com/redis](https://xiaolincoding.com/redis/) | ⭐⭐⭐ |
+| M5-D3 | Redis 命令参考 | 文档 | [redis.com.cn/commands.html](https://redis.com.cn/commands.html) | ⭐⭐ |
 
 **M5 面试高频题清单**：
 1. 5 大数据结构底层（SDS/ziplist/skiplist/quicklist）
@@ -155,12 +154,12 @@
 
 | 资源 ID | 名称 | 类型 | 链接 / 搜索关键词 | 优先级 |
 |---|---|---|---|---|
-| M6-V1 | SpringCloud Alibaba 完整版 | B站视频 | 搜 "SpringCloud Alibaba 微服务" | ⭐⭐⭐ |
-| M6-V2 | Dubbo 原理与源码 | B站视频 | 搜 "Dubbo 源码 原理" | ⭐⭐ |
-| M6-V3 | 分布式事务 Seata | B站视频 | 搜 "Seata AT TCC Saga" | ⭐⭐ |
-| M6-D1 | 极客时间《微服务架构核心20讲》 | 付费课程 | 极客时间 | ⭐⭐ |
-| M6-D2 | Spring Cloud 官方文档 | 文档 | spring.io/projects/spring-cloud | ⭐⭐ |
-| M6-D3 | CAP/BASE 最简理解 | 文档 | xiaolincoding.com 搜 CAP | ⭐⭐⭐ |
+| M6-V1 | SpringCloud Alibaba 完整版 | B站视频 | [Spring Cloud Alibaba微服务](https://www.bilibili.com/video/BV1apr6YyEGg)（1h极简版） | ⭐⭐⭐ |
+| M6-V2 | Dubbo 原理与源码 | B站视频 | [Dubbo3.x源码教程（大白话+画图）](https://www.bilibili.com/video/BV1Ku4y1f7Wj)（儒猿520min） | ⭐⭐ |
+| M6-V3 | 分布式事务 Seata | B站视频 | [18分钟彻底掌握分布式事务+Seata实战](https://www.bilibili.com/video/BV1XtMyznEnb) | ⭐⭐ |
+| M6-D1 | 极客时间《微服务架构核心20讲》 | 付费课程 | [极客时间](https://time.geekbang.org/course/intro/100069901) | ⭐⭐ |
+| M6-D2 | Spring Cloud 官方文档 | 文档 | [spring.io/projects/spring-cloud](https://spring.io/projects/spring-cloud) | ⭐⭐ |
+| M6-D3 | CAP/BASE 最简理解 | 文档 | [xiaolincoding.com](https://xiaolincoding.com/) 搜索 CAP | ⭐⭐⭐ |
 
 **M6 面试高频题清单**：
 1. CAP 定理 + BASE（AP vs CP 权衡）
@@ -180,10 +179,10 @@
 
 | 资源 ID | 名称 | 类型 | 链接 / 搜索关键词 | 优先级 |
 |---|---|---|---|---|
-| M7-V1 | 黑马 Kafka 完整版 | B站视频 | 搜 "黑马 Kafka" | ⭐⭐⭐ |
-| M7-V2 | 极客时间《消息队列高手课》 | 付费课程 | 李玥 | ⭐⭐⭐ |
-| M7-D1 | Kafka 官方文档 | 文档 | kafka.apache.org/documentation | ⭐⭐ |
-| M7-D2 | Kafka 面试突击笔记 | 文档 | 搜 "Kafka 面试 15题" | ⭐⭐⭐ |
+| M7-V1 | 黑马 Kafka 完整版 | B站视频 | [黑马Kafka入门到精通](https://www.bilibili.com/video/BV19y4y1b7Uo)（454min） | ⭐⭐⭐ |
+| M7-V2 | 极客时间《消息队列高手课》 | 付费课程 | [极客时间李玥](https://time.geekbang.org/column/intro/100043701) | ⭐⭐⭐ |
+| M7-D1 | Kafka 官方文档 | 文档 | [kafka.apache.org/documentation](https://kafka.apache.org/documentation/) | ⭐⭐ |
+| M7-D2 | Kafka 面试突击笔记 | 文档 | [Kafka夺命连环5连问](https://www.bilibili.com/video/BV1VpWKedEG6)（B站92min） | ⭐⭐⭐ |
 
 **M7 面试高频题清单**：
 1. Kafka 架构（Broker/Topic/Partition/Consumer Group）
@@ -201,11 +200,11 @@
 
 | 资源 ID | 名称 | 类型 | 链接 / 搜索关键词 | 优先级 |
 |---|---|---|---|---|
-| M8-V1 | 王道操作系统【进程+内存+死锁】 | B站视频 | 搜 "王道 操作系统" 2-4章 | ⭐⭐⭐ |
-| M8-V2 | 计算机网络微课堂（前5章） | B站视频 | 搜 "计算机网络 微课堂" | ⭐⭐⭐ |
-| M8-V3 | 图解 TCP 连接 | B站视频 | 搜 "TCP 三次握手 四次挥手" | ⭐⭐ |
-| M8-D1 | 小林coding OS篇 | 文档 | xiaolincoding.com/os | ⭐⭐⭐ |
-| M8-D2 | 小林coding 网络篇 | 文档 | xiaolincoding.com/network | ⭐⭐⭐ |
+| M8-V1 | 王道操作系统【进程+内存+死锁】 | B站视频 | [王道计算机考研操作系统](https://www.bilibili.com/video/BV1YE411D7nH)（2259万播放） 2-4章 | ⭐⭐⭐ |
+| M8-V2 | 计算机网络微课堂（前5章） | B站视频 | [计算机网络微课堂](https://www.bilibili.com/video/BV1c4411d7jb)（湖科大教书匠850万播放） | ⭐⭐⭐ |
+| M8-V3 | 图解 TCP 连接 | B站视频 | [TCP三次握手与四次挥手](https://www.bilibili.com/video/BV1at4y1Q77b)（20万播放14min） | ⭐⭐ |
+| M8-D1 | 小林coding OS篇 | 文档 | [xiaolincoding.com/os](https://xiaolincoding.com/os/) | ⭐⭐⭐ |
+| M8-D2 | 小林coding 网络篇 | 文档 | [xiaolincoding.com/network](https://xiaolincoding.com/network/) | ⭐⭐⭐ |
 
 **M8 面试高频题清单**：
 1. 进程 vs 线程 vs 协程
@@ -225,11 +224,11 @@
 
 | 资源 ID | 名称 | 类型 | 链接 / 搜索关键词 | 优先级 |
 |---|---|---|---|---|
-| M9-V1 | 秒杀系统设计 | B站视频 | 搜 "秒杀系统 设计 架构" | ⭐⭐⭐ |
-| M9-V2 | 极客时间《高并发系统设计40问》 | 付费课程 | 极客时间 | ⭐⭐⭐ |
-| M9-V3 | System Design Interview（Alex Xu讲解） | B站视频 | 搜 "system design interview 中文" | ⭐⭐ |
-| M9-D1 | 《数据密集型应用系统设计》DDIA | 书籍 | Kleppmann | ⭐⭐⭐ |
-| M9-D2 | 美团技术博客 | 文档 | tech.meituan.com | ⭐⭐ |
+| M9-V1 | 秒杀系统设计 | B站视频 | [秒杀系统设计：面试通杀](https://www.bilibili.com/video/BV1ZUpue6EoV)（徐庶8min） | ⭐⭐⭐ |
+| M9-V2 | 极客时间《高并发系统设计40问》 | 付费课程 | [极客时间](https://time.geekbang.org/column/intro/100069101) | ⭐⭐⭐ |
+| M9-V3 | System Design Interview（Alex Xu讲解） | B站视频 | [System design interview中文字幕](https://www.bilibili.com/video/BV15C411V7PT)（240min） | ⭐⭐ |
+| M9-D1 | 《数据密集型应用系统设计》DDIA | 书籍 | [豆瓣](https://book.douban.com/subject/35217781/) Kleppmann | ⭐⭐⭐ |
+| M9-D2 | 美团技术博客 | 文档 | [tech.meituan.com](https://tech.meituan.com/) | ⭐⭐ |
 
 **M9 面试高频题清单**：
 1. 秒杀系统（流量过滤/库存扣减/Redis预减）
@@ -249,11 +248,11 @@
 
 | 资源 ID | 名称 | 类型 | 链接 / 搜索关键词 | 优先级 |
 |---|---|---|---|---|
-| M10-D1 | 代码随想录 | 网站 | programmercarl.com | ⭐⭐⭐ 每天参照 |
-| M10-D2 | LeetCode Hot 100 | 题库 | leetcode.cn/problem-list/hot-100 | ⭐⭐⭐ |
-| M10-D3 | 剑指 Offer 专项 | 题库 | leetcode.cn/problem-list/剑指 | ⭐⭐⭐ |
-| M10-V1 | 左程云算法（加速看关键章节） | B站视频 | 搜 "左程云 算法" | ⭐⭐ |
-| M10-D4 | 大厂面试高频算法 TOP 50 | 文档 | 搜 "面试高频算法 50题" | ⭐⭐⭐ |
+| M10-D1 | 代码随想录 | 网站 | [programmercarl.com](https://programmercarl.com/) | ⭐⭐⭐ 每天参照 |
+| M10-D2 | LeetCode Hot 100 | 题库 | [leetcode.cn/problem-list/hot-100](https://leetcode.cn/problem-list/hot-100/) | ⭐⭐⭐ |
+| M10-D3 | 剑指 Offer 专项 | 题库 | [leetcode.cn/problem-list/剑指](https://leetcode.cn/problem-list/剑指/) | ⭐⭐⭐ |
+| M10-V1 | 左程云算法（加速看关键章节） | B站视频 | [一周刷爆LeetCode-左程云算法](https://www.bilibili.com/video/BV13g41157hK)（4934min） | ⭐⭐ |
+| M10-D4 | 大厂面试高频算法 TOP 50 | 文档 | [LeetCode 热题100](https://leetcode.cn/problem-list/hot-100/) + [剑指Offer专项](https://leetcode.cn/problem-list/剑指/) | ⭐⭐⭐ |
 
 **M10 按 tag 练习量**（Hot 100 + 剑指 Offer 交叉）：
 - 数组/字符串：15 题（两数之和/三数之和/最长回文子串）
