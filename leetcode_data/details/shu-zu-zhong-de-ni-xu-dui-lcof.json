@@ -1,0 +1,137 @@
+{
+  "slug": "shu-zu-zhong-de-ni-xu-dui-lcof",
+  "questionId": "100318",
+  "frontendQuestionId": "LCR 170",
+  "title": "交易逆序对的总数",
+  "translatedTitle": "交易逆序对的总数",
+  "content": "<p>在股票交易中，如果前一天的股价高于后一天的股价，则可以认为存在一个「交易逆序对」。请设计一个程序，输入一段时间内的股票交易记录 <code>record</code>，返回其中存在的「交易逆序对」总数。</p>\n\n<p>&nbsp;</p>\n\n<p><strong>示例 1：</strong></p>\n\n<pre>\n<strong>输入：</strong>record = [9, 7, 5, 4, 6]\n<strong>输出：</strong>8\n<strong>解释：</strong>交易中的逆序对为 (9, 7), (9, 5), (9, 4), (9, 6), (7, 5), (7, 4), (7, 6), (5, 4)。\n</pre>\n\n<p>&nbsp;</p>\n\n<p><strong>提示：</strong></p>\n\n<p><code>0 &lt;= record.length &lt;= 50000</code></p>\n",
+  "difficulty": "Hard",
+  "topicTags": [
+    {
+      "name": "Binary Indexed Tree"
+    },
+    {
+      "name": "Segment Tree"
+    },
+    {
+      "name": "Array"
+    },
+    {
+      "name": "Binary Search"
+    },
+    {
+      "name": "Divide and Conquer"
+    },
+    {
+      "name": "Ordered Set"
+    },
+    {
+      "name": "Merge Sort"
+    }
+  ],
+  "hints": [],
+  "images": [],
+  "codeSnippets": [
+    {
+      "lang": "C++",
+      "langSlug": "cpp",
+      "code": "class Solution {\npublic:\n    int reversePairs(vector<int>& record) {\n        \n    }\n};"
+    },
+    {
+      "lang": "Java",
+      "langSlug": "java",
+      "code": "class Solution {\n    public int reversePairs(int[] record) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Python3",
+      "langSlug": "python3",
+      "code": "class Solution:\n    def reversePairs(self, record: List[int]) -> int:\n        "
+    },
+    {
+      "lang": "Python",
+      "langSlug": "python",
+      "code": "class Solution(object):\n    def reversePairs(self, record):\n        \"\"\"\n        :type record: List[int]\n        :rtype: int\n        \"\"\"\n        "
+    },
+    {
+      "lang": "JavaScript",
+      "langSlug": "javascript",
+      "code": "/**\n * @param {number[]} record\n * @return {number}\n */\nvar reversePairs = function(record) {\n    \n};"
+    },
+    {
+      "lang": "TypeScript",
+      "langSlug": "typescript",
+      "code": "function reversePairs(record: number[]): number {\n    \n};"
+    },
+    {
+      "lang": "C#",
+      "langSlug": "csharp",
+      "code": "public class Solution {\n    public int ReversePairs(int[] record) {\n        \n    }\n}"
+    },
+    {
+      "lang": "C",
+      "langSlug": "c",
+      "code": "int reversePairs(int* record, int recordSize) {\n    \n}"
+    },
+    {
+      "lang": "Go",
+      "langSlug": "golang",
+      "code": "func reversePairs(record []int) int {\n    \n}"
+    },
+    {
+      "lang": "Kotlin",
+      "langSlug": "kotlin",
+      "code": "class Solution {\n    fun reversePairs(record: IntArray): Int {\n        \n    }\n}"
+    },
+    {
+      "lang": "Swift",
+      "langSlug": "swift",
+      "code": "class Solution {\n    func reversePairs(_ record: [Int]) -> Int {\n        \n    }\n}"
+    },
+    {
+      "lang": "Rust",
+      "langSlug": "rust",
+      "code": "impl Solution {\n    pub fn reverse_pairs(record: Vec<i32>) -> i32 {\n        \n    }\n}"
+    },
+    {
+      "lang": "Ruby",
+      "langSlug": "ruby",
+      "code": "# @param {Integer[]} record\n# @return {Integer}\ndef reverse_pairs(record)\n    \nend"
+    },
+    {
+      "lang": "PHP",
+      "langSlug": "php",
+      "code": "class Solution {\n\n    /**\n     * @param Integer[] $record\n     * @return Integer\n     */\n    function reversePairs($record) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Dart",
+      "langSlug": "dart",
+      "code": "class Solution {\n  int reversePairs(List<int> record) {\n    \n  }\n}"
+    },
+    {
+      "lang": "Scala",
+      "langSlug": "scala",
+      "code": "object Solution {\n    def reversePairs(record: Array[Int]): Int = {\n        \n    }\n}"
+    },
+    {
+      "lang": "Elixir",
+      "langSlug": "elixir",
+      "code": "defmodule Solution do\n  @spec reverse_pairs(record :: [integer]) :: integer\n  def reverse_pairs(record) do\n    \n  end\nend"
+    },
+    {
+      "lang": "Erlang",
+      "langSlug": "erlang",
+      "code": "-spec reverse_pairs(Record :: [integer()]) -> integer().\nreverse_pairs(Record) ->\n  ."
+    },
+    {
+      "lang": "Racket",
+      "langSlug": "racket",
+      "code": "(define/contract (reverse-pairs record)\n  (-> (listof exact-integer?) exact-integer?)\n  )"
+    },
+    {
+      "lang": "Cangjie",
+      "langSlug": "cangjie",
+      "code": "class Solution {\n    func reversePairs(record: Array<Int64>): Int64 {\n\n    }\n}"
+    }
+  ],
+  "stats": "{\"totalAccepted\": \"247.1K\", \"totalSubmission\": \"494.3K\", \"totalAcceptedRaw\": 247113, \"totalSubmissionRaw\": 494285, \"acRate\": \"50.0%\"}"
+}

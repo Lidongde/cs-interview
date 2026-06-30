@@ -1,0 +1,122 @@
+{
+  "slug": "bu-ke-pai-zhong-de-shun-zi-lcof",
+  "questionId": "100341",
+  "frontendQuestionId": "LCR 186",
+  "title": "文物朝代判断",
+  "translatedTitle": "文物朝代判断",
+  "content": "<p>展览馆展出来自 13 个朝代的文物，每排展柜展出 5 个文物。某排文物的摆放情况记录于数组 <code>places</code>，其中 <code>places[i]</code> 表示处于第 <code>i</code> 位文物的所属朝代编号。其中，编号为 0 的朝代表示未知朝代。请判断并返回这排文物的所属朝代编号是否能够视为连续的五个朝代（如遇未知朝代可算作连续情况）。</p>\n\n<p>&nbsp;</p>\n\n<p><strong>示例 1：</strong></p>\n\n<pre>\n<strong>输入：</strong>places = [0, 6, 9, 0, 7]\n<strong>输出：</strong>True\n</pre>\n\n<p>&nbsp;</p>\n\n<p><strong>示例&nbsp;2：</strong></p>\n\n<pre>\n<strong>输入：</strong>places = [7, 8, 9, 10, 11]\n<strong>输出：</strong>True\n</pre>\n\n<p>&nbsp;</p>\n\n<p><strong>提示：</strong></p>\n\n<ul>\n\t<li><code>places.length = 5</code></li>\n\t<li><code>0 &lt;= places[i] &lt;= 13</code></li>\n</ul>\n\n<p>&nbsp;</p>\n",
+  "difficulty": "Easy",
+  "topicTags": [
+    {
+      "name": "Array"
+    },
+    {
+      "name": "Sorting"
+    }
+  ],
+  "hints": [],
+  "images": [],
+  "codeSnippets": [
+    {
+      "lang": "C++",
+      "langSlug": "cpp",
+      "code": "class Solution {\npublic:\n    bool checkDynasty(vector<int>& places) {\n        \n    }\n};"
+    },
+    {
+      "lang": "Java",
+      "langSlug": "java",
+      "code": "class Solution {\n    public boolean checkDynasty(int[] places) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Python3",
+      "langSlug": "python3",
+      "code": "class Solution:\n    def checkDynasty(self, places: List[int]) -> bool:\n        "
+    },
+    {
+      "lang": "Python",
+      "langSlug": "python",
+      "code": "class Solution(object):\n    def checkDynasty(self, places):\n        \"\"\"\n        :type places: List[int]\n        :rtype: bool\n        \"\"\"\n        "
+    },
+    {
+      "lang": "JavaScript",
+      "langSlug": "javascript",
+      "code": "/**\n * @param {number[]} places\n * @return {boolean}\n */\nvar checkDynasty = function(places) {\n    \n};"
+    },
+    {
+      "lang": "TypeScript",
+      "langSlug": "typescript",
+      "code": "function checkDynasty(places: number[]): boolean {\n    \n};"
+    },
+    {
+      "lang": "C#",
+      "langSlug": "csharp",
+      "code": "public class Solution {\n    public bool CheckDynasty(int[] places) {\n        \n    }\n}"
+    },
+    {
+      "lang": "C",
+      "langSlug": "c",
+      "code": "bool checkDynasty(int* places, int placesSize) {\n    \n}"
+    },
+    {
+      "lang": "Go",
+      "langSlug": "golang",
+      "code": "func checkDynasty(places []int) bool {\n    \n}"
+    },
+    {
+      "lang": "Kotlin",
+      "langSlug": "kotlin",
+      "code": "class Solution {\n    fun checkDynasty(places: IntArray): Boolean {\n        \n    }\n}"
+    },
+    {
+      "lang": "Swift",
+      "langSlug": "swift",
+      "code": "class Solution {\n    func checkDynasty(_ places: [Int]) -> Bool {\n        \n    }\n}"
+    },
+    {
+      "lang": "Rust",
+      "langSlug": "rust",
+      "code": "impl Solution {\n    pub fn check_dynasty(places: Vec<i32>) -> bool {\n        \n    }\n}"
+    },
+    {
+      "lang": "Ruby",
+      "langSlug": "ruby",
+      "code": "# @param {Integer[]} places\n# @return {Boolean}\ndef check_dynasty(places)\n    \nend"
+    },
+    {
+      "lang": "PHP",
+      "langSlug": "php",
+      "code": "class Solution {\n\n    /**\n     * @param Integer[] $places\n     * @return Boolean\n     */\n    function checkDynasty($places) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Dart",
+      "langSlug": "dart",
+      "code": "class Solution {\n  bool checkDynasty(List<int> places) {\n    \n  }\n}"
+    },
+    {
+      "lang": "Scala",
+      "langSlug": "scala",
+      "code": "object Solution {\n    def checkDynasty(places: Array[Int]): Boolean = {\n        \n    }\n}"
+    },
+    {
+      "lang": "Elixir",
+      "langSlug": "elixir",
+      "code": "defmodule Solution do\n  @spec check_dynasty(places :: [integer]) :: boolean\n  def check_dynasty(places) do\n    \n  end\nend"
+    },
+    {
+      "lang": "Erlang",
+      "langSlug": "erlang",
+      "code": "-spec check_dynasty(Places :: [integer()]) -> boolean().\ncheck_dynasty(Places) ->\n  ."
+    },
+    {
+      "lang": "Racket",
+      "langSlug": "racket",
+      "code": "(define/contract (check-dynasty places)\n  (-> (listof exact-integer?) boolean?)\n  )"
+    },
+    {
+      "lang": "Cangjie",
+      "langSlug": "cangjie",
+      "code": "class Solution {\n    func checkDynasty(places: Array<Int64>): Bool {\n\n    }\n}"
+    }
+  ],
+  "stats": "{\"totalAccepted\": \"240.5K\", \"totalSubmission\": \"533.9K\", \"totalAcceptedRaw\": 240452, \"totalSubmissionRaw\": 533884, \"acRate\": \"45.0%\"}"
+}

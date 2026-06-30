@@ -1,0 +1,125 @@
+{
+  "slug": "shun-shi-zhen-da-yin-ju-zhen-lcof",
+  "questionId": "100293",
+  "frontendQuestionId": "LCR 146",
+  "title": "螺旋遍历二维数组",
+  "translatedTitle": "螺旋遍历二维数组",
+  "content": "<p>给定一个二维数组 <code>array</code>，请返回「<strong>螺旋遍历</strong>」该数组的结果。</p>\n\n<p><strong>螺旋遍历</strong>：从左上角开始，按照 <strong>向右</strong>、<strong>向下</strong>、<strong>向左</strong>、<strong>向上</strong> 的顺序 <strong>依次</strong> 提取元素，然后再进入内部一层重复相同的步骤，直到提取完所有元素。</p>\n\n<p>&nbsp;</p>\n\n<p><strong>示例 1：</strong></p>\n\n<pre>\n<strong>输入：</strong>array = [[1,2,3],[8,9,4],[7,6,5]]\n<strong>输出：</strong>[1,2,3,4,5,6,7,8,9]\n</pre>\n\n<p><strong>示例 2：</strong></p>\n\n<pre>\n<strong>输入：</strong>array &nbsp;= [[1,2,3,4],[12,13,14,5],[11,16,15,6],[10,9,8,7]]\n<strong>输出：</strong>[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]\n</pre>\n\n<p>&nbsp;</p>\n\n<p><strong>限制：</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= array.length &lt;= 100</code></li>\n\t<li><code>0 &lt;= array[i].length &lt;= 100</code></li>\n</ul>\n\n<p>注意：本题与主站 54 题相同：<a href=\"https://leetcode.cn/problems/spiral-matrix/\">https://leetcode.cn/problems/spiral-matrix/</a></p>\n\n<p>&nbsp;</p>\n",
+  "difficulty": "Easy",
+  "topicTags": [
+    {
+      "name": "Array"
+    },
+    {
+      "name": "Matrix"
+    },
+    {
+      "name": "Simulation"
+    }
+  ],
+  "hints": [],
+  "images": [],
+  "codeSnippets": [
+    {
+      "lang": "C++",
+      "langSlug": "cpp",
+      "code": "class Solution {\npublic:\n    vector<int> spiralArray(vector<vector<int>>& array) {\n        \n    }\n};"
+    },
+    {
+      "lang": "Java",
+      "langSlug": "java",
+      "code": "class Solution {\n    public int[] spiralArray(int[][] array) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Python3",
+      "langSlug": "python3",
+      "code": "class Solution:\n    def spiralArray(self, array: List[List[int]]) -> List[int]:\n        "
+    },
+    {
+      "lang": "Python",
+      "langSlug": "python",
+      "code": "class Solution(object):\n    def spiralArray(self, array):\n        \"\"\"\n        :type array: List[List[int]]\n        :rtype: List[int]\n        \"\"\"\n        "
+    },
+    {
+      "lang": "JavaScript",
+      "langSlug": "javascript",
+      "code": "/**\n * @param {number[][]} array\n * @return {number[]}\n */\nvar spiralArray = function(array) {\n    \n};"
+    },
+    {
+      "lang": "TypeScript",
+      "langSlug": "typescript",
+      "code": "function spiralArray(array: number[][]): number[] {\n    \n};"
+    },
+    {
+      "lang": "C#",
+      "langSlug": "csharp",
+      "code": "public class Solution {\n    public int[] SpiralArray(int[][] array) {\n        \n    }\n}"
+    },
+    {
+      "lang": "C",
+      "langSlug": "c",
+      "code": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nint* spiralArray(int** array, int arraySize, int* arrayColSize, int* returnSize) {\n    \n}"
+    },
+    {
+      "lang": "Go",
+      "langSlug": "golang",
+      "code": "func spiralArray(array [][]int) []int {\n    \n}"
+    },
+    {
+      "lang": "Kotlin",
+      "langSlug": "kotlin",
+      "code": "class Solution {\n    fun spiralArray(array: Array<IntArray>): IntArray {\n        \n    }\n}"
+    },
+    {
+      "lang": "Swift",
+      "langSlug": "swift",
+      "code": "class Solution {\n    func spiralArray(_ array: [[Int]]) -> [Int] {\n        \n    }\n}"
+    },
+    {
+      "lang": "Rust",
+      "langSlug": "rust",
+      "code": "impl Solution {\n    pub fn spiral_array(array: Vec<Vec<i32>>) -> Vec<i32> {\n        \n    }\n}"
+    },
+    {
+      "lang": "Ruby",
+      "langSlug": "ruby",
+      "code": "# @param {Integer[][]} array\n# @return {Integer[]}\ndef spiral_array(array)\n    \nend"
+    },
+    {
+      "lang": "PHP",
+      "langSlug": "php",
+      "code": "class Solution {\n\n    /**\n     * @param Integer[][] $array\n     * @return Integer[]\n     */\n    function spiralArray($array) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Dart",
+      "langSlug": "dart",
+      "code": "class Solution {\n  List<int> spiralArray(List<List<int>> array) {\n    \n  }\n}"
+    },
+    {
+      "lang": "Scala",
+      "langSlug": "scala",
+      "code": "object Solution {\n    def spiralArray(array: Array[Array[Int]]): Array[Int] = {\n        \n    }\n}"
+    },
+    {
+      "lang": "Elixir",
+      "langSlug": "elixir",
+      "code": "defmodule Solution do\n  @spec spiral_array(array :: [[integer]]) :: [integer]\n  def spiral_array(array) do\n    \n  end\nend"
+    },
+    {
+      "lang": "Erlang",
+      "langSlug": "erlang",
+      "code": "-spec spiral_array(Array :: [[integer()]]) -> [integer()].\nspiral_array(Array) ->\n  ."
+    },
+    {
+      "lang": "Racket",
+      "langSlug": "racket",
+      "code": "(define/contract (spiral-array array)\n  (-> (listof (listof exact-integer?)) (listof exact-integer?))\n  )"
+    },
+    {
+      "lang": "Cangjie",
+      "langSlug": "cangjie",
+      "code": "class Solution {\n    func spiralArray(array: Array<Array<Int64>>): Array<Int64> {\n\n    }\n}"
+    }
+  ],
+  "stats": "{\"totalAccepted\": \"308.9K\", \"totalSubmission\": \"741.9K\", \"totalAcceptedRaw\": 308912, \"totalSubmissionRaw\": 741922, \"acRate\": \"41.6%\"}"
+}

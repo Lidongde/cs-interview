@@ -1,0 +1,122 @@
+{
+  "slug": "yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof",
+  "questionId": "100343",
+  "frontendQuestionId": "LCR 187",
+  "title": "破冰游戏",
+  "translatedTitle": "破冰游戏",
+  "content": "<p>社团共有 <code>num</code>&nbsp;位成员参与破冰游戏，编号为 <code>0 ~ num-1</code>。成员们按照编号顺序围绕圆桌而坐。社长抽取一个数字 <code>target</code>，从 0 号成员起开始计数，排在第 <code>target</code> 位的成员离开圆桌，且成员离开后从下一个成员开始计数。请返回游戏结束时最后一位成员的编号。</p>\n\n<p>&nbsp;</p>\n\n<p><strong>示例 1：</strong></p>\n\n<pre>\n<strong>输入：</strong>num = 7, target = 4\n<strong>输出：</strong>1\n</pre>\n\n<p><strong>示例 2：</strong></p>\n\n<pre>\n<strong>输入：</strong>num = 12, target = 5\n<strong>输出：</strong>0\n</pre>\n\n<p>&nbsp;</p>\n\n<p><strong>提示：</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= num &lt;= 10^5</code></li>\n\t<li><code>1 &lt;= target&nbsp;&lt;= 10^6</code></li>\n</ul>\n\n<p>&nbsp;</p>\n",
+  "difficulty": "Easy",
+  "topicTags": [
+    {
+      "name": "Recursion"
+    },
+    {
+      "name": "Math"
+    }
+  ],
+  "hints": [],
+  "images": [],
+  "codeSnippets": [
+    {
+      "lang": "C++",
+      "langSlug": "cpp",
+      "code": "class Solution {\npublic:\n    int iceBreakingGame(int num, int target) {\n        \n    }\n};"
+    },
+    {
+      "lang": "Java",
+      "langSlug": "java",
+      "code": "class Solution {\n    public int iceBreakingGame(int num, int target) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Python3",
+      "langSlug": "python3",
+      "code": "class Solution:\n    def iceBreakingGame(self, num: int, target: int) -> int:\n        "
+    },
+    {
+      "lang": "Python",
+      "langSlug": "python",
+      "code": "class Solution(object):\n    def iceBreakingGame(self, num, target):\n        \"\"\"\n        :type num: int\n        :type target: int\n        :rtype: int\n        \"\"\"\n        "
+    },
+    {
+      "lang": "JavaScript",
+      "langSlug": "javascript",
+      "code": "/**\n * @param {number} num\n * @param {number} target\n * @return {number}\n */\nvar iceBreakingGame = function(num, target) {\n    \n};"
+    },
+    {
+      "lang": "TypeScript",
+      "langSlug": "typescript",
+      "code": "function iceBreakingGame(num: number, target: number): number {\n    \n};"
+    },
+    {
+      "lang": "C#",
+      "langSlug": "csharp",
+      "code": "public class Solution {\n    public int IceBreakingGame(int num, int target) {\n        \n    }\n}"
+    },
+    {
+      "lang": "C",
+      "langSlug": "c",
+      "code": "int iceBreakingGame(int num, int target) {\n    \n}"
+    },
+    {
+      "lang": "Go",
+      "langSlug": "golang",
+      "code": "func iceBreakingGame(num int, target int) int {\n    \n}"
+    },
+    {
+      "lang": "Kotlin",
+      "langSlug": "kotlin",
+      "code": "class Solution {\n    fun iceBreakingGame(num: Int, target: Int): Int {\n        \n    }\n}"
+    },
+    {
+      "lang": "Swift",
+      "langSlug": "swift",
+      "code": "class Solution {\n    func iceBreakingGame(_ num: Int, _ target: Int) -> Int {\n        \n    }\n}"
+    },
+    {
+      "lang": "Rust",
+      "langSlug": "rust",
+      "code": "impl Solution {\n    pub fn ice_breaking_game(num: i32, target: i32) -> i32 {\n        \n    }\n}"
+    },
+    {
+      "lang": "Ruby",
+      "langSlug": "ruby",
+      "code": "# @param {Integer} num\n# @param {Integer} target\n# @return {Integer}\ndef ice_breaking_game(num, target)\n    \nend"
+    },
+    {
+      "lang": "PHP",
+      "langSlug": "php",
+      "code": "class Solution {\n\n    /**\n     * @param Integer $num\n     * @param Integer $target\n     * @return Integer\n     */\n    function iceBreakingGame($num, $target) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Dart",
+      "langSlug": "dart",
+      "code": "class Solution {\n  int iceBreakingGame(int num, int target) {\n    \n  }\n}"
+    },
+    {
+      "lang": "Scala",
+      "langSlug": "scala",
+      "code": "object Solution {\n    def iceBreakingGame(num: Int, target: Int): Int = {\n        \n    }\n}"
+    },
+    {
+      "lang": "Elixir",
+      "langSlug": "elixir",
+      "code": "defmodule Solution do\n  @spec ice_breaking_game(num :: integer, target :: integer) :: integer\n  def ice_breaking_game(num, target) do\n    \n  end\nend"
+    },
+    {
+      "lang": "Erlang",
+      "langSlug": "erlang",
+      "code": "-spec ice_breaking_game(Num :: integer(), Target :: integer()) -> integer().\nice_breaking_game(Num, Target) ->\n  ."
+    },
+    {
+      "lang": "Racket",
+      "langSlug": "racket",
+      "code": "(define/contract (ice-breaking-game num target)\n  (-> exact-integer? exact-integer? exact-integer?)\n  )"
+    },
+    {
+      "lang": "Cangjie",
+      "langSlug": "cangjie",
+      "code": "class Solution {\n    func iceBreakingGame(num: Int64, target: Int64): Int64 {\n\n    }\n}"
+    }
+  ],
+  "stats": "{\"totalAccepted\": \"217.4K\", \"totalSubmission\": \"334.1K\", \"totalAcceptedRaw\": 217410, \"totalSubmissionRaw\": 334057, \"acRate\": \"65.1%\"}"
+}

@@ -1,0 +1,131 @@
+{
+  "slug": "zui-xiao-de-kge-shu-lcof",
+  "questionId": "100301",
+  "frontendQuestionId": "LCR 159",
+  "title": "库存管理 III",
+  "translatedTitle": "库存管理 III",
+  "content": "<p>仓库管理员以数组 <code>stock</code> 形式记录商品库存表，其中 <code>stock[i]</code> 表示对应商品库存余量。请返回库存余量最少的 <code>cnt</code> 个商品余量，返回&nbsp;<strong>顺序不限</strong>。</p>\n\n<p>&nbsp;</p>\n\n<p><strong>示例 1：</strong></p>\n\n<pre>\n<strong>输入：</strong>stock = [2,5,7,4], cnt = 1\n<strong>输出：</strong>[2]\n</pre>\n\n<p><strong>示例 2：</strong></p>\n\n<pre>\n<strong>输入：</strong>stock = [0,2,3,6], cnt = 2\n<strong>输出：</strong>[0,2] 或 [2,0]</pre>\n\n<p>&nbsp;</p>\n\n<p><strong>提示：</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= cnt &lt;= stock.length &lt;= 10000</code></li>\n\t<li><code>0 &lt;= stock[i] &lt;= 10000</code></li>\n</ul>\n\n<p>&nbsp;</p>\n",
+  "difficulty": "Easy",
+  "topicTags": [
+    {
+      "name": "Array"
+    },
+    {
+      "name": "Divide and Conquer"
+    },
+    {
+      "name": "Quickselect"
+    },
+    {
+      "name": "Sorting"
+    },
+    {
+      "name": "Heap (Priority Queue)"
+    }
+  ],
+  "hints": [],
+  "images": [],
+  "codeSnippets": [
+    {
+      "lang": "C++",
+      "langSlug": "cpp",
+      "code": "class Solution {\npublic:\n    vector<int> inventoryManagement(vector<int>& stock, int cnt) {\n        \n    }\n};"
+    },
+    {
+      "lang": "Java",
+      "langSlug": "java",
+      "code": "class Solution {\n    public int[] inventoryManagement(int[] stock, int cnt) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Python3",
+      "langSlug": "python3",
+      "code": "class Solution:\n    def inventoryManagement(self, stock: List[int], cnt: int) -> List[int]:\n        "
+    },
+    {
+      "lang": "Python",
+      "langSlug": "python",
+      "code": "class Solution(object):\n    def inventoryManagement(self, stock, cnt):\n        \"\"\"\n        :type stock: List[int]\n        :type cnt: int\n        :rtype: List[int]\n        \"\"\"\n        "
+    },
+    {
+      "lang": "JavaScript",
+      "langSlug": "javascript",
+      "code": "/**\n * @param {number[]} stock\n * @param {number} cnt\n * @return {number[]}\n */\nvar inventoryManagement = function(stock, cnt) {\n    \n};"
+    },
+    {
+      "lang": "TypeScript",
+      "langSlug": "typescript",
+      "code": "function inventoryManagement(stock: number[], cnt: number): number[] {\n    \n};"
+    },
+    {
+      "lang": "C#",
+      "langSlug": "csharp",
+      "code": "public class Solution {\n    public int[] InventoryManagement(int[] stock, int cnt) {\n        \n    }\n}"
+    },
+    {
+      "lang": "C",
+      "langSlug": "c",
+      "code": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nint* inventoryManagement(int* stock, int stockSize, int cnt, int* returnSize) {\n    \n}"
+    },
+    {
+      "lang": "Go",
+      "langSlug": "golang",
+      "code": "func inventoryManagement(stock []int, cnt int) []int {\n    \n}"
+    },
+    {
+      "lang": "Kotlin",
+      "langSlug": "kotlin",
+      "code": "class Solution {\n    fun inventoryManagement(stock: IntArray, cnt: Int): IntArray {\n        \n    }\n}"
+    },
+    {
+      "lang": "Swift",
+      "langSlug": "swift",
+      "code": "class Solution {\n    func inventoryManagement(_ stock: [Int], _ cnt: Int) -> [Int] {\n        \n    }\n}"
+    },
+    {
+      "lang": "Rust",
+      "langSlug": "rust",
+      "code": "impl Solution {\n    pub fn inventory_management(stock: Vec<i32>, cnt: i32) -> Vec<i32> {\n        \n    }\n}"
+    },
+    {
+      "lang": "Ruby",
+      "langSlug": "ruby",
+      "code": "# @param {Integer[]} stock\n# @param {Integer} cnt\n# @return {Integer[]}\ndef inventory_management(stock, cnt)\n    \nend"
+    },
+    {
+      "lang": "PHP",
+      "langSlug": "php",
+      "code": "class Solution {\n\n    /**\n     * @param Integer[] $stock\n     * @param Integer $cnt\n     * @return Integer[]\n     */\n    function inventoryManagement($stock, $cnt) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Dart",
+      "langSlug": "dart",
+      "code": "class Solution {\n  List<int> inventoryManagement(List<int> stock, int cnt) {\n    \n  }\n}"
+    },
+    {
+      "lang": "Scala",
+      "langSlug": "scala",
+      "code": "object Solution {\n    def inventoryManagement(stock: Array[Int], cnt: Int): Array[Int] = {\n        \n    }\n}"
+    },
+    {
+      "lang": "Elixir",
+      "langSlug": "elixir",
+      "code": "defmodule Solution do\n  @spec inventory_management(stock :: [integer], cnt :: integer) :: [integer]\n  def inventory_management(stock, cnt) do\n    \n  end\nend"
+    },
+    {
+      "lang": "Erlang",
+      "langSlug": "erlang",
+      "code": "-spec inventory_management(Stock :: [integer()], Cnt :: integer()) -> [integer()].\ninventory_management(Stock, Cnt) ->\n  ."
+    },
+    {
+      "lang": "Racket",
+      "langSlug": "racket",
+      "code": "(define/contract (inventory-management stock cnt)\n  (-> (listof exact-integer?) exact-integer? (listof exact-integer?))\n  )"
+    },
+    {
+      "lang": "Cangjie",
+      "langSlug": "cangjie",
+      "code": "class Solution {\n    func inventoryManagement(stock: Array<Int64>, cnt: Int64): Array<Int64> {\n\n    }\n}"
+    }
+  ],
+  "stats": "{\"totalAccepted\": \"486.3K\", \"totalSubmission\": \"842.5K\", \"totalAcceptedRaw\": 486312, \"totalSubmissionRaw\": 842534, \"acRate\": \"57.7%\"}"
+}

@@ -1,0 +1,125 @@
+{
+  "slug": "coin-change",
+  "questionId": "322",
+  "frontendQuestionId": "322",
+  "title": "Coin Change",
+  "translatedTitle": "零钱兑换",
+  "content": "<p>给你一个整数数组 <code>coins</code> ，表示不同面额的硬币；以及一个整数 <code>amount</code> ，表示总金额。</p>\n\n<p>计算并返回可以凑成总金额所需的 <strong>最少的硬币个数</strong> 。如果没有任何一种硬币组合能组成总金额，返回&nbsp;<code>-1</code> 。</p>\n\n<p>你可以认为每种硬币的数量是无限的。</p>\n\n<p>&nbsp;</p>\n\n<p><strong>示例&nbsp;1：</strong></p>\n\n<pre>\n<strong>输入：</strong>coins = <code>[1, 2, 5]</code>, amount = <code>11</code>\n<strong>输出：</strong><code>3</code> \n<strong>解释：</strong>11 = 5 + 5 + 1</pre>\n\n<p><strong>示例 2：</strong></p>\n\n<pre>\n<strong>输入：</strong>coins = <code>[2]</code>, amount = <code>3</code>\n<strong>输出：</strong>-1</pre>\n\n<p><strong>示例 3：</strong></p>\n\n<pre>\n<strong>输入：</strong>coins = [1], amount = 0\n<strong>输出：</strong>0\n</pre>\n\n<p>&nbsp;</p>\n\n<p><strong>提示：</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= coins.length &lt;= 12</code></li>\n\t<li><code>1 &lt;= coins[i] &lt;= 2<sup>31</sup> - 1</code></li>\n\t<li><code>0 &lt;= amount &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+  "difficulty": "Medium",
+  "topicTags": [
+    {
+      "name": "Breadth-First Search"
+    },
+    {
+      "name": "Array"
+    },
+    {
+      "name": "Dynamic Programming"
+    }
+  ],
+  "hints": [],
+  "images": [],
+  "codeSnippets": [
+    {
+      "lang": "C++",
+      "langSlug": "cpp",
+      "code": "class Solution {\npublic:\n    int coinChange(vector<int>& coins, int amount) {\n        \n    }\n};"
+    },
+    {
+      "lang": "Java",
+      "langSlug": "java",
+      "code": "class Solution {\n    public int coinChange(int[] coins, int amount) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Python3",
+      "langSlug": "python3",
+      "code": "class Solution:\n    def coinChange(self, coins: List[int], amount: int) -> int:\n        "
+    },
+    {
+      "lang": "Python",
+      "langSlug": "python",
+      "code": "class Solution(object):\n    def coinChange(self, coins, amount):\n        \"\"\"\n        :type coins: List[int]\n        :type amount: int\n        :rtype: int\n        \"\"\"\n        "
+    },
+    {
+      "lang": "JavaScript",
+      "langSlug": "javascript",
+      "code": "/**\n * @param {number[]} coins\n * @param {number} amount\n * @return {number}\n */\nvar coinChange = function(coins, amount) {\n    \n};"
+    },
+    {
+      "lang": "TypeScript",
+      "langSlug": "typescript",
+      "code": "function coinChange(coins: number[], amount: number): number {\n    \n};"
+    },
+    {
+      "lang": "C#",
+      "langSlug": "csharp",
+      "code": "public class Solution {\n    public int CoinChange(int[] coins, int amount) {\n        \n    }\n}"
+    },
+    {
+      "lang": "C",
+      "langSlug": "c",
+      "code": "int coinChange(int* coins, int coinsSize, int amount) {\n    \n}"
+    },
+    {
+      "lang": "Go",
+      "langSlug": "golang",
+      "code": "func coinChange(coins []int, amount int) int {\n    \n}"
+    },
+    {
+      "lang": "Kotlin",
+      "langSlug": "kotlin",
+      "code": "class Solution {\n    fun coinChange(coins: IntArray, amount: Int): Int {\n        \n    }\n}"
+    },
+    {
+      "lang": "Swift",
+      "langSlug": "swift",
+      "code": "class Solution {\n    func coinChange(_ coins: [Int], _ amount: Int) -> Int {\n        \n    }\n}"
+    },
+    {
+      "lang": "Rust",
+      "langSlug": "rust",
+      "code": "impl Solution {\n    pub fn coin_change(coins: Vec<i32>, amount: i32) -> i32 {\n        \n    }\n}"
+    },
+    {
+      "lang": "Ruby",
+      "langSlug": "ruby",
+      "code": "# @param {Integer[]} coins\n# @param {Integer} amount\n# @return {Integer}\ndef coin_change(coins, amount)\n    \nend"
+    },
+    {
+      "lang": "PHP",
+      "langSlug": "php",
+      "code": "class Solution {\n\n    /**\n     * @param Integer[] $coins\n     * @param Integer $amount\n     * @return Integer\n     */\n    function coinChange($coins, $amount) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Dart",
+      "langSlug": "dart",
+      "code": "class Solution {\n  int coinChange(List<int> coins, int amount) {\n    \n  }\n}"
+    },
+    {
+      "lang": "Scala",
+      "langSlug": "scala",
+      "code": "object Solution {\n    def coinChange(coins: Array[Int], amount: Int): Int = {\n        \n    }\n}"
+    },
+    {
+      "lang": "Elixir",
+      "langSlug": "elixir",
+      "code": "defmodule Solution do\n  @spec coin_change(coins :: [integer], amount :: integer) :: integer\n  def coin_change(coins, amount) do\n    \n  end\nend"
+    },
+    {
+      "lang": "Erlang",
+      "langSlug": "erlang",
+      "code": "-spec coin_change(Coins :: [integer()], Amount :: integer()) -> integer().\ncoin_change(Coins, Amount) ->\n  ."
+    },
+    {
+      "lang": "Racket",
+      "langSlug": "racket",
+      "code": "(define/contract (coin-change coins amount)\n  (-> (listof exact-integer?) exact-integer? exact-integer?)\n  )"
+    },
+    {
+      "lang": "Cangjie",
+      "langSlug": "cangjie",
+      "code": "class Solution {\n    func coinChange(coins: Array<Int64>, amount: Int64): Int64 {\n\n    }\n}"
+    }
+  ],
+  "stats": "{\"totalAccepted\": \"1.4M\", \"totalSubmission\": \"2.7M\", \"totalAcceptedRaw\": 1423383, \"totalSubmissionRaw\": 2678082, \"acRate\": \"53.1%\"}"
+}

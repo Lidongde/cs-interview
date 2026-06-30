@@ -1,0 +1,130 @@
+{
+  "slug": "ju-zhen-zhong-de-lu-jing-lcof",
+  "questionId": "100279",
+  "frontendQuestionId": "LCR 129",
+  "title": "字母迷宫",
+  "translatedTitle": "字母迷宫",
+  "content": "<p>字母迷宫游戏初始界面记作 <code>m x n</code> 二维字符串数组 <code>grid</code>，请判断玩家是否能在 <code>grid</code> 中找到目标单词 <code>target</code>。<br />\n注意：寻找单词时 <strong>必须</strong> 按照字母顺序，通过水平或垂直方向相邻的单元格内的字母构成，同时，同一个单元格内的字母&nbsp;<strong>不允许被重复使用&nbsp;</strong>。</p>\n\n<p>&nbsp;</p>\n\n<p><img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/11/04/word2.jpg\" /></p>\n\n<p>&nbsp;</p>\n\n<p><strong>示例 1：</strong></p>\n\n<pre>\n<strong>输入：</strong>grid = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], target = \"ABCCED\"\n<strong>输出：</strong>true\n</pre>\n\n<p><strong>示例 2：</strong></p>\n\n<pre>\n<strong>输入：</strong>grid = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], target = \"SEE\"\n<strong>输出：</strong>true\n</pre>\n\n<p><strong>示例 3：</strong></p>\n\n<pre>\n<strong>输入：</strong>grid = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], target = \"ABCB\"\n<strong>输出：</strong>false\n</pre>\n\n<p>&nbsp;</p>\n\n<p><strong>提示：</strong></p>\n\n<ul>\n\t<li><code>m == grid.length</code></li>\n\t<li><code>n = grid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 6</code></li>\n\t<li><code>1 &lt;= target.length &lt;= 15</code></li>\n\t<li><code>grid</code> 和 <code>target</code> 仅由大小写英文字母组成</li>\n</ul>\n\n<p>&nbsp;</p>\n\n<p><strong>注意：</strong>本题与主站 79 题相同：<a href=\"https://leetcode.cn/problems/word-search/\">https://leetcode.cn/problems/word-search/</a></p>\n\n<p>&nbsp;</p>\n\n<p>&nbsp;</p>\n",
+  "difficulty": "Medium",
+  "topicTags": [
+    {
+      "name": "Array"
+    },
+    {
+      "name": "String"
+    },
+    {
+      "name": "Backtracking"
+    },
+    {
+      "name": "Matrix"
+    }
+  ],
+  "hints": [],
+  "images": [
+    "https://assets.leetcode.com/uploads/2020/11/04/word2.jpg"
+  ],
+  "codeSnippets": [
+    {
+      "lang": "C++",
+      "langSlug": "cpp",
+      "code": "class Solution {\npublic:\n    bool wordPuzzle(vector<vector<char>>& grid, string target) {\n        \n    }\n};"
+    },
+    {
+      "lang": "Java",
+      "langSlug": "java",
+      "code": "class Solution {\n    public boolean wordPuzzle(char[][] grid, String target) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Python3",
+      "langSlug": "python3",
+      "code": "class Solution:\n    def wordPuzzle(self, grid: List[List[str]], target: str) -> bool:\n        "
+    },
+    {
+      "lang": "Python",
+      "langSlug": "python",
+      "code": "class Solution(object):\n    def wordPuzzle(self, grid, target):\n        \"\"\"\n        :type grid: List[List[str]]\n        :type target: str\n        :rtype: bool\n        \"\"\"\n        "
+    },
+    {
+      "lang": "JavaScript",
+      "langSlug": "javascript",
+      "code": "/**\n * @param {character[][]} grid\n * @param {string} target\n * @return {boolean}\n */\nvar wordPuzzle = function(grid, target) {\n    \n};"
+    },
+    {
+      "lang": "TypeScript",
+      "langSlug": "typescript",
+      "code": "function wordPuzzle(grid: string[][], target: string): boolean {\n    \n};"
+    },
+    {
+      "lang": "C#",
+      "langSlug": "csharp",
+      "code": "public class Solution {\n    public bool WordPuzzle(char[][] grid, string target) {\n        \n    }\n}"
+    },
+    {
+      "lang": "C",
+      "langSlug": "c",
+      "code": "bool wordPuzzle(char** grid, int gridSize, int* gridColSize, char* target) {\n    \n}"
+    },
+    {
+      "lang": "Go",
+      "langSlug": "golang",
+      "code": "func wordPuzzle(grid [][]byte, target string) bool {\n    \n}"
+    },
+    {
+      "lang": "Kotlin",
+      "langSlug": "kotlin",
+      "code": "class Solution {\n    fun wordPuzzle(grid: Array<CharArray>, target: String): Boolean {\n        \n    }\n}"
+    },
+    {
+      "lang": "Swift",
+      "langSlug": "swift",
+      "code": "class Solution {\n    func wordPuzzle(_ grid: [[Character]], _ target: String) -> Bool {\n        \n    }\n}"
+    },
+    {
+      "lang": "Rust",
+      "langSlug": "rust",
+      "code": "impl Solution {\n    pub fn word_puzzle(grid: Vec<Vec<char>>, target: String) -> bool {\n        \n    }\n}"
+    },
+    {
+      "lang": "Ruby",
+      "langSlug": "ruby",
+      "code": "# @param {Character[][]} grid\n# @param {String} target\n# @return {Boolean}\ndef word_puzzle(grid, target)\n    \nend"
+    },
+    {
+      "lang": "PHP",
+      "langSlug": "php",
+      "code": "class Solution {\n\n    /**\n     * @param String[][] $grid\n     * @param String $target\n     * @return Boolean\n     */\n    function wordPuzzle($grid, $target) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Dart",
+      "langSlug": "dart",
+      "code": "class Solution {\n  bool wordPuzzle(List<List<String>> grid, String target) {\n    \n  }\n}"
+    },
+    {
+      "lang": "Scala",
+      "langSlug": "scala",
+      "code": "object Solution {\n    def wordPuzzle(grid: Array[Array[Char]], target: String): Boolean = {\n        \n    }\n}"
+    },
+    {
+      "lang": "Elixir",
+      "langSlug": "elixir",
+      "code": "defmodule Solution do\n  @spec word_puzzle(grid :: [[char]], target :: String.t) :: boolean\n  def word_puzzle(grid, target) do\n    \n  end\nend"
+    },
+    {
+      "lang": "Erlang",
+      "langSlug": "erlang",
+      "code": "-spec word_puzzle(Grid :: [[char()]], Target :: unicode:unicode_binary()) -> boolean().\nword_puzzle(Grid, Target) ->\n  ."
+    },
+    {
+      "lang": "Racket",
+      "langSlug": "racket",
+      "code": "(define/contract (word-puzzle grid target)\n  (-> (listof (listof char?)) string? boolean?)\n  )"
+    },
+    {
+      "lang": "Cangjie",
+      "langSlug": "cangjie",
+      "code": "class Solution {\n    func wordPuzzle(grid: Array<Array<Rune>>, target: String): Bool {\n\n    }\n}"
+    }
+  ],
+  "stats": "{\"totalAccepted\": \"363.8K\", \"totalSubmission\": \"794.9K\", \"totalAcceptedRaw\": 363811, \"totalSubmissionRaw\": 794856, \"acRate\": \"45.8%\"}"
+}

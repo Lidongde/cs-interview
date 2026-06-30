@@ -1,0 +1,122 @@
+{
+  "slug": "jian-sheng-zi-lcof",
+  "questionId": "100284",
+  "frontendQuestionId": "LCR 131",
+  "title": "砍竹子 I",
+  "translatedTitle": "砍竹子 I",
+  "content": "<p>现需要将一根长为正整数 <code>bamboo_len</code> 的竹子砍为若干段，每段长度均为正整数。请返回每段竹子长度的最大乘积是多少。</p>\n\n<p>&nbsp;</p>\n\n<p><strong>示例 1：</strong></p>\n\n<pre>\n<strong>输入: </strong>bamboo_len<strong> </strong>=<strong> </strong>12\n<strong>输出: </strong>81\n</pre>\n<strong>提示：</strong>\n\n<ul>\n\t<li><code>2 &lt;= bamboo_len&nbsp;&lt;= 58</code></li>\n</ul>\n\n<p>注意：本题与主站 343 题相同：<a href=\"https://leetcode.cn/problems/integer-break/\">https://leetcode.cn/problems/integer-break/</a></p>\n",
+  "difficulty": "Medium",
+  "topicTags": [
+    {
+      "name": "Math"
+    },
+    {
+      "name": "Dynamic Programming"
+    }
+  ],
+  "hints": [],
+  "images": [],
+  "codeSnippets": [
+    {
+      "lang": "C++",
+      "langSlug": "cpp",
+      "code": "class Solution {\npublic:\n    int cuttingBamboo(int bamboo_len) {\n        \n    }\n};"
+    },
+    {
+      "lang": "Java",
+      "langSlug": "java",
+      "code": "class Solution {\n    public int cuttingBamboo(int bamboo_len) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Python3",
+      "langSlug": "python3",
+      "code": "class Solution:\n    def cuttingBamboo(self, bamboo_len: int) -> int:\n        "
+    },
+    {
+      "lang": "Python",
+      "langSlug": "python",
+      "code": "class Solution(object):\n    def cuttingBamboo(self, bamboo_len):\n        \"\"\"\n        :type bamboo_len: int\n        :rtype: int\n        \"\"\"\n        "
+    },
+    {
+      "lang": "JavaScript",
+      "langSlug": "javascript",
+      "code": "/**\n * @param {number} bamboo_len\n * @return {number}\n */\nvar cuttingBamboo = function(bamboo_len) {\n    \n};"
+    },
+    {
+      "lang": "TypeScript",
+      "langSlug": "typescript",
+      "code": "function cuttingBamboo(bamboo_len: number): number {\n    \n};"
+    },
+    {
+      "lang": "C#",
+      "langSlug": "csharp",
+      "code": "public class Solution {\n    public int CuttingBamboo(int bamboo_len) {\n        \n    }\n}"
+    },
+    {
+      "lang": "C",
+      "langSlug": "c",
+      "code": "int cuttingBamboo(int bamboo_len) {\n    \n}"
+    },
+    {
+      "lang": "Go",
+      "langSlug": "golang",
+      "code": "func cuttingBamboo(bamboo_len int) int {\n    \n}"
+    },
+    {
+      "lang": "Kotlin",
+      "langSlug": "kotlin",
+      "code": "class Solution {\n    fun cuttingBamboo(bamboo_len: Int): Int {\n        \n    }\n}"
+    },
+    {
+      "lang": "Swift",
+      "langSlug": "swift",
+      "code": "class Solution {\n    func cuttingBamboo(_ bamboo_len: Int) -> Int {\n        \n    }\n}"
+    },
+    {
+      "lang": "Rust",
+      "langSlug": "rust",
+      "code": "impl Solution {\n    pub fn cutting_bamboo(bamboo_len: i32) -> i32 {\n        \n    }\n}"
+    },
+    {
+      "lang": "Ruby",
+      "langSlug": "ruby",
+      "code": "# @param {Integer} bamboo_len\n# @return {Integer}\ndef cutting_bamboo(bamboo_len)\n    \nend"
+    },
+    {
+      "lang": "PHP",
+      "langSlug": "php",
+      "code": "class Solution {\n\n    /**\n     * @param Integer $bamboo_len\n     * @return Integer\n     */\n    function cuttingBamboo($bamboo_len) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Dart",
+      "langSlug": "dart",
+      "code": "class Solution {\n  int cuttingBamboo(int bamboo_len) {\n    \n  }\n}"
+    },
+    {
+      "lang": "Scala",
+      "langSlug": "scala",
+      "code": "object Solution {\n    def cuttingBamboo(bamboo_len: Int): Int = {\n        \n    }\n}"
+    },
+    {
+      "lang": "Elixir",
+      "langSlug": "elixir",
+      "code": "defmodule Solution do\n  @spec cutting_bamboo(bamboo_len :: integer) :: integer\n  def cutting_bamboo(bamboo_len) do\n    \n  end\nend"
+    },
+    {
+      "lang": "Erlang",
+      "langSlug": "erlang",
+      "code": "-spec cutting_bamboo(Bamboo_len :: integer()) -> integer().\ncutting_bamboo(Bamboo_len) ->\n  ."
+    },
+    {
+      "lang": "Racket",
+      "langSlug": "racket",
+      "code": "(define/contract (cutting-bamboo bamboo_len)\n  (-> exact-integer? exact-integer?)\n  )"
+    },
+    {
+      "lang": "Cangjie",
+      "langSlug": "cangjie",
+      "code": "class Solution {\n    func cuttingBamboo(bamboo_len: Int64): Int64 {\n\n    }\n}"
+    }
+  ],
+  "stats": "{\"totalAccepted\": \"314.1K\", \"totalSubmission\": \"547.5K\", \"totalAcceptedRaw\": 314121, \"totalSubmissionRaw\": 547522, \"acRate\": \"57.4%\"}"
+}

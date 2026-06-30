@@ -1,0 +1,122 @@
+{
+  "slug": "zi-fu-chuan-de-pai-lie-lcof",
+  "questionId": "100308",
+  "frontendQuestionId": "LCR 157",
+  "title": "套餐内商品的排列顺序",
+  "translatedTitle": "套餐内商品的排列顺序",
+  "content": "<p>某店铺将用于组成套餐的商品记作字符串 <code>goods</code>，其中 <code>goods[i]</code> 表示对应商品。请返回该套餐内所含商品的 <strong>全部排列方式</strong> 。</p>\n\n<p>返回结果 <strong>无顺序要求</strong>，但不能含有重复的元素。</p>\n\n<p>&nbsp;</p>\n\n<p><strong>示例 1：</strong></p>\n\n<pre>\n<strong>输入：</strong>goods = \"agew\"\n<strong>输出：</strong>[\"aegw\",\"aewg\",\"agew\",\"agwe\",\"aweg\",\"awge\",\"eagw\",\"eawg\",\"egaw\",\"egwa\",\"ewag\",\"ewga\",\"gaew\",\"gawe\",\"geaw\",\"gewa\",\"gwae\",\"gwea\",\"waeg\",\"wage\",\"weag\",\"wega\",\"wgae\",\"wgea\"]\n</pre>\n\n<p>&nbsp;</p>\n\n<p><strong>提示：</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= goods.length &lt;= 8</code></li>\n</ul>\n\n<p>&nbsp;</p>\n",
+  "difficulty": "Medium",
+  "topicTags": [
+    {
+      "name": "String"
+    },
+    {
+      "name": "Backtracking"
+    }
+  ],
+  "hints": [],
+  "images": [],
+  "codeSnippets": [
+    {
+      "lang": "C++",
+      "langSlug": "cpp",
+      "code": "class Solution {\npublic:\n    vector<string> goodsOrder(string goods) {\n        \n    }\n};"
+    },
+    {
+      "lang": "Java",
+      "langSlug": "java",
+      "code": "class Solution {\n    public String[] goodsOrder(String goods) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Python3",
+      "langSlug": "python3",
+      "code": "class Solution:\n    def goodsOrder(self, goods: str) -> List[str]:\n        "
+    },
+    {
+      "lang": "Python",
+      "langSlug": "python",
+      "code": "class Solution(object):\n    def goodsOrder(self, goods):\n        \"\"\"\n        :type goods: str\n        :rtype: List[str]\n        \"\"\"\n        "
+    },
+    {
+      "lang": "JavaScript",
+      "langSlug": "javascript",
+      "code": "/**\n * @param {string} goods\n * @return {string[]}\n */\nvar goodsOrder = function(goods) {\n    \n};"
+    },
+    {
+      "lang": "TypeScript",
+      "langSlug": "typescript",
+      "code": "function goodsOrder(goods: string): string[] {\n    \n};"
+    },
+    {
+      "lang": "C#",
+      "langSlug": "csharp",
+      "code": "public class Solution {\n    public string[] GoodsOrder(string goods) {\n        \n    }\n}"
+    },
+    {
+      "lang": "C",
+      "langSlug": "c",
+      "code": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nchar** goodsOrder(char* goods, int* returnSize) {\n    \n}"
+    },
+    {
+      "lang": "Go",
+      "langSlug": "golang",
+      "code": "func goodsOrder(goods string) []string {\n    \n}"
+    },
+    {
+      "lang": "Kotlin",
+      "langSlug": "kotlin",
+      "code": "class Solution {\n    fun goodsOrder(goods: String): Array<String> {\n        \n    }\n}"
+    },
+    {
+      "lang": "Swift",
+      "langSlug": "swift",
+      "code": "class Solution {\n    func goodsOrder(_ goods: String) -> [String] {\n        \n    }\n}"
+    },
+    {
+      "lang": "Rust",
+      "langSlug": "rust",
+      "code": "impl Solution {\n    pub fn goods_order(goods: String) -> Vec<String> {\n        \n    }\n}"
+    },
+    {
+      "lang": "Ruby",
+      "langSlug": "ruby",
+      "code": "# @param {String} goods\n# @return {String[]}\ndef goods_order(goods)\n    \nend"
+    },
+    {
+      "lang": "PHP",
+      "langSlug": "php",
+      "code": "class Solution {\n\n    /**\n     * @param String $goods\n     * @return String[]\n     */\n    function goodsOrder($goods) {\n        \n    }\n}"
+    },
+    {
+      "lang": "Dart",
+      "langSlug": "dart",
+      "code": "class Solution {\n  List<String> goodsOrder(String goods) {\n    \n  }\n}"
+    },
+    {
+      "lang": "Scala",
+      "langSlug": "scala",
+      "code": "object Solution {\n    def goodsOrder(goods: String): Array[String] = {\n        \n    }\n}"
+    },
+    {
+      "lang": "Elixir",
+      "langSlug": "elixir",
+      "code": "defmodule Solution do\n  @spec goods_order(goods :: String.t) :: [String.t]\n  def goods_order(goods) do\n    \n  end\nend"
+    },
+    {
+      "lang": "Erlang",
+      "langSlug": "erlang",
+      "code": "-spec goods_order(Goods :: unicode:unicode_binary()) -> [unicode:unicode_binary()].\ngoods_order(Goods) ->\n  ."
+    },
+    {
+      "lang": "Racket",
+      "langSlug": "racket",
+      "code": "(define/contract (goods-order goods)\n  (-> string? (listof string?))\n  )"
+    },
+    {
+      "lang": "Cangjie",
+      "langSlug": "cangjie",
+      "code": "class Solution {\n    func goodsOrder(goods: String): Array<String> {\n\n    }\n}"
+    }
+  ],
+  "stats": "{\"totalAccepted\": \"298K\", \"totalSubmission\": \"520.7K\", \"totalAcceptedRaw\": 297994, \"totalSubmissionRaw\": 520702, \"acRate\": \"57.2%\"}"
+}
