@@ -458,7 +458,579 @@ OSGi：每个模块（Bundle）有自己的 ClassLoader，模块间通过 Import
 
 ## 3. GC 算法与垃圾收集器
 
-（待填充）
+垃圾收集（Garbage Collection, GC）是 JVM 自动管理内存的核心机制：自动识别「死对象」并回收其占用的内存，避免手动 `free` 带来的泄漏与悬空指针。本章是 M1 最高频章节，覆盖堆分代、GC 算法、收集器对比、CMS、G1、晋升条件 6 道高频题。
+
+理解 GC 的两条主线：
+1. **判定什么对象该回收**（存活判定）→ 决定 GC 的正确性；
+2. **怎么回收**（GC 算法 + 收集器实现）→ 决定 GC 的效率与停顿。
+
+### 3.1 判断对象存活
+
+**定义**：GC 之前必须先判断堆里哪些对象「已死」可回收。两种经典判定思路：**引用计数法** 与 **可达性分析**。主流 JVM（HotSpot、JRockit、IBM J9 等）都用可达性分析，引用计数法因无法解决循环引用，只在小众场景（如早期 Python CPython 的引用计数 + 标记清除辅助）出现。
+
+**引用计数法**：给对象加一个引用计数器，每被引用一次 +1，引用失效 -1，归 0 即可回收。优点：实现简单、判定快、可分散执行。致命缺陷：**循环引用**——A 引用 B、B 引用 A，两者计数都不为 0 却都该被回收。
+
+```text
+   ┌─────┐         ┌─────┐
+   │  A  │ ──────▶ │  B  │
+   │ cnt=1│ ◀────── │ cnt=1│   ← 互相引用，cnt 永远 ≥1，无法回收
+   └─────┘         └─────┘
+       ↑               ↑
+   stack 已无引用   stack 已无引用
+```
+
+**可达性分析（Reachability Analysis）**：从一组被称为 **GC Roots** 的根对象出发，顺着引用链向下搜索；搜索走过的路径叫「引用链」，不可达的对象即为可回收对象。HotSpot 实现：用 OopMap 记录引用位置，在安全点（Safepoint）遍历。
+
+**GC Roots 的种类**（高频考点，需能口述全）：
+- **虚拟机栈中引用的对象**：各线程方法栈帧局部变量表里的引用（正在执行的方法用到的对象）。
+- **本地方法栈中 JNI 引用的对象**：native 方法持有的对象。
+- **方法区中类静态变量引用的对象**：`static` 变量（JDK 7+ 在堆的 Class 对象上）。
+- **方法区中常量引用的对象**：如字符串常量池里的引用。
+- **Java 虚拟机内部的引用**：基本类型对应的 Class 对象、常驻异常对象（`NullPointerException` 等）、系统类加载器。
+- **同步锁 `synchronized` 持有的对象**：被任何线程持有 monitor 的对象。
+- **JMXBean、JVMTI 等 JVM 内部回调注册的对象**：临时性的 GC Roots。
+- **分代收集中跨代引用**：记忆集（Remembered Set）记录的老年代指向新生代的引用，也作为新生代 GC 的临时 Roots。
+
+> 关键结论：「GC Roots 之外的对象都不是根」。临时 GC Roots 让分代 GC 不必每次扫描整个堆。
+
+**引用强度（JDK 1.2+ 四种引用）**：可达性分析中「引用」按强度分四级，决定回收优先级。
+
+| 引用类型 | 回收时机 | 典型用途 |
+|---|---|---|
+| 强引用 Strong | 永不回收（只要可达） | `Object o = new Object()` |
+| 软引用 Soft | 内存不足时回收 | 内存敏感缓存 `SoftReference` |
+| 弱引用 Weak | 下次 GC 必回收 | `WeakHashMap`、`ThreadLocal` 的 Entry |
+| 虚引用 Phantom | 不影响回收，仅做回收通知 | 跟踪对象被回收时机，配合 `ReferenceQueue` |
+
+**finalize() 机制**：对象不可达后并非「立即」回收，而是先进入「待回收」判定。如果对象**重写了 `finalize()` 且未被调用过**，会被放入 `F-Queue`，由 Finalizer 线程低优先级执行；执行中如果对象重新与引用链建立连接（「自救」），则逃脱本次回收，否则下次标记时被清除。
+
+- `finalize()` **只会被 JVM 调用一次**——自救机会仅一次。
+- 不推荐使用：执行时间不确定、可能导致对象复活、性能差。JDK 9 已 `@Deprecated`。
+- 替代方案：`try-with-resources` / `AutoCloseable` 做资源释放。
+
+> 💡 **面试话术**：「判断对象存活主流用可达性分析，从 GC Roots 出发沿引用链搜索，不可达的可回收。GC Roots 主要有几种：虚拟机栈里方法用到的对象、本地方法栈 JNI 引用的对象、方法区里静态变量和常量引用的对象、synchronized 持有的对象，还有 JVM 内部的 Class 对象和系统类加载器。引用计数法因为解决不了循环引用所以主流 JVM 不用。另外 JDK 把引用分强软弱虚四种，软引用内存不足才回收适合做缓存，弱引用下次 GC 必回收用在 WeakHashMap。finalize 不推荐用，JDK 9 已废弃，因为它执行时间不确定还可能让对象复活。」
+
+**常见追问**：
+- Q: GC Roots 有哪些？ → 栈帧局部变量、JNI 引用、静态变量、常量、synchronized 持有对象、JVM 内部对象（Class/异常/类加载器）、跨代引用（临时）。
+- Q: 为什么不用引用计数法？ → 无法解决循环引用，A↔B 互相引用却都已不可达，计数不为 0 漏回收。
+- Q: 软引用和弱引用的区别？ → 软引用在内存不足时才回收（适合缓存），弱引用在下次 GC 时必回收（WeakHashMap）。
+- Q: finalize 会被调用几次？ → 至多一次。如果对象在 finalize 中自救，第二次回收时不会再调用 finalize。
+- Q: 一个对象可以永久不回收吗？ → 强引用只要可达就不回收；但 finalize 自救只能一次，且 Finalizer 线程优先级低，依赖它做回收很危险。
+
+**来源**：《深入理解 Java 虚拟机》第 3 版 §3.2；[JVM 规范 §2.5 运行时数据区](https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-2.html#jvms-2.5)；[Java 引用对象 Javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ref/package-summary.html)
+
+### 3.2 GC 算法
+
+**定义**：GC 算法指在已判定存活对象后，如何组织内存回收的基础策略，与具体收集器实现解耦。三种基础算法：**标记-清除**、**标记-复制**、**标记-整理**。所有现代收集器都是这三种的变体组合。
+
+**结构**（三种算法 ASCII 示意）：
+
+```text
+1. 标记-清除 Mark-Sweep
+   标记阶段：从 GC Roots 遍历，标记所有存活对象
+   清除阶段：清除未标记对象
+
+   [A][B][C][D][E][F][G]   (A,C,E,G 存活)
+   标记: [*][ ][*][ ][*][ ][*]
+   清除: [A][ ][C][ ][E][ ][G]   ← 产生碎片，分配大对象失败
+
+2. 标记-复制 Mark-Copy
+   将内存分两块，每次只用一块；GC 时把存活对象复制到另一块
+
+   From: [A][B][C][D]    To: [    空    ]
+   复制存活 A,C 到 To:
+   From: [    空    ]    To: [A][C][    ]
+   ← 浪费一半空间，但无碎片、分配快（指针碰撞）
+
+3. 标记-整理 Mark-Compact
+   标记后，把存活对象向一端移动，整理成连续
+
+   [A][B][C][D][E]   (A,C,E 存活)
+   标记: [*][ ][*][ ][*]
+   整理: [A][C][E][      空      ]
+   ← 无碎片、不浪费空间，但移动对象成本高（更新所有引用）
+```
+
+**三种算法对比**：
+
+| 算法 | 优点 | 缺点 | 适用 |
+|---|---|---|---|
+| 标记-清除 | 简单、不移动对象 | 内存碎片、分配大对象易触发 Full GC | CMS 老年代 |
+| 标记-复制 | 无碎片、分配快（指针碰撞）、适合朝生夕灭对象 | 浪费一半空间（实际用 8:1:1 缓解） | 新生代（Serial/ParNew/Parallel Scavenge/G1 Young） |
+| 标记-整理 | 无碎片、不浪费空间 | 移动成本高、STW 长（更新引用） | 老年代（Serial Old/Parallel Old/G1 Old） |
+
+**关键点**：
+- **碎片问题**：标记-清除产生大量不连续空间，分配大对象时找不到连续空间会提前 Full GC。CMS 为追求低停顿用标记-清除，代价是碎片，可用 `-XX:+UseCMSCompactAtFullCollection` 在 Full GC 时整理。
+- **复制算法的空间利用率**：分代理论下新生代 8:1:1，每次只浪费 10%，而非 50%，因为新生代 98% 对象朝生夕灭。
+- **整理的代价**：移动对象必须更新所有指向它的引用，要求 STW，所以整理型老年代收集器停顿较长。
+
+> 💡 **面试话术**：「GC 基础算法有三种。标记-清除先标记存活再清除未标记的，简单但有内存碎片，分配大对象容易失败。标记-复制把内存分两块，每次只用一块，GC 时把存活对象复制到另一块然后清空原来那块，无碎片分配快，但浪费一半空间，新生代用 8:1:1 把浪费降到 10%。标记-整理在标记后把存活对象向一端移动整理成连续，无碎片也不浪费空间，但移动对象要更新所有引用，停顿较长。所以一般是新生代用复制算法、老年代用标记-清除或标记-整理。」
+
+**常见追问**：
+- Q: 为什么新生代用复制算法？ → 新生代对象 98% 朝生夕灭，存活少复制成本低；8:1:1 浪费仅 10%。
+- Q: CMS 为什么用标记-清除不用整理？ → 整理要移动对象更新引用，必须 STW，与 CMS 低停顿目标冲突；代价是碎片。
+- Q: 标记-复制浪费一半空间怎么解决？ → 分代后 Eden:S0:S1 = 8:1:1，每次只浪费一个 Survivor（10%）。
+- Q: 标记-整理为什么慢？ → 移动对象后要更新所有指向它的引用（包括栈、堆、GC Roots），需 STW。
+- Q: 三种算法各自的 STW 时长？ → 标记-清除中等（标记+清除两阶段都 STW）；标记-复制较长（要复制存活对象）；标记-整理最长（要移动并更新引用）。
+
+**来源**：《深入理解 Java 虚拟机》第 3 版 §3.3；[Oracle GC Tuning Guide - collectors](https://docs.oracle.com/en/java/javase/17/gctuning/available-collectors.html)
+
+### 3.3 分代收集理论
+
+**定义**：分代收集理论建立在两条经验假说之上，是绝大多数收集器的设计基础——把堆分成新生代和老年代，对不同代用不同算法，提升整体效率。
+
+**两条假说**：
+
+1. **弱代假说（Weak Generational Hypothesis）**：绝大多数对象都是朝生夕灭的（die young）；熬过越多次垃圾收集过程的对象越难以消亡（live long live forever）。
+   - 推论：新生代每次 GC 大部分对象可回收 → 适合复制算法（只复制少数存活）。
+   - 推论：老年代对象长期存活 → 适合标记-整理（避免频繁复制）。
+2. **跨代引用假说（Cross-Generational Reference Hypothesis）**：跨代引用相对于同代引用仅占极少数。
+   - 推论：新生代 GC 时不必扫描整个老年代找谁引用了新生代对象，只需维护一个「记录跨代引用」的数据结构 → **Remembered Set**。
+
+**结构**（分代与跨代引用）：
+
+```mermaid
+graph TB
+    subgraph "新生代 Young GC"
+        E["Eden"] -->|"GC Root + RSet"| MGC["Minor GC<br/>复制算法"]
+        S0["Survivor 0"] --> MGC
+        S1["Survivor 1"]
+    end
+    subgraph "老年代"
+        O["Old"]
+        RSET["Remembered Set<br/>记录 Old→Young 引用"]
+    end
+    O -.->|"跨代引用<br/>写入 RSet"| RSET
+    RSET -.->|"作为新生代 GC 的额外 Roots"| MGC
+```
+
+**Remembered Set（记忆集）**：为解决跨代引用扫描问题而生的数据结构。在新生代里维护一个表，记录「哪些老年代对象指向了本新生代区域」，这样新生代 GC 时，把这些老年代对象当作额外的 GC Roots，避免全堆扫描。
+
+- 写屏障（Write Barrier）：每次「老年代引用新生代」的赋值操作，都会触发写屏障更新 RSet。
+- 粒度可选：字长精度（精确到指针）、卡精度（Card Table，按固定大小卡片，HotSpot 用 512B 卡页，标记脏卡）、对象精度。
+- HotSpot 用 **Card Table**：把老年代划分成 512B 的卡页，每张卡对应一个 byte；当老年代某卡内对象引用了新生代，写屏障把该 byte 标记为脏（dirty）。Minor GC 时只扫描脏卡，不扫整个老年代。
+
+> 关键结论：RSet/Card Table 用「空间换时间」，把全堆扫描降为局部扫描，是分代 GC 高效的关键。
+
+**关键点**：
+- 分代不是必须的（G1 也分代、ZGC 不分代 JDK 21 才有实验性分代），但分代理论在过去 30 年被证明有效。
+- 不同代用不同算法是分代收集的核心思想：新生代复制、老年代整理或清除。
+- RSet 让 Minor GC 不必扫描老年代，停顿时间稳定。
+
+> 💡 **面试话术**：「分代收集基于两条假说：弱代假说——绝大多数对象朝生夕灭，熬过越多次 GC 越难回收；跨代引用假说——跨代引用极少。所以把堆分新生代老年代，新生代每次 GC 大部分对象可回收，用复制算法很划算；老年代对象长期存活，用标记-整理避免频繁复制。但新生代 GC 时怎么知道老年代有没有引用新生代？不能每次扫整个老年代，所以维护 Remembered Set，HotSpot 用 Card Table，把老年代划分成 512B 的卡页，老年代引用新生代时写屏障把对应卡标记为脏，Minor GC 只扫脏卡就行，不用全堆扫描。」
+
+**常见追问**：
+- Q: 为什么要分代？ → 基于弱代假说，不同生命周期的对象用不同算法，整体效率最高。
+- Q: RSet 是什么？ → 记录跨代引用（老年代→新生代）的数据结构，避免 Minor GC 扫描整个老年代。
+- Q: Card Table 和 RSet 的关系？ → Card Table 是 RSet 的一种实现（卡精度），HotSpot 用 512B 卡页。
+- Q: 写屏障是什么？ → 引用字段赋值时由 JVM 插入的钩子代码，用来维护 RSet/Card Table（G1 还用它维护 SATB）。
+- Q: 不分代的收集器有吗？ → ZGC（JDK 15 转正时无分代，JDK 21 引入实验性分代 ZGC）、Shenandoah 不严格分代。
+
+**来源**：《深入理解 Java 虚拟机》第 3 版 §3.1–3.3；[Oracle GC Tuning Guide - Generational](https://docs.oracle.com/en/java/javase/17/gctuning/garbage-collector-implementation.html)
+
+### 3.4 堆分代结构
+
+**定义**：HotSpot 堆按对象生命周期划分新生代（Young）和老年代（Old），新生代再分 Eden 和两个 Survivor（S0/From、S1/To）。比例默认 8:1:1（Eden:S0:S1）和 1:2（Young:Old）。
+
+**结构**：
+
+```mermaid
+graph TB
+    subgraph "Java 堆"
+        subgraph "新生代 Young (-Xmn)"
+            E["Eden<br/>8/10"]
+            S0["Survivor 0 / From<br/>1/10"]
+            S1["Survivor 1 / To<br/>1/10"]
+        end
+        O["老年代 Old<br/>2/3"]
+    end
+    E -->|"Minor GC<br/>存活进 Survivor"| S0
+    S0 -->|"年龄达阈值晋升"| O
+    S0 -->|"下次 GC 复制到 S1"| S1
+```
+
+**比例参数**：
+- `-XX:NewRatio=2`：新生代:老年代 = 1:2（默认）。
+- `-XX:SurvivorRatio=8`：Eden:Survivor = 8:1，即 Eden:S0:S1 = 8:1:1。
+- `-XX:NewSize` / `-XX:MaxNewSize`：新生代初始/最大值（或用 `-Xmn` 同时设两者）。
+- `-XX:TargetSurvivorRatio=50`：Survivor 目标使用率，默认 50%。
+
+**对象在堆中的流转**（高频考点）：
+
+```text
+new 对象
+   ↓
+Eden 分配（大对象直接进老年代）
+   ↓ Eden 满
+Minor GC（复制算法）
+   ↓ 存活
+Survivor（年龄+1，S0<->S1 交替复制）
+   ↓ 年龄达阈值 / Survivor 装不下 / 动态年龄判断
+老年代
+   ↓ 老年代满
+Full GC（标记-清除/整理）
+```
+
+**三种 GC 的区别**（务必分清）：
+
+| 名称 | 回收区域 | 触发 | 频率 | 速度 |
+|---|---|---|---|---|
+| **Minor GC / Young GC** | 新生代（Eden + 一个 Survivor） | Eden 区满 | 频繁 | 快（毫秒级，复制算法 + RSet） |
+| **Major GC** | 老年代 | 老年代满/晋升失败 | 较少 | 慢（模糊术语，常与 Full GC 混用） |
+| **Full GC** | 整个堆 + 方法区（Metaspace） | System.gc() / 老年代满 / Metaspace 不足 / 晋升失败 / CMS Concurrent Mode Failure | 很少 | 最慢（应尽量避免） |
+
+> 注意：「Major GC」术语模糊，不同资料定义不同——有人指老年代 GC，有人等同于 Full GC。面试时优先说 Minor GC 和 Full GC，必要时澄清 Major 的歧义。
+
+**关键点**：
+- Minor GC 只回收新生代，必定 STW，但因复制算法 + RSet 而很快；不意味着老年代没被扫描。
+- Full GC 触发条件多：`System.gc()` 建议、老年代空间不足、Metaspace 不足、晋升到老年代时空间不够、CMS Concurrent Mode Failure。
+- Survivor 两个区：复制算法需要一个空目标区，两个 Survivor 交替使用，任意时刻必有一个为空。
+- JDK 8 默认 Parallel Scavenge + Parallel Old（吞吐量优先）；JDK 9+ G1；JDK 15+ ZGC 生产可用；JDK 17 默认 G1。
+
+> 💡 **面试话术**：「堆分新生代和老年代，新生代占 1/3 老年代占 2/3，新生代再分 Eden 和两个 Survivor，比例 8:1:1。新对象先在 Eden 分配，Eden 满触发 Minor GC，存活对象复制到 Survivor 并年龄加 1，两个 Survivor 交替复制保证任意时刻有一个为空。对象多次 GC 仍存活（默认年龄 15）晋升老年代。Minor GC 只回收新生代，频繁但快；Full GC 回收整个堆，慢且应尽量避免，触发条件有 System.gc、老年代满、Metaspace 不足、晋升失败、CMS 的 Concurrent Mode Failure。」
+
+**常见追问**：
+- Q: 为什么 Survivor 两个？ → 复制算法需要空目标区，两个交替使用，任意时刻一个为空。
+- Q: Minor GC 会扫描老年代吗？ → 不会全扫，通过 RSet/Card Table 只扫脏卡。
+- Q: Major GC 和 Full GC 区别？ → Major 概念模糊常指老年代 GC；Full GC 回收整个堆 + Metaspace。面试时优先用 Minor / Full。
+- Q: 8:1:1 这个比例怎么调？ → `-XX:SurvivorRatio=8`（Eden 占 8 份，每个 Survivor 占 1 份）。
+- Q: JDK 9 默认收集器？ → G1（JEP 243），不再是 Parallel。
+
+**来源**：《深入理解 Java 虚拟机》第 3 版 §3.5 / §3.8；[Oracle G1 GC Tuning Guide](https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-garbage-collector-tuning.html)
+
+### 3.5 对象晋升老年代条件
+
+**定义**：新生代对象经过若干次 Minor GC 仍存活，会被「晋升」到老年代。晋升有 4 类触发条件，是高频考点（#10），需能逐条口述。
+
+**晋升条件**：
+
+1. **年龄达阈值（-XX:MaxTenuringThreshold）**
+   - 对象在 Survivor 中每经历一次 Minor GC 年龄 +1，达到阈值晋升老年代。
+   - 默认 **15**（HotSpot 对象头 4 bit 存年龄，最大值 15）。
+   - `-XX:MaxTenuringThreshold=15` 可调（0–15）。
+   - 设为 0 表示新生代不经过 Survivor 直接进老年代（用于老年代密集场景）。
+
+2. **大对象直接进老年代（-XX:PretenureSizeThreshold）**
+   - 超过阈值的对象不在 Eden 分配，直接进老年代，避免在 Eden/Survivor 间复制开销。
+   - 仅对 Serial / ParNew 生效，Parallel Scavenge 不支持（用它的话大对象仍在新生代分配）。
+   - 单位字节，如 `-XX:PretenureSizeThreshold=1048576`（1MB）。
+
+3. **动态年龄判断（Dynamic Age Determination）**
+   - Survivor 中**相同年龄所有对象大小总和 ≥ Survivor 空间的 50%**（`-XX:TargetSurvivorRatio`），则该年龄及以上对象全部晋升老年代。
+   - 即便没到 MaxTenuringThreshold 也提前晋升。
+   - 作用：应对突发流量下大量同龄对象，避免 Survivor 装不下。
+   - HotSpot 在 Minor GC 后扫描 Survivor，按年龄从小到大累加，超过阈值就晋升。
+
+4. **Survivor 空间不足 / 晋升失败**
+   - Minor GC 后存活对象 Survivor 装不下，通过担保机制（`-XX:+HandlePromotionFailure`，JDK 6 update 24 后默认开启且不可关闭）直接进老年代。
+   - 晋升前会检查老年代平均晋升大小是否 ≤ 老年代剩余空间，不够则提前 Full GC（空间分配担保）。
+
+**空间分配担保**（重要细节）：
+
+```text
+Minor GC 前:
+  检查 老年代连续可用空间 > 新生代所有对象总大小?
+    是 → 安全, 直接 Minor GC
+    否 → 检查 是否允许担保失败 (HandlePromotionFailure)?
+            否 → Full GC
+            是 → 尝试 Minor GC (冒险):
+                   成功 → 完成
+                   失败 (Survivor 装不下且老年代也不够) → Full GC
+```
+
+**关键点**：
+- MaxTenuringThreshold 最大 15，因为对象头 Mark Word 中年龄字段是 4 bit。
+- 大对象直接进老年代只对 Serial/ParNew 有效，Parallel Scavenge 不支持 PretenureSizeThreshold。
+- 动态年龄判断是「该年龄及以上全部晋升」，不是「该年龄晋升」。
+- JDK 6u24+ 担保失败处理默认开启，参数已无法关闭。
+
+> 💡 **面试话术**：「对象晋升老年代有四种条件。第一，年龄达到阈值，对象在 Survivor 每经历一次 Minor GC 年龄加 1，到 15 就晋升，由 -XX:MaxTenuringThreshold 控制，最大 15 是因为对象头年龄字段只有 4 bit。第二，大对象超过 PretenureSizeThreshold 直接进老年代，避免复制开销，但这个参数只对 Serial 和 ParNew 生效，Parallel Scavenge 不支持。第三，动态年龄判断，Survivor 中相同年龄对象大小总和超过 Survivor 一半，该年龄及以上全部晋升，应对突发流量。第四，Minor GC 后 Survivor 装不下，走空间分配担保，老年代剩余空间不够就 Full GC。」
+
+**常见追问**：
+- Q: MaxTenuringThreshold 为什么最大 15？ → 对象头 Mark Word 中年龄字段是 4 bit，最大表示 15。
+- Q: PretenureSizeThreshold 对所有收集器有效吗？ → 否，只对 Serial/ParNew，Parallel Scavenge 不支持。
+- Q: 动态年龄判断是「该年龄」还是「该年龄及以上」？ → 该年龄及以上全部晋升，避免 Survivor 持续紧张。
+- Q: 空间分配担保什么时候触发 Full GC？ → Minor GC 前判断老年代剩余 < 新生代总大小且不允许冒险，或冒险失败时。
+- Q: 年龄为 0 的对象在哪？ → 刚分配在 Eden 还没经历过 GC 的对象年龄为 0。
+
+**来源**：《深入理解 Java 虚拟机》第 3 版 §3.8.5 / §3.5.3；[HotSpot 对象头 Mark Word](https://wiki.openjdk.org/display/HotSpot/CompressedOops)；[Oracle GC Tuning - Sizing](https://docs.oracle.com/en/java/javase/17/gctuning/sizing-the-generations.html)
+
+### 3.6 垃圾收集器对比
+
+**定义**：GC 算法是策略，收集器是 HotSpot 的具体实现。按分代、算法、并行/并发、STW 程度可分为 7 款经典收集器，覆盖 JDK 1.3 至 JDK 17 演进历程。
+
+**结构**（收集器演进与搭配关系）：
+
+```mermaid
+graph LR
+    subgraph "新生代"
+        S["Serial<br/>(单线程)"]
+        PN["ParNew<br/>(多线程)"]
+        PS["Parallel Scavenge<br/>(吞吐量优先)"]
+        G1Y["G1 Young"]
+    end
+    subgraph "老年代"
+        SO["Serial Old"]
+        PO["Parallel Old"]
+        CMS["CMS<br/>(并发低停顿)"]
+        G1O["G1 Old/Mixed"]
+    end
+    S ---|"搭配"| SO
+    PN ---|"搭配"| CMS
+    PS ---|"搭配"| PO
+    G1Y ---|"同体"| G1O
+    SO -.->|"CMS 失败降级"| SO
+```
+
+**对比表**（高频题 #4 核心）：
+
+| 收集器 | 分代 | 算法 | 并行/并发 | STW | 适用场景 |
+|---|---|---|---|---|---|
+| **Serial / Serial Old** | 新生代/老年代 | 复制 / 标记-整理 | 单线程 | 全程 STW | 客户端模式、小堆（<100MB） |
+| **ParNew** | 新生代 | 复制 | 并行（多线程） | 全程 STW | 配合 CMS，Server 模式新生代 |
+| **Parallel Scavenge / Parallel Old** | 新生代/老年代 | 复制 / 标记-整理 | 并行 | 全程 STW | JDK 8 默认，吞吐量优先（计算任务） |
+| **CMS (Concurrent Mark Sweep)** | 老年代 | 标记-清除 | 并发（部分 STW） | 初始标记+重新标记 STW | 低停顿服务，JDK 9 已废弃 |
+| **G1 (Garbage First)** | 整堆（Region 分代） | 整体标记-整理 + 局部复制 | 并行+并发 | 可预测停顿 | JDK 9+ 默认，大堆 6GB+ |
+| **ZGC** | 整堆（不分代，JDK21+实验分代） | 染色指针 + 读屏障 | 并发 | <1ms（JDK 16+） | 超低延迟，超大堆（TB 级） |
+| **Shenandoah** | 整堆（不分代） | Brooks 转发指针 + 读屏障 | 并发 | <10ms | Red Hat 发行版，低延迟 |
+
+**关键概念辨析**：
+- **并行（Parallel）**：多条 GC 线程同时工作，但**仍然 STW**（用户线程全停）。
+- **并发（Concurrent）**：GC 线程与用户线程**同时运行**（部分阶段不 STW），是 CMS/G1/ZGC 的核心。
+- **吞吐量优先** vs **低停顿优先**：Parallel Scavenge 是前者（`-XX:MaxGCPauseMillis` 调大停顿换吞吐），CMS/G1 是后者。
+
+**搭配关系**（部分收集器有固定搭档，不能任意组合）：
+- Serial ↔ Serial Old
+- ParNew ↔ CMS / Serial Old
+- Parallel Scavenge ↔ Parallel Old（**不能**配 CMS，这是面试陷阱）
+- G1 自己管整堆（不与其他搭配）
+- ZGC / Shenandoah 自己管整堆
+
+**版本演进**：
+- JDK 8：默认 Parallel Scavenge + Parallel Old；CMS 仍可用。
+- JDK 9：默认 G1（[JEP 243](https://openjdk.org/jeps/243)）；CMS 标记 Deprecated。
+- JDK 14：CMS 移除（[JEP 363](https://openjdk.org/jeps/363)）。
+- JDK 15：ZGC 转正（[JEP 377](https://openjdk.org/jeps/377)），Shenandoah 转正（JEP 379）。
+- JDK 21：分代 ZGC 实验性引入（[JEP 439](https://openjdk.org/jeps/439)）。
+
+> 💡 **面试话术**：「收集器按分代和并发程度分。Serial 单线程客户端用；ParNew 是 Serial 多线程版，专门配 CMS；Parallel Scavenge 是 JDK 8 默认，吞吐量优先搭配 Parallel Old。CMS 是第一款并发收集器，标记清除算法，低停顿但有碎片，JDK 14 移除。G1 是 JDK 9 默认，把堆分成 Region，整体标记整理局部复制，可预测停顿。ZGC 用染色指针和读屏障做到亚毫秒停顿，适合超大堆。注意 Parallel Scavenge 不能配 CMS，这是常见陷阱。」
+
+**常见追问**：
+- Q: Parallel Scavenge 和 ParNew 区别？ → 都是并行新生代收集器，但 ParNew 可配 CMS，Parallel Scavenge 不能；PS 关注吞吐量（自适应调节），ParNew 关注停顿。
+- Q: JDK 8 默认收集器？ → Parallel Scavenge + Parallel Old（吞吐量优先）。
+- Q: CMS 为什么被废弃？ → 碎片问题、Concurrent Mode Failure 降级、Promotion Failure、与 G1 相比已无优势，JDK 14 移除（JEP 363）。
+- Q: 并行和并发的区别？ → 并行是 GC 多线程但 STW；并发是 GC 与用户线程同时跑（部分阶段不 STW）。
+- Q: G1 和 ZGC 怎么选？ → G1 适合 4–32GB、停顿几十到几百 ms；ZGC 适合 16GB–TB、停顿 <1ms，对延迟极致敏感选 ZGC。
+
+**来源**：《深入理解 Java 虚拟机》第 3 版 §3.5 / 第 4 章；[JEP 243: G1 默认](https://openjdk.org/jeps/243)；[JEP 363: 移除 CMS](https://openjdk.org/jeps/363)；[JEP 377: ZGC 转正](https://openjdk.org/jeps/377)；[Oracle Available Collectors](https://docs.oracle.com/en/java/javase/17/gctuning/available-collectors.html)
+
+### 3.7 CMS 四阶段
+
+**定义**：CMS（Concurrent Mark Sweep）是第一款真正意义上的**并发**垃圾收集器，目标是**降低停顿时间**（低延迟优先），用于老年代。基于标记-清除算法，分四个阶段，其中两个并发（与用户线程同时跑），两个 STW（很短）。
+
+**结构**（四阶段流程）：
+
+```mermaid
+graph LR
+    A["1. 初始标记<br/>Initial Mark<br/>STW"] --> B["2. 并发标记<br/>Concurrent Mark<br/>与用户并发"]
+    B --> C["3. 重新标记<br/>Remark<br/>STW"]
+    C --> D["4. 并发清除<br/>Concurrent Sweep<br/>与用户并发"]
+    style A fill:#f99
+    style C fill:#f99
+    style B fill:#9f9
+    style D fill:#9f9
+```
+
+```text
+STW       并发            STW       并发
+ │         │              │          │
+ ▼         ▼              ▼          ▼
+[初始标记]───[并发标记]───[重新标记]───[并发清除]
+ 短       长(并发)         短        长(并发)
+ 标GC      遍历GC Roots    修正并发   清除未标记
+ Roots直   可达对象,       标记期间   对象,产生
+ 接关联     用户在跑        用户产生   碎片
+                           的引用变化
+```
+
+**四阶段详解**：
+
+1. **初始标记（Initial Mark）—— STW**
+   - 仅标记 GC Roots **直接关联**的对象，速度很快。
+   - 必须停用户线程，但只标一层，停顿极短。
+2. **并发标记（Concurrent Mark）—— 与用户线程并发**
+   - 从初始标记的对象出发，沿引用链遍历，标记所有可达对象。
+   - 耗时最长，但**不 STW**，用户线程继续跑。
+   - 用户线程在此期间产生新引用，导致标记不准，需下一阶段修正。
+3. **重新标记（Remark）—— STW**
+   - 修正并发标记期间用户线程产生的引用变化。
+   - CMS 用**增量更新（Incremental Update）**：并发标记期间用写屏障记录「新增的引用」（被新引用的旧对象），重新标记阶段重新扫这些对象。
+   - 停顿比初始标记稍长，但远短于并发标记。
+4. **并发清除（Concurrent Sweep）—— 与用户线程并发**
+   - 清除未标记对象，回收内存。
+   - 不 STW，但会产生碎片（标记-清除，不整理）。
+   - 清除期间用户产生新垃圾（「浮动垃圾」），本次不回收，下次 GC 再处理。
+
+**优点**：
+- 并发收集，低停顿（停顿主要在初始标记和重新标记，毫秒级）。
+- 适合对响应时间敏感的 Web/交互式服务。
+
+**缺点**（高频考点）：
+1. **CPU 敏感**：并发阶段占 CPU，降低吞吐量（默认 GC 线程数 = (CPU+3)/4）。
+2. **浮动垃圾**：并发清除阶段新产生的垃圾本次不回收。
+3. **内存碎片**：标记-清除产生碎片，分配大对象易触发 Full GC。
+4. **Concurrent Mode Failure**：并发阶段老年代不够，被迫停用户线程，**降级为 Serial Old** 做 Full GC（标记-整理），停顿很长。
+5. **Promotion Failure**：Minor GC 时 Survivor 装不下要晋升老年代但碎片化导致连续空间不足。
+
+**关键参数**：
+- `-XX:+UseConcMarkSweepGC`：启用 CMS（老年代），新生代自动用 ParNew。
+- `-XX:CMSInitiatingOccupancyFraction=68`：老年代使用率达到该百分比触发 CMS GC（JDK 6+ 自适应）。
+- `-XX:+UseCMSCompactAtFullCollection`：Full GC 时进行整理（默认开启，但 STW）。
+- `-XX:CMSFullGCsBeforeCompaction=0`：多少次 Full GC 后整理一次（0 = 每次）。
+- `-XX:+CMSParallelRemarkEnabled`：并行重新标记，缩短 STW。
+
+**降级场景**（重要）：
+- 并发阶段老年代空间不足 → `Concurrent Mode Failure` → 降级 Serial Old Full GC（全堆 STW 标记-整理）。
+- Minor GC 晋升失败 → `Promotion Failure` → 触发 Full GC。
+
+> 💡 **面试话术**：「CMS 是第一款并发收集器，老年代用，标记-清除算法，分四阶段：初始标记 STW 只标 GC Roots 直接关联的对象，停顿极短；并发标记和用户线程一起跑，沿引用链遍历可达对象，耗时最长但不 STW；重新标记 STW，用增量更新修正并发标记期间用户新增的引用；并发清除和用户并发，清除未标记对象。优点是低停顿，缺点是 CPU 敏感、有浮动垃圾、有碎片、可能 Concurrent Mode Failure 降级 Serial Old。JDK 9 废弃 JDK 14 移除，被 G1 取代。」
+
+**常见追问**：
+- Q: CMS 哪些阶段 STW？ → 初始标记和重新标记，两个都很短；并发标记和并发清除不 STW。
+- Q: CMS 用什么算法处理并发标记的引用变化？ → 增量更新（Incremental Update），记录新增引用，重新标记阶段重扫。G1 用的是 SATB，二者不同。
+- Q: Concurrent Mode Failure 是什么？ → 并发阶段老年代空间不足，被迫停用户线程降级 Serial Old Full GC，停顿长。可通过调低 CMSInitiatingOccupancyFraction 提前触发 CMS GC 缓解。
+- Q: CMS 为什么有碎片？ → 标记-清除不移动对象，反复 GC 产生碎片，分配大对象易 Full GC。
+- Q: CMS 和 G1 怎么选？ → JDK 9+ 选 G1（CMS 已废弃）；G1 可预测停顿、整理无碎片、Region 化更适合大堆。
+
+**来源**：《深入理解 Java 虚拟机》第 3 版 §3.5.5 / 第 4 章；[JEP 291: CMS Deprecated](https://openjdk.org/jeps/291)；[JEP 363: 移除 CMS](https://openjdk.org/jeps/363)；[Oracle CMS Tuning](https://docs.oracle.com/en/java/javase/11/gctuning/concurrent-mark-sweep-cms-collector.html)
+
+### 3.8 G1 原理
+
+**定义**：G1（Garbage First）是面向**大堆**（4GB+）、**可预测停顿**的收集器，JDK 9 起为默认。打破物理分代，把堆划分为多个大小相等的 **Region**，每个 Region 可动态扮演 Eden / Survivor / Old / Humongous。整体看是标记-整理，局部（Region 间）看是复制。
+
+**结构**（Region 划分）：
+
+```mermaid
+graph TB
+    subgraph "G1 堆 (e.g. 4GB, Region=2MB, 共 2048 个)"
+        R1["E<br/>Eden"]
+        R2["E<br/>Eden"]
+        R3["S<br/>Survivor"]
+        R4["O<br/>Old"]
+        R5["H<br/>Humongous<br/>(大对象, 占多个连续 Region)"]
+        R6["O<br/>Old"]
+        R7["空闲"]
+        R8["E<br/>Eden"]
+    end
+    CSET["CSet (Collection Set)<br/>本次 GC 要回收的 Region 集合<br/>选垃圾最多的优先回收 → Garbage First"]
+    R1 -.-> CSET
+    R2 -.-> CSET
+    R8 -.-> CSET
+```
+
+```text
+堆被划分为 N 个 Region (1–32MB, 2 的幂)
+每个 Region 动态角色: E / S / O / H
+   ┌──┬──┬──┬──┬──┬──┬──┬──┬──┐
+   │E │E │S │O │H │H │O │空│E │
+   └──┴──┴──┴──┴──┴──┴──┴──┴──┘
+                  ↑
+            大对象跨多个连续 Region
+
+GC 时:
+  - Young GC: 回收所有 E + S (复制到新 S / O)
+  - Mixed GC: 回收所有 Young + 部分 Old (按收益排序, Garbage First)
+```
+
+**核心概念**（高频考点）：
+
+| 概念 | 含义 |
+|---|---|
+| **Region** | 堆的基本单位，1–32MB，2 的幂；角色动态可变，无物理分代边界 |
+| **Humongous** | 大对象 Region，对象 ≥ Region/2 时占用整个或多个连续 Region，逻辑上属于老年代 |
+| **CSet (Collection Set)** | 本次 GC 要回收的 Region 集合；G1 按「回收收益（垃圾比例）」选 Region，垃圾最多的优先 → Garbage First |
+| **RSet (Remembered Set)** | 每个 Region 维护一个表，记录「哪些其他 Region 引用了本 Region」；GC 时只需扫 RSet 不必扫全堆 |
+| **SATB (Snapshot-At-The-Beginning)** | G1 处理并发标记引用变化的算法；在 GC 开始时拍「逻辑快照」，并发标记期间被覆盖的引用对象视为存活（不漏标），写屏障记录原始引用到 SATB 队列 |
+
+**SATB vs 增量更新**（重要区别，高频追问）：
+- **CMS 增量更新**：记录「新增的引用」（关注点：用户新引用了旧对象）。
+- **G1 SATB**：记录「被覆盖前的旧引用」（关注点：用户断开了引用，但快照里这个对象是存活的，标记为存活，下轮再回收）。
+- SATB 标记阶段开始时拍快照，并发标记期间产生的引用变化不影响本快照；可能多标（浮动垃圾），但不会漏标，正确性更好。
+- SATB 在重新标记阶段工作量小（快照已确定），停顿更可控；这是 G1 选 SATB 的关键原因。
+
+**GC 类型**：
+1. **Young GC（Minor GC）**：Eden 满，回收所有 Young Region，复制存活到新 Survivor / Old。STW，停顿由 `-XX:MaxGCPauseMillis` 调节。
+2. **Mixed GC**：回收所有 Young + 部分 Old Region（按收益排序选）。G1 的主力 GC，是「Garbage First」的体现。触发条件：`-XX:G1HeapWastePercent`（默认 5%）允许的浪费达阈值，且 `-XX:G1MixedGCCountTarget`（默认 8）分多次回收完 Old。
+3. **Full GC**：单线程 Serial Old 降级（G1 期望避免），触发：晋升失败、Metaspace 不足、`System.gc()`、Humongous 分配失败、并发标记后无足够 Region 回收。
+
+**关键参数**：
+- `-XX:+UseG1GC`：启用 G1（JDK 9+ 默认）。
+- `-XX:MaxGCPauseMillis=200`：目标最大停顿（默认 200ms），G1 据此调整 CSet 大小（不是硬保证）。
+- `-XX:G1HeapRegionSize=2m`：Region 大小（1–32MB，不指定则 JVM 按堆大小自动选）。
+- `-XX:InitiatingHeapOccupancyPercent=45`：堆使用率超此值触发并发标记周期（默认 45%）。
+- `-XX:G1NewSizePercent=5` / `-XX:G1MaxNewSizePercent=60`：Young Region 占比上下限。
+- `-XX:G1MixedGCCountTarget=8`：Mixed GC 分多少次回收 Old。
+
+**与 CMS 对比**（高频题）：
+
+| 维度 | CMS | G1 |
+|---|---|---|
+| 分代 | 物理分代（连续） | 逻辑分代（Region 化） |
+| 算法 | 标记-清除（碎片） | 整体标记-整理 + 局部复制（无碎片） |
+| 停顿 | 不可预测 | 可预测（MaxGCPauseMillis） |
+| 并发标记引用处理 | 增量更新 | SATB |
+| 大对象 | 直接进老年代 | Humongous Region |
+| Full GC | 降级 Serial Old | 降级 Serial Old（单线程） |
+| 适用堆大小 | <8GB | 4–32GB+ |
+| 状态 | JDK 14 移除 | JDK 9+ 默认 |
+
+**关键点**：
+- G1 的「可预测停顿」是软目标：用户设 `MaxGCPauseMillis`，G1 在 CSet 中选择尽量多的高收益 Region，但**不保证**一定达标。
+- G1 整体无碎片（Region 间复制整理），但 Humongous Region 可能产生碎片。
+- G1 仍有 Full GC 降级风险（晋升失败、Metaspace 不足），调优目标是避免 Full GC。
+- Mixed GC 是 G1 的灵魂：分多次回收 Old，每次停顿可控。
+
+> 💡 **面试话术**：「G1 是 JDK 9 默认收集器，把堆划分成 1–32MB 的 Region，每个 Region 动态扮演 Eden、Survivor、Old 或 Humongous，打破物理分代。整体看是标记-整理，局部 Region 间是复制，所以无碎片。G1 用 SATB 处理并发标记的引用变化——在标记开始拍快照，被覆盖的旧引用视为存活记到 SATB 队列，不漏标但可能多标产生浮动垃圾，重新标记工作量小停顿可控，这是 G1 选 SATB 不用增量更新的原因。GC 分 Young GC 和 Mixed GC，Mixed GC 回收所有 Young 加部分 Old，按垃圾收益排序选 Region，这就是 Garbage First。停顿由 -XX:MaxGCPauseMillis 调节但不是硬保证。RSet 记录哪些 Region 引用了本 Region，避免全堆扫描。G1 仍可能 Full GC 降级 Serial Old，调优目标是避免。」
+
+**常见追问**：
+- Q: G1 什么时候 Full GC？ → 晋升失败、Metaspace 不足、Humongous 分配失败、并发标记后无足够 Region 可回收、`System.gc()`。
+- Q: G1 为什么用 SATB 不用增量更新？ → SATB 拍快照后并发标记期间不必处理新增引用，重新标记工作量小，停顿可控；正确性更好（不漏标）。增量更新需在重新标记重扫新增引用，工作量大。
+- Q: G1 的「可预测停顿」是硬保证吗？ → 不是，是软目标。G1 尽量按 MaxGCPauseMillis 调 CSet，但不保证。
+- Q: G1 有碎片吗？ → 整体无碎片（Region 间复制整理），但 Humongous Region 可能碎片化。
+- Q: G1 和 CMS 怎么选？ → JDK 9+ 选 G1（CMS 已废弃）；G1 无碎片、可预测停顿、适合大堆；CMS 碎片多、降级风险高。
+- Q: Region 大小怎么定？ → 1–32MB，2 的幂，不指定则 JVM 按堆大小自动选（堆越大 Region 越大）。
+
+**来源**：《深入理解 Java 虚拟机》第 3 版 §3.5.6 / 第 4 章；[JEP 243: G1 默认](https://openjdk.org/jeps/243)；[Oracle G1 GC Tuning Guide](https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-garbage-collector-tuning.html)；[OpenJDK G1 Wiki](https://wiki.openjdk.org/display/HotSpot/G1GC)；[美团技术博客 G1 调优实战](https://tech.meituan.com/2016/09/23/g1.html)
+
+### 3.9 面试话术与追问
+
+**总览话术**（可直接口述，约 350 字）：
+
+「GC 主要解决两件事：判定对象存活和回收内存。存活判定主流用可达性分析，从 GC Roots 出发沿引用链搜索，不可达的可回收；GC Roots 有栈帧局部变量、JNI 引用、静态变量、常量、synchronized 持有对象等。GC 算法有三种：标记-清除有碎片、标记-复制浪费空间但无碎片、标记-整理无碎片但移动成本高。基于弱代假说把堆分新生代老年代，新生代 8:1:1 老年代 1:2，新生代用复制算法老年代用整理。对象晋升老年代四种条件：年龄达阈值 15、大对象直接进、动态年龄判断、Survivor 装不下走担保。收集器方面，JDK 8 默认 Parallel Scavenge + Parallel Old 吞吐量优先，JDK 9 默认 G1。CMS 是第一款并发收集器，四阶段中只有初始标记和重新标记 STW，但有碎片和 Concurrent Mode Failure 风险，JDK 14 移除。G1 把堆分成 Region，用 SATB 处理并发标记，Mixed GC 按 Garbage First 选 Region，可预测停顿，是现在的主流选择。」
+
+**常见追问**（高频 8 问）：
+
+- Q: **G1 什么时候 Full GC？** → 晋升失败（Mixed GC 后老年代仍不够）、Metaspace 不足、Humongous 分配失败、并发标记后无足够 Region 可回收、`System.gc()`。G1 的 Full GC 是单线程 Serial Old 降级，停顿很长，调优目标是避免。
+- Q: **CMS 和 G1 怎么选？** → JDK 9+ 选 G1（CMS 已废弃）。G1 无碎片、可预测停顿、适合 4GB+ 大堆；CMS 碎片多、Concurrent Mode Failure 降级风险高，仅 JDK 8 旧系统保留。
+- Q: **为什么 G1 用 SATB 不用增量更新？** → SATB 在标记开始拍快照，并发标记期间被覆盖的旧引用视为存活记入 SATB 队列，重新标记只需处理这些对象，工作量小停顿可控，正确性不漏标（可能多标产生浮动垃圾）。增量更新需在重新标记重扫所有新增引用，工作量大。
+- Q: **CMS 的 Concurrent Mode Failure 怎么处理？** → 降级 Serial Old 做 Full GC（标记-整理），全程 STW 停顿长。预防：调低 `-XX:CMSInitiatingOccupancyFraction` 让 CMS 更早触发；或换 G1。
+- Q: **Minor GC 会扫描老年代吗？** → 不会全扫。通过 RSet / Card Table 记录跨代引用，Minor GC 只扫脏卡（老年代指向新生代的卡页），不必扫整个老年代。
+- Q: **对象什么时候进老年代？** → ① 年龄达 MaxTenuringThreshold（默认 15）；② 大对象超 PretenureSizeThreshold（仅 Serial/ParNew）；③ 动态年龄判断（同龄对象总和 ≥ Survivor 50%）；④ Minor GC 后 Survivor 装不下走空间分配担保。
+- Q: **Parallel Scavenge 能配 CMS 吗？** → 不能，只能配 Parallel Old。ParNew 才能配 CMS，这是常见面试陷阱。
+- Q: **ZGC 凭什么做到亚毫秒停顿？** → 染色指针（在 64 位指针高位存标记信息）+ 读屏障（用户线程读引用时自行转发），让标记、转移、重定位都并发，STW 只在初始标记等极短阶段。JEP 377 转正，JEP 439 引入分代 ZGC。
+
+### 3.10 进阶阅读
+
+- **《深入理解 Java 虚拟机》第 3 版 第 3 章 / 第 4 章**：周志明著 — 中文社区最权威的 GC 算法与收集器讲解，§3.1–3.5 讲算法与分代理论，第 4 章逐个讲收集器，CMS/G1 章节最系统。
+- **JEP 243: G1 成为默认收集器**：[openjdk.org/jeps/243](https://openjdk.org/jeps/243) — G1 设计目标与默认化的官方动机，理解 G1 定位的权威依据。
+- **JEP 363: 移除 CMS**：[openjdk.org/jeps/363](https://openjdk.org/jeps/363) — CMS 移除的官方理由（碎片、降级、维护成本），理解 CMS 缺陷的权威来源。
+- **JEP 377: ZGC 转正** + **JEP 439: 分代 ZGC**：[openjdk.org/jeps/377](https://openjdk.org/jeps/377) / [openjdk.org/jeps/439](https://openjdk.org/jeps/439) — ZGC 染色指针、读屏障、并发转移的官方设计，亚毫秒停顿的原理。
+- **Oracle G1 GC Tuning Guide**：[docs.oracle.com](https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-garbage-collector-tuning.html) — 官方 G1 调优指南，Region、CSet、Mixed GC、IHOP 参数详解，调优第一手资料。
+- **OpenJDK G1GC Wiki**：[wiki.openjdk.org/HotSpot/G1GC](https://wiki.openjdk.org/display/HotSpot/G1GC) — G1 实现细节，RSet、SATB、CSet 选择算法的内部文档。
+- **美团技术博客 G1 GC 调优实战**：[tech.meituan.com/2016/09/23/g1.html](https://tech.meituan.com/2016/09/23/g1.html) — 美团生产环境 G1 调优实战案例，参数选择与问题排查的真实工程经验。
+- **R大（RednaxelaFX）关于 CMS/G1 的知乎回答**：知乎搜索"RednaxelaFX G1"或"RednaxelaFX CMS" — R大对 SATB vs 增量更新、Card Table、写屏障等底层细节的深度回答，是中文社区公认的高质量来源。
+- **Stack Overflow: SATB vs Incremental Update**：高票回答对比 CMS 增量更新与 G1 SATB 的本质区别——前者关注"新增引用"后者关注"消失引用"，是面试常被深挖的细节。
+- **HotSpot 源码（OpenJDK 17）`src/hotspot/share/gc/g1/`**：[GitHub OpenJDK](https://github.com/openjdk/jdk/tree/jdk-17%2B35/src/hotspot/share/gc/g1) — G1 源码，`g1SATBMarkQueue`、`g1CardTable`、`heapRegion` 等类，源码级理解 SATB 与 RSet 实现。
 
 ---
 
