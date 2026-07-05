@@ -1036,7 +1036,576 @@ GC 时:
 
 ## 4. JVM 调优与 OOM 排查
 
-（待填充）
+JVM 调优与 OOM 排查是面试高频题 #9，也是生产环境最常踩坑的领域。本章把「调参 → 监控 → 排查 → 定位」串成一条线：先掌握常用 JVM 参数（4.1）和命令行工具（4.2），再分清内存溢出与内存泄漏（4.3），掌握标准排查流程（4.4）和 MAT 实操（4.5），最后通过真实调优案例（4.6）巩固。
+
+### 4.1 常用 JVM 参数
+
+**定义**：JVM 启动参数以 `-` 开头，用于控制堆/非堆内存大小、GC 收集器选择、GC 日志、性能开关等。面试中最常考的是「堆内存 / 非堆 / GC 选择 / 调优」四类参数，需能口述每个参数的含义和典型取值。
+
+**结构**（按用途分类）：
+
+```mermaid
+graph TB
+    JVM["JVM 参数"]
+    JVM --> HEAP["堆内存 Heap"]
+    JVM --> NONHEAP["非堆 Non-Heap"]
+    JVM --> GC["GC 选择"]
+    JVM --> TUNE["调优 / 诊断"]
+
+    HEAP --> XMS["-Xms 初始堆"]
+    HEAP --> XMX["-Xmx 最大堆"]
+    HEAP --> XMN["-Xmn 新生代"]
+    HEAP --> SR["-XX:SurvivorRatio"]
+    HEAP --> MTT["-XX:MaxTenuringThreshold"]
+
+    NONHEAP --> META["-XX:MetaspaceSize"]
+    NONHEAP --> MAXMETA["-XX:MaxMetaspaceSize"]
+    NONHEAP --> XSS["-Xss 栈容量"]
+    NONHEAP --> DMS["-XX:MaxDirectMemorySize"]
+
+    GC --> G1["-XX:+UseG1GC"]
+    GC --> PS["-XX:+UseParallelGC"]
+    GC --> ZGC["-XX:+UseZGC"]
+    GC --> LOG["-Xlog:gc* (JDK9+)"]
+
+    TUNE --> HPO["-XX:MaxGCPauseMillis"]
+    TUNE --> IHOP["-XX:InitiatingHeapOccupancyPercent"]
+    TUNE --> OOMDUMP["-XX:+HeapDumpOnOutOfMemoryError"]
+    TUNE --> HDP["-XX:HeapDumpPath"]
+```
+
+**分类详表**：
+
+| 分类 | 参数 | 含义 | 典型值 / 默认 |
+|---|---|---|---|
+| **堆内存** | `-Xms` | 初始堆大小 | 生产建议与 -Xmx 相同，避免堆动态扩张抖动 |
+| | `-Xmx` | 最大堆大小 | 物理内存的 50–60%，留余量给堆外/Metaspace |
+| | `-Xmn` | 新生代大小（Eden + 2 Survivor） | 等价于 `-XX:NewSize` + `-XX:MaxNewSize` |
+| | `-XX:NewRatio=2` | 老年代:新生代 = 2:1 | 默认 2 |
+| | `-XX:SurvivorRatio=8` | Eden:Survivor = 8:1 | 默认 8 |
+| | `-XX:MaxTenuringThreshold=15` | 晋升老年代年龄阈值 | 默认 15，最大 15（对象头 4 bit） |
+| | `-XX:PretenureSizeThreshold` | 大对象直接进老年代阈值 | 仅 Serial/ParNew 生效 |
+| **非堆** | `-XX:MetaspaceSize` | Metaspace 初始高水位（触发首次 Full GC） | 默认 ~20MB，建议设大避免早期 Full GC |
+| | `-XX:MaxMetaspaceSize` | Metaspace 最大上限 | 默认机器内存，建议显式设限防 OOM |
+| | `-Xss` | 线程栈容量 | 默认 1MB（JDK 17） |
+| | `-XX:MaxDirectMemorySize` | 直接内存上限 | 默认 ≈ -Xmx |
+| **GC 选择** | `-XX:+UseG1GC` | 启用 G1 | JDK 9+ 默认 |
+| | `-XX:+UseParallelGC` | 启用 Parallel Scavenge + Parallel Old | JDK 8 默认 |
+| | `-XX:+UseZGC` | 启用 ZGC | JDK 15+ 生产可用 |
+| | `-XX:+UseConcMarkSweepGC` | 启用 CMS（已废弃） | JDK 14 移除 |
+| | `-Xlog:gc*:file=gc.log` | GC 日志（JDK 9+ 统一日志） | 替代旧 `-XX:+PrintGCDetails` |
+| **调优** | `-XX:MaxGCPauseMillis=200` | G1 目标最大停顿 | 默认 200ms |
+| | `-XX:InitiatingHeapOccupancyPercent=45` | 堆使用率触发并发标记周期 | 默认 45% |
+| | `-XX:+HeapDumpOnOutOfMemoryError` | OOM 时自动 dump 堆 | 生产必开 |
+| | `-XX:HeapDumpPath=/path` | dump 文件路径 | 配合上一项 |
+| | `-XX:+PrintFlagsFinal` | 打印所有参数最终值 | 排查参数生效问题 |
+
+**生产推荐基线**（4C8G Web 服务，JDK 17 G1）：
+
+```bash
+java -Xms4g -Xmx4g \
+     -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m \
+     -XX:+UseG1GC -XX:MaxGCPauseMillis=200 \
+     -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/log/app/ \
+     -Xlog:gc*:file=/var/log/app/gc.log:time,uptime,level,tags \
+     -jar app.jar
+```
+
+**关键点**：
+- `-Xms` 与 `-Xmx` 生产环境**建议设为相同**，避免 JVM 运行期动态伸缩堆造成额外停顿。
+- `-XX:MetaspaceSize` 不是「初始大小」而是「触发首次 Full GC 的高水位」——设小了会过早 Full GC，建议设 256m。
+- `-XX:+HeapDumpOnOutOfMemoryError` 是生产必备，OOM 时自动 dump，避免错过现场。
+- JDK 9+ 用 `-Xlog:gc*` 统一日志框架替代旧的 `-XX:+PrintGCDetails` / `-XX:+PrintGCDateStamps`。
+
+> 💡 **面试话术**：「JVM 参数我按四类记：堆内存、非堆、GC 选择、调优。堆内存最常用 -Xms -Xmx 设初始和最大堆，生产建议设成一样避免抖动；-Xmn 设新生代，-XX:SurvivorRatio=8 控制 Eden:Survivor=8:1，-XX:MaxTenuringThreshold=15 控制晋升年龄。非堆主要是 -XX:MetaspaceSize 和 -XX:MaxMetaspaceSize 控制 Metaspace，注意 MetaspaceSize 是触发首次 Full GC 的高水位不是初始大小，建议设 256m 避免过早 Full GC。GC 选择 JDK 9+ 默认 G1 用 -XX:+UseG1GC。调优参数最关键的是 -XX:+HeapDumpOnOutOfMemoryError 配合 -XX:HeapDumpPath，OOM 时自动 dump 堆，生产必备。GC 日志 JDK 9+ 用 -Xlog:gc* 替代旧的 PrintGCDetails。」
+
+**常见追问**：
+- Q: `-Xms` 和 `-Xmx` 为什么生产要设成一样？ → 避免堆动态扩张/收缩带来的额外停顿和性能抖动，也防止运行期申请内存失败。
+- Q: `-XX:MetaspaceSize` 是初始大小吗？ → 不是，是触发首次 Full GC 的水位线，达到就 Full GC 并重新计算。真正"初始大小"由 JVM 自行管理。
+- Q: JDK 8 和 JDK 9 的 GC 日志参数区别？ → JDK 8 用 `-XX:+PrintGCDetails -XX:+PrintGCDateStamps`；JDK 9+ 统一用 `-Xlog:gc*`，更灵活可配 tag/level/output。
+- Q: `-XX:+HeapDumpOnOutOfMemoryError` dump 哪种 OOM？ → 主要是堆 OOM（`java.lang.OutOfMemoryError: Java heap space`）；Metaspace/直接内存 OOM 也会触发，但 dump 主要反映堆状态。
+
+**来源**：[Oracle JDK 17 Tools - java](https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html)；[Oracle GC Tuning Guide - JVM Options](https://docs.oracle.com/en/java/javase/17/gctuning/jvm-options.html)；[JEP 158: Unified JVM Logging](https://openjdk.org/jeps/158)
+
+### 4.2 命令行工具
+
+**定义**：JDK 自带一系列命令行工具，用于运行时诊断 JVM 状态。核心是 `jps` / `jstat` / `jmap` / `jstack` / `jinfo`，再加上 JDK 9+ 引入的统一工具 `jcmd`。它们都是基于 JVM Attach API 实现，可对运行中的进程做只读或受限读写操作。
+
+**结构**（工具与用途）：
+
+```mermaid
+graph LR
+    TARGET["目标 JVM 进程"]
+    JPS["jps<br/>查 Java 进程"] --> TARGET
+    JINFO["jinfo<br/>查/改参数"] --> TARGET
+    JSTAT["jstat<br/>GC 统计"] --> TARGET
+    JMAP["jmap<br/>堆 dump / 直方图"] --> TARGET
+    JSTACK["jstack<br/>线程栈"] --> TARGET
+    JCMD["jcmd<br/>统一命令(JDK9+)"] --> TARGET
+```
+
+**1. jps —— 查 Java 进程**
+
+`jps` 列出本机所有 HotSpot JVM 进程及其主类名 / jar 名，相当于 `ps | grep java` 的便捷版。
+
+```bash
+$ jps -l
+12345 com.example.MainApp
+12346 sun.tools.jps.Jps
+```
+
+- `-l` 输出全限定类名或 jar 完整路径。
+- `-v` 输出 JVM 启动参数（排查参数生效问题）。
+- `-m` 输出 main 方法参数。
+
+**2. jstat —— GC 统计监控**
+
+`jstat` 实时监控类加载、内存、GC 统计，是排查 GC 频繁/老年代膨胀的首选。
+
+```bash
+# 每 1s 输出一次进程 12345 的 GC 概况，共 10 次
+$ jstat -gcutil 12345 1000 10
+  S0     S1     E      O      M     CCS    YGC   YGCT   FGC  FGCT   GCT
+  0.00  98.44  67.12  45.30  94.56  91.23  23   0.234   2   0.456  0.690
+  ...
+```
+
+**输出解读**：
+- `S0/S1/E/O/M/CCS`：Survivor0/1、Eden、Old、Metaspace、压缩类空间的使用率（%）。
+- `YGC/YGCT`：Young GC 次数 / 累计耗时（秒）。
+- `FGC/FGCT`：Full GC 次数 / 累计耗时。
+- `GCT`：GC 总耗时 = YGCT + FGCT。
+
+诊断思路：FGC 次数快速增长 → 老年代不够或泄漏；O 持续上涨不回落 → 内存泄漏；YGCT/ YGC 单次耗时高 → 新生代太大。
+
+**3. jmap —— 堆 dump 与对象直方图**
+
+`jmap` 用于生成堆 dump（hprof）或查看对象直方图，是 OOM 排查的关键工具。
+
+```bash
+# 生成堆 dump 文件（生产慎用，会 STW）
+$ jmap -dump:format=b,file=heap.hprof 12345
+
+# 查看堆对象直方图（按占用大小排序）
+$ jmap -histo:live 12345 | head -20
+ num     #instances         #bytes  class name (module)
+-------------------------------------------------------
+   1:        256789      102715600  byte[] (java.base@17)
+   2:        123456       39505920  java.lang.String
+   3:         45678       21925440  com.example.Entity
+```
+
+- `-histo:live` 的 `:live` 会触发一次 Full GC 只统计存活对象，排查泄漏更准但会 STW。
+- **生产环境用 jmap dump 风险高**：会触发 STW，大堆（>8GB）可能停顿数十秒。推荐用 `-XX:+HeapDumpOnOutOfMemoryError` 提前配置，或用 `jcmd PID GC.heap_dump`。
+
+**4. jstack —— 线程栈快照**
+
+`jstack` 打印 JVM 所有线程的栈快照，排查 CPU 飙高、死锁、线程阻塞。
+
+```bash
+$ jstack 12345
+"http-nio-8080-exec-3" #45 daemon prio=5 os_prio=0 tid=0x... nid=0x... waiting on condition [0x...]
+   java.lang.Thread.State: WAITING (parking)
+        at jdk.internal.misc.Unsafe.park(Native Method)
+        - parking to wait for  <0x000000076b8a4321> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(LockSupport.java:211)
+        ...
+
+"Thread-1" #52 prio=5 ... waiting to lock <0x000000076b8a4321>
+"Thread-2" #53 prio=5 ... waiting to lock <0x000000076b8a1234>
+# 出现 Found 1 deadlock 即死锁
+```
+
+- `jstack -l PID` 额外打印锁的附加信息（推荐）。
+- 死锁检测：jstack 末尾会输出 `Found Java-level deadlock`，并给出互相等待的线程和锁地址。
+- CPU 飙高排查：`top -Hp PID` 找高 CPU 线程 → `printf "%x\n" tid` 转 16 进制 → `jstack` 中 grep 该 nid。
+
+**5. jinfo —— 查看/修改参数**
+
+`jinfo` 查看或动态修改 JVM 参数（部分参数支持运行期修改）。
+
+```bash
+# 查看所有参数及默认值
+$ jinfo -flags 12345
+# 查看某个参数
+$ jinfo -flag MaxHeapSize 12345
+# 动态修改（仅 Manageable 参数，如 PrintGCDetails）
+$ jinfo -flag +PrintGCDetails 12345
+```
+
+**6. jcmd —— JDK 9+ 统一工具**
+
+JDK 9 起官方推荐用 `jcmd` 替代上述分散工具，功能更全且更安全：
+
+```bash
+$ jcmd                       # 列出所有 JVM 进程
+$ jcmd 12345 help            # 列出该进程支持的所有命令
+$ jcmd 12345 Thread.print    # 等价 jstack
+$ jcmd 12345 GC.class_histogram  # 等价 jmap -histo
+$ jcmd 12345 GC.heap_dump /path/heap.hprof  # 安全的堆 dump
+$ jcmd 12345 VM.flags        # 等价 jinfo -flags
+$ jcmd 12345 GC.run         # 等价 System.gc()
+```
+
+**关键点**：
+- `jstat -gcutil` 看使用率，`jstat -gc` 看绝对字节数，二者配合看 GC 与内存。
+- `jmap -histo:live` 排查泄漏时关注自定义类（`com.example.*`）而非 `byte[]`/`String`。
+- `jstack` 配合 `top -Hp` 是 CPU 飙高排查的标准组合拳。
+- 生产 dump 优先用 `-XX:+HeapDumpOnOutOfMemoryError` 自动 dump，或 `jcmd GC.heap_dump`（比 jmap 安全）。
+- JDK 9+ 推荐 `jcmd`，旧 `jmap`/`jstack` 仍可用但部分功能被标记 deprecated。
+
+> 💡 **面试话术**：「JDK 自带的命令行工具我常用五个。jps 列出所有 Java 进程，相当于 ps grep java 的便捷版。jstat -gcutil 实时看 GC 统计，包括 Eden、Survivor、Old、Metaspace 的使用率和 Young GC、Full GC 次数与耗时，FGC 持续上涨就是老年代有问题。jmap 主要做堆 dump 和对象直方图，-histo:live 能看存活对象按大小排序，但生产环境直接 jmap dump 风险高会 STW，推荐用 -XX:+HeapDumpOnOutOfMemoryError 自动 dump 或 jcmd GC.heap_dump。jstack 看线程栈，排查死锁和 CPU 飙高，配合 top -Hp 找高 CPU 线程转 16 进制再 grep nid 是标准套路。jinfo 查参数。JDK 9+ 推荐用 jcmd 统一替代，更安全功能更全。」
+
+**常见追问**：
+- Q: `jmap -histo` 和 `-histo:live` 区别？ → `:live` 触发一次 Full GC 只统计存活对象，能过滤掉即将回收的临时对象，排查泄漏更准，但会 STW。
+- Q: 生产环境能不能直接 `jmap -dump`？ → 不推荐，会触发 STW，大堆可能停顿几十秒。优先用预先配置的 `-XX:+HeapDumpOnOutOfMemoryError` 自动 dump，或低峰期用 `jcmd GC.heap_dump`。
+- Q: `jstack` 怎么查死锁？ → `jstack -l PID`，末尾会输出 `Found Java-level deadlock` 并列出互相等待的线程和锁地址；JDK 也可用 `jcmd PID Thread.print` 等价。
+- Q: CPU 100% 怎么用 jstack 排查？ → `top` 找 JVM 进程 → `top -Hp PID` 找高 CPU 线程 → `printf "%x\n" tid` 转 16 进制 → `jstack PID | grep nid=0x... -A 30` 看该线程栈。
+- Q: `jstat -gcutil` 的 M 列是什么？ → Metaspace 使用率，持续涨到 100% 可能是动态生成类（代理/JSP）导致 Metaspace OOM。
+
+**来源**：[Oracle JDK 17 Tools Reference](https://docs.oracle.com/en/java/javase/17/docs/specs/man/)；[jstat 文档](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jstat.html)；[jcmd 文档](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jcmd.html)；[Stack Overflow: jstack CPU 100% 排查](https://stackoverflow.com/questions/19453976)
+
+### 4.3 内存溢出 vs 内存泄漏
+
+**定义**：内存溢出（OOM，OutOfMemoryError）和内存泄漏（Memory Leak）是两个常被混淆但本质不同的概念。**OOM 是症状**——JVM 某块内存区域耗尽，无法再分配；**内存泄漏是根因**——对象不再被使用却无法被 GC 回收，逐渐堆积最终引发 OOM。排查 OOM 的本质是找出背后的泄漏点（或容量配置问题）。
+
+**结构**（因果图）：
+
+```mermaid
+graph LR
+    LEAK["内存泄漏 Memory Leak<br/>对象无用但 GC 回收不掉"]
+    CONF["容量配置不足<br/>堆/Metaspace 设得太小"]
+    LOAD["瞬时流量峰值<br/>大对象/批量查询"]
+
+    LEAK -->|"日积月累"| OOM["内存溢出 OOM<br/>OutOfMemoryError"]
+    CONF -->|"直接触发"| OOM
+    LOAD -->|"直接触发"| OOM
+
+    OOM -->|"症状分类"| H1["Java heap space<br/>堆 OOM"]
+    OOM -->|"症状分类"| H2["Metaspace<br/>类元数据 OOM"]
+    OOM -->|"症状分类"| H3["Direct buffer<br/>直接内存 OOM"]
+    OOM -->|"症状分类"| H4["GC overhead limit<br/>GC 占用超 98% 时间"]
+```
+
+**OOM 的常见类型**（按报错信息区分）：
+
+| 报错关键字 | 耗尽区域 | 典型原因 |
+|---|---|---|
+| `Java heap space` | Java 堆 | 对象创建过快 / 堆太小 / 内存泄漏 |
+| `Metaspace` | Metaspace（直接内存） | 动态生成类（CGLib/动态代理/JSP）/ 类加载器泄漏 |
+| `Direct buffer memory` | 直接内存 | NIO `DirectByteBuffer` 堆积未释放 |
+| `GC overhead limit exceeded` | Java 堆 | GC 占用 >98% CPU 且回收 <2% 堆，持续 5 次 → 抛 OOM |
+| `unable to create new native thread` | native 内存 | 线程数过多（每线程栈占内存） |
+| `StackOverflowError` | 虚拟机栈 | 递归过深 / 栈太小 |
+
+**内存泄漏的典型根因**（对象本该被回收却被持续引用）：
+
+1. **静态集合持有**：`static List` / `static Map` 作为缓存且无淘汰策略，对象只进不出。
+   ```java
+   public class Cache {
+       private static final Map<String, Object> MAP = new HashMap<>(); // 永不回收
+       public static void put(String k, Object v) { MAP.put(k, v); }   // 泄漏点
+   }
+   ```
+2. **ThreadLocal 未清理**：线程池中线程复用，`ThreadLocal` 的 Entry 是弱引用 key 但 value 是强引用，`remove()` 没调用就 value 永久驻留。在线程池场景下尤其严重。
+3. **连接 / 流未关闭**：数据库连接、IO 流、HTTP 客户端等未在 `finally` 或 `try-with-resources` 中关闭，资源对象（含 native 内存）泄漏。
+4. **监听器 / 回调未反注册**：注册了 `Listener` 但组件销毁时未 `removeListener`，被事件源长期持有。
+5. **Hash 作为 key 但字段变化**：对象作为 `HashMap` 的 key 后又修改了 `hashCode()` 相关字段，导致永远 `remove` 不掉。
+6. **类加载器泄漏**：热部署/动态加载场景下旧 ClassLoader 无法被回收（其加载的 Class 对象、静态字段被引用），导致 Metaspace 泄漏。
+
+**关键点**：
+- OOM 是症状，内存泄漏是根因之一；排查 OOM 的核心是区分「泄漏」还是「容量不足」。
+- 判断依据：jstat 看 Old 区——**GC 后 Old 持续上涨不回落** = 泄漏；**Old 涨但 GC 后回落** = 容量不足或瞬时压力。
+- `GC overhead limit exceeded` 是「软 OOM」：GC 拼命回收但收效甚微，是堆 OOM 的前兆。
+- ThreadLocal 在线程池下的泄漏是高频考点：Entry 的 key 是弱引用（ThreadLocal 实例被回收后 key 变 null），但 value 是强引用，必须 `remove()`。
+- Metaspace OOM 几乎都是「类加载器泄漏」或「动态类生成失控」（如循环生成代理类）。
+
+> 💡 **面试话术**：「内存溢出 OOM 是症状，内存泄漏是根因，二者要分清。OOM 是 JVM 某块内存区域耗尽无法再分配，常见有 Java heap space 堆溢出、Metaspace 类元数据溢出、Direct buffer memory 直接内存溢出、GC overhead limit exceeded GC 占用超 98% 时间回收不到 2%。内存泄漏是对象已经没用但 GC 回收不掉，慢慢堆积最终引发 OOM。典型泄漏场景有：静态集合做缓存只进不出、ThreadLocal 在线程池下没 remove、连接流没关闭、监听器没反注册、HashMap 的 key 被修改 hashCode。排查时先用 jstat 看 Old 区，GC 后 Old 持续涨不回落就是泄漏，涨但 GC 后回落是容量不足或瞬时压力。」
+
+**常见追问**：
+- Q: OOM 和内存泄漏什么关系？ → OOM 是症状（内存不够分配），内存泄漏是根因之一（对象无用却回收不掉）。泄漏长期累积会引发 OOM，但 OOM 也可能由容量配置不足或瞬时流量直接触发，不一定有泄漏。
+- Q: ThreadLocal 为什么会内存泄漏？ → ThreadLocalMap 的 Entry 的 key 是弱引用（ThreadLocal 实例回收后 key 变 null），但 value 是强引用。线程池下线程复用，value 永久驻留。解决：用完 `remove()`。
+- Q: `GC overhead limit exceeded` 是什么？ → GC 占用 >98% CPU 且回收 <2% 堆，连续 5 次就抛此错，是堆 OOM 的前兆，提示堆基本被垃圾填满。可用 `-XX:-UseGCOverheadLimit` 关闭（不推荐）。
+- Q: Metaspace OOM 怎么排查？ → 看 jmap/jcmd 的类直方图是否有大量动态生成的代理类（`.*Proxy.*` / `.*$Enhancer.*`），排查是否有类加载器泄漏（旧 ClassLoader 未回收），调大 `-XX:MaxMetaspaceSize`。
+- Q: 怎么判断是泄漏还是容量不足？ → jstat 看 Old 区 GC 后是否回落：回落 = 容量不足/瞬时压力（调大堆或优化业务）；不回落 = 泄漏（dump 找 GC Root 链）。
+
+**来源**：《深入理解 Java 虚拟机》第 3 版 §2.5 / 第 5 章；[ThreadLocal Javadoc](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ThreadLocal.html)；[Oracle: GC Overhead Limit](https://docs.oracle.com/en/java/javase/17/gctuning/garbage-collector-implementation.html)
+
+### 4.4 OOM 排查步骤
+
+**定义**：OOM 排查有一套标准流程，核心思路是「先拿到堆现场 → 用 MAT 分析支配关系 → 沿 GC Root 链路找到泄漏代码」。关键是**第一现场**——OOM 发生那一刻的堆快照最有价值，事后重启就丢了证据。
+
+**结构**（标准排查流程）：
+
+```mermaid
+graph LR
+    A["1. 拿到堆现场<br/>jmap dump / 自动 dump"] --> B["2. MAT 打开 hprof"]
+    B --> C["3. Leak Suspects 报告<br/>MAT 自动分析疑似泄漏点"]
+    C --> D["4. Dominator Tree<br/>找占比大的支配对象"]
+    D --> E["5. Histogram<br/>按类统计对象数量/大小"]
+    E --> F["6. Path to GC Roots<br/>查 GC Root 引用链"]
+    F --> G["7. 定位代码<br/>看引用持有者, 改泄漏点"]
+    G --> H["8. 验证修复<br/>回归 + 监控 Old 区回落"]
+```
+
+**编号步骤详解**：
+
+1. **拿到堆现场（最关键）**
+   - 优先：启动时配 `-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/path/heap.hprof`，OOM 时 JVM 自动 dump，现场最完整。
+   - 应急：进程还活着但 Old 区高 → `jcmd PID GC.heap_dump /path/heap.hprof` 或 `jmap -dump:format=b,file=heap.hprof PID`（注意 STW）。
+   - 容器环境：注意 dump 文件写到容器内会随容器销毁，需挂载 volume 或拷贝出来。
+   - 大堆（>16GB）dump 文件会很大，MAT 打开需配置大 heap（`MemoryAnalyzer.ini` 设 `-Xmx4g` 以上）。
+
+2. **MAT 打开 hprof**
+   - 用 [Eclipse MAT](https://eclipse.dev/mat/) 打开 dump 文件，首次打开会生成索引（大堆耗时几分钟）。
+   - 打开后优先点 **Leak Suspects Report**，MAT 自动分析并给出疑似泄漏点。
+
+3. **Leak Suspects 报告（快速定位）**
+   - MAT 自动计算「疑似泄漏点」，通常以 Problem Suspect 1/2/3 列出，每个嫌疑点给出占堆百分比、所属 ClassLoader、简要说明。
+   - 适合快速定性，但具体链路还要看 Dominator Tree。
+
+4. **Dominator Tree（找大对象）**
+   - 菜单：`Histogram` → 右键 `List objects` → `with incoming references`，或直接 `Dominator Tree` 图标。
+   - Dominator Tree 按「支配关系」排序——一个对象支配的所有对象内存总和叫 Retained Heap。**按 Retained Heap 降序排**，看排在前面的对象占堆比例。
+   - 排第一的往往是泄漏点（如一个 `HashMap` 占了 60% 堆）。
+
+5. **Histogram（按类统计）**
+   - 菜单：`Histogram` 图标，按 Class 维度统计对象数量（Objects）和占用大小（Shallow/Retained Heap）。
+   - 排查技巧：按 Retained Heap 排序，关注**自定义类**（`com.example.*`）而非 `byte[]`/`String`/`Object[]`。自定义类对象异常多往往是泄漏。
+   - 支持正则过滤，如 `com\.example\..*` 只看业务类。
+
+6. **Path to GC Roots（查引用链）**
+   - 在 Dominator Tree 或 Histogram 中右键某个对象 → `Merge Shortest Paths to GC Roots` → `exclude all phantom/weak/soft etc. references`（排除弱/软/虚引用，只看强引用链，因为只有强引用阻止回收）。
+   - 这条链就是「GC Root → ... → 泄漏对象」的持有路径，链路顶端的 GC Root 类型（静态变量 / 线程栈 / `synchronized` 监视器）往往直接暴露泄漏根因。
+
+7. **定位代码**
+   - 在 Path to GC Roots 链路中找到业务对象，看它的引用持有者——是哪个静态字段、哪个集合、哪个 ThreadLocal。
+   - 对应到代码：找到那个 `static Map` / 未 `remove()` 的 ThreadLocal / 未关闭的连接，就是泄漏点。
+
+8. **验证修复**
+   - 修复后回归测试，重启服务观察 jstat 的 Old 区是否 GC 后回落。
+   - 长期监控：接 Prometheus + Grafana 看 JVM 内存指标，或用 arthas 在线监控。
+
+**关键点**：
+- **第一现场最重要**：OOM 后重启就丢证据，必须靠 `-XX:+HeapDumpOnOutOfMemoryError` 提前埋点。
+- 排查顺序：Leak Suspects（快速定性）→ Dominator Tree（找大对象）→ Histogram（按类看数量）→ Path to GC Roots（找引用链）。
+- Path to GC Roots **必须排除弱/软/虚引用**，只看强引用链——只有强引用阻止回收。
+- Retained Heap 比 Shallow Heap 更重要：Shallow 是对象自身大小，Retained 是对象被回收能释放的总内存（含其支配的所有对象）。
+- 容器环境记得把 dump 文件挂载出来，否则容器重启 dump 就没了。
+
+> 💡 **面试话术**：「OOM 排查有一套标准流程。第一步最关键是拿到堆现场，生产环境必须提前配 -XX:+HeapDumpOnOutOfMemoryError 让 OOM 时自动 dump，否则重启就丢证据。拿到 hprof 文件后用 MAT 打开，先看 Leak Suspects 报告，MAT 自动分析给出疑似泄漏点。然后看 Dominator Tree 按 Retained Heap 排序找占比大的对象，再看 Histogram 按类统计关注自定义类。最后右键 Merge Shortest Paths to GC Roots 排除弱软虚引用，看强引用链路，链路顶端的 GC Root 类型——静态变量、线程栈、ThreadLocal——就暴露了泄漏根因，对应到代码改掉。整个流程的核心是从大对象出发沿 GC Root 链路反推到代码。」
+
+**常见追问**：
+- Q: 线上 OOM 怎么不重启快速排查？ → ① 提前配 `-XX:+HeapDumpOnOutOfMemoryError`，OOM 时自动 dump 后 JVM 可能继续运行（看 OOM 是否致命）；② 也可在 Old 高但未 OOM 时 `jcmd PID GC.heap_dump` 拿 dump，进程不停；③ 配合 jstat -gcutil 持续看 Old 区走势判断是泄漏还是容量不足。重启是最后手段。
+- Q: Path to GC Roots 为什么排除弱软虚引用？ → 因为只有强引用阻止对象回收，弱/软/虚引用不影响存活判定（弱引用下次 GC 必回收，软引用内存不足回收），排除它们才能看到真正阻止回收的引用链。
+- Q: Shallow Heap 和 Retained Heap 区别？ → Shallow 是对象自身大小（不含引用对象）；Retained 是对象被回收后能释放的总内存（对象自身 + 它支配的所有对象）。排查泄漏看 Retained 更有意义。
+- Q: dump 文件太大 MAT 打不开怎么办？ → 在 `MemoryAnalyzer.ini` 调大 MAT 的 `-Xmx`（建议 dump 大小的 1.5–2 倍）；或用 OQL 查询只导出关注对象；或用更轻量的工具如 `jhat`（已废弃）/ GDB。
+- Q: 没有提前配自动 dump，OOM 后进程已重启怎么办？ → 现场已丢，只能靠日志推断（OOM 报错信息、最后操作日志）+ 复现。所以 `-XX:+HeapDumpOnOutOfMemoryError` 是生产必配项。
+
+**来源**：[Eclipse MAT 官方文档](https://help.eclipse.org/latest/topic/org.eclipse.mat.ui.help/concepts/intro.html)；[Oracle: Heap Dump on OOM](https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html)；《深入理解 Java 虚拟机》第 3 版 第 5 章
+
+### 4.5 MAT 工具实操
+
+**定义**：MAT（Memory Analyzer Tool）是 Eclipse 基金会的开源堆 dump 分析工具，是 Java OOM 排查的事实标准。它基于「支配树（Dominator Tree）」算法快速定位大对象与泄漏点，能打开几 GB 甚至几十 GB 的 hprof 文件（需调大 MAT 自身堆）。
+
+**结构**（MAT 核心视图）：
+
+```mermaid
+graph TB
+    MAT["MAT 核心视图"]
+    MAT --> LS["Leak Suspects Report<br/>自动分析疑似泄漏点"]
+    MAT --> HT["Histogram<br/>按类统计对象数量/大小"]
+    MAT --> DT["Dominator Tree<br/>按 Retained Heap 排支配关系"]
+    MAT --> PGR["Path to GC Roots<br/>查强引用链"]
+    MAT --> OQL["OQL 查询<br/>类 SQL 查对象"]
+```
+
+**实操路径与文字截图说明**：
+
+**1. Leak Suspects Report（泄漏嫌疑报告）—— 首选入口**
+
+- **操作路径**：打开 hprof → 弹窗选 `Leak Suspects Report` → 自动生成 HTML 风格报告。
+- **看到什么**：报告顶部列出 `Problem Suspect 1`、`Problem Suspect 2`...，每个嫌疑点给出：
+  - 占堆百分比（如 `31.2%`）。
+  - 描述（如 `The class "...CacheManager" loaded by "...ClassLoader" occupies 1,234,567,890 (31.2%) bytes`）。
+  - 关联的 GC Root 与对象详情链接（`Details`/`See stacktrace`）。
+- **用法**：快速定性泄漏方向，再点 `Details` 跳到具体对象视图深入排查。
+
+**2. Histogram（直方图）—— 按类统计**
+
+- **操作路径**：工具栏 `Histogram` 图标（或菜单 `Query Browser → Java Basics → Histogram`）。
+- **看到什么**：表格四列——`Class Name`、`Objects`（对象数）、`Shallow Heap`（浅堆，对象自身大小）、`Retained Heap`（深堆，回收能释放的总内存）。
+- **关键操作**：
+  - 点 `Retained Heap` 列排序，从大到小看。
+  - 顶部正则框过滤，如 `com\.example\.` 只看业务类，过滤掉 `java.lang.*`、`byte[]`。
+  - 右键某类 → `List Objects` → `with outgoing references`（看它引用谁）/ `with incoming references`（看谁引用它）。
+- **典型场景**：发现 `com.example.Entity` 有 1000 万个实例占 60% 堆 → 业务对象未释放。
+
+**3. Dominator Tree（支配树）—— 找大对象**
+
+- **操作路径**：工具栏 `Dominator Tree` 图标（或 `Query Browser → Java Basics → Dominator Tree`）。
+- **看到什么**：树形列表，每行 `Object`、`Shallow Heap`、`Retained Heap`、`Percentage`。按 Retained Heap 降序，排第一的常是 `java.lang.Thread` 或某个集合。
+- **关键操作**：
+  - 展开（`+`）节点看其支配的子对象——子对象的 Retained 已包含在父节点里。
+  - 排第一的非框架对象（如业务 `Cache` / `Map`）通常是泄漏点。
+  - 右键 → `Path to GC Roots` 查引用链。
+- **概念**：支配树中若对象 A 支配对象 B，则到 B 的所有路径必经 A；A 回收则 B 必回收。Retained Heap 就是 A 支配的所有对象总大小。
+
+**4. Path to GC Roots —— 查引用链（最关键）**
+
+- **操作路径**：在 Dominator Tree / Histogram / 任意对象视图，右键对象 → `Merge Shortest Paths to GC Roots` → `exclude all phantom/weak/soft etc. references`。
+- **看到什么**：树形展示从 GC Root 到目标对象的最短引用链，每层显示引用类型（强引用默认不标注，弱/软/虚会标 `Weak Reference` 等）。
+- **关键操作**：
+  - 链路顶端的 GC Root 类型很关键：`Thread`（线程栈局部变量）、`System Class`（静态变量）、`Java Local`（局部变量）、`Busy Monitor`（synchronized 持有）。
+  - 沿链路逐层展开，找到业务对象被谁持有——是 `static Map`、`ThreadLocal`、还是未关闭的连接。
+- **典型场景**：链路顶部是 `System Class` → `com.example.CacheManager` → `static HashMap` → 泄漏对象，定位到 `CacheManager.MAP` 这个静态字段。
+
+**5. OQL（对象查询语言）—— 类 SQL 精确查询**
+
+- **操作路径**：工具栏 `OQL` 图标，输入类 SQL 语句。
+- **语法示例**：
+  - 查所有 String 实例：`SELECT * FROM java.lang.String`
+  - 查某个类的对象及其字段：`SELECT s, s.value FROM com.example.User s WHERE s.id > 1000`
+  - 查 HashMap 中 entry 数：`SELECT m, m.table.length FROM java.util.HashMap m`
+- **用法**：知道泄漏类名后用 OQL 精确定位实例，再 right-click → Path to GC Roots。
+
+**实战案例文字描述**：
+
+> 假设 OOM 报 `Java heap space`，dump 文件 `heap.hprof`。MAT 打开后：① Leak Suspects 报告显示 `Problem Suspect 1: class "com.example.OrderCache" occupies 1.8GB (45%)`；② 点 `Dominator Tree`，排第一是 `OrderCache` 实例 Retained 1.8GB；③ 右键 → `Merge Shortest Paths to GC Roots` → `exclude weak/soft references`，链路显示 `System Class → com.example.OrderCache → static HashMap orders → Order 实例`；④ 定位到 `OrderCache` 的 `static Map<Long, Order> orders` 字段只 put 不 remove，确认泄漏点。修复：加 LRU 淘汰或改用 Caffeine 设过期时间。
+
+**关键点**：
+- MAT 首选入口是 **Leak Suspects Report**，自动分析省去手动排查。
+- Dominator Tree 按 **Retained Heap** 排序看大对象，Histogram 按 **类** 看数量异常。
+- Path to GC Roots **必须排除弱/软/虚引用**，只看强引用链才能定位阻止回收的引用。
+- 大 dump（>4GB）打开前在 `MemoryAnalyzer.ini` 调 `-Xmx` 到 dump 大小的 1.5–2 倍，否则 OOM 的是 MAT 自己。
+- `Percentage` 列很直观——占堆 >10% 的对象都值得检查。
+
+> 💡 **面试话术**：「MAT 是 Eclipse 开源的堆 dump 分析工具，是 OOM 排查的事实标准。打开 hprof 后首选看 Leak Suspects 报告，MAT 自动给出疑似泄漏点和占堆百分比。然后看 Dominator Tree 按 Retained Heap 降序找大对象，Retained Heap 是对象被回收能释放的总内存含它支配的所有对象，比 Shallow Heap 更有意义。再看 Histogram 按类统计关注自定义类的对象数量是否异常。最关键的是右键对象 Merge Shortest Paths to GC Roots 排除弱软虚引用，看强引用链路，链路顶端的 GC Root 类型——System Class 是静态变量、Thread 是线程栈——就暴露了泄漏根因。大 dump 要在 MemoryAnalyzer.ini 调大 -Xmx 否则 MAT 自己会 OOM。」
+
+**常见追问**：
+- Q: Shallow Heap 和 Retained Heap 区别？ → Shallow 是对象自身大小（不含引用的对象）；Retained 是对象被回收后能释放的总内存（自身 + 它支配的所有对象）。排查泄漏看 Retained，因为它反映了「移除这个对象能省多少内存」。
+- Q: Path to GC Roots 为什么排除弱软虚引用？ → 只有强引用阻止对象被回收。弱引用下次 GC 必回收，软引用内存不足回收，虚引用不影响回收，排除它们才能看到真正阻止回收的引用链。
+- Q: Dominator Tree 的「支配」什么意思？ → 若到对象 B 的所有路径必经过对象 A，则 A 支配 B；A 被回收则 B 必被回收。支配树把这种关系组织成树，便于按 Retained Heap 找大头。
+- Q: MAT 打不开大 dump 怎么办？ → 修改 `MemoryAnalyzer.ini` 的 `-Xmx` 为 dump 大小的 1.5–2 倍；或用 `parseHeapDump.sh` 命令行预生成索引；或用 OQL 只导出关注对象。
+- Q: 除了 MAT 还有什么工具？ → JConsole/JVisualVM（实时监控但分析弱）、JDK Mission Control（JDK 自带，配合 JFR 飞行记录）、arthas（在线诊断无需 dump）、YourKit/JProfiler（商业）。
+
+**来源**：[Eclipse MAT 官方](https://eclipse.dev/mat/)；[MAT 文档 - Dominator Tree](https://help.eclipse.org/latest/topic/org.eclipse.mat.ui.help/concepts/dominatortree.html)；[MAT 文档 - Path to GC Roots](https://help.eclipse.org/latest/topic/org.eclipse.mat.ui.help/tasks/queryingheapobjects.html)
+
+### 4.6 常见调优案例
+
+**定义**：调优案例把前面的参数、工具、排查流程串起来，按「现象 → 排查 → 解决」结构还原真实生产场景。下面给三个最常见案例：Full GC 频繁、Young GC 过长、Metaspace OOM。
+
+**结构**（三案例对比）：
+
+```mermaid
+graph LR
+    C1["案例1: Full GC 频繁<br/>老年代太小"]
+    C2["案例2: Young GC 过长<br/>Eden 太大"]
+    C3["案例3: Metaspace OOM<br/>动态生成类"]
+```
+
+---
+
+**案例 1：Full GC 频繁（老年代太小）**
+
+**现象**：
+- 监控告警：服务 GC 停顿频繁，接口 P99 间歇性飙升到秒级。
+- jstat 观察：`FGC` 每分钟涨 2–3 次，`FGCT` 累计已超 30s；`O`（Old 使用率）在 80–95% 抖动，每次 Full GC 后回落到 60% 又快速涨回。
+- 日志：`Full GC (Ergonomics)` 频繁，停顿 1–2s。
+
+**排查**：
+1. `jstat -gcutil PID 1000` 持续观察，确认 Old 区 GC 后回落（说明不是泄漏，是容量不足）。
+2. 看启动参数：`-Xmx2g -Xms2g -XX:NewRatio=2`，算出老年代 ≈ 1.3GB，业务有缓存对象长期驻留，老年代不够。
+3. GC 日志看 Full GC 触发原因：`Allocation Failure`（晋升失败）→ 老年代剩余空间不足以容纳 Minor GC 晋升的对象。
+
+**解决**：
+- 扩堆 + 调整新老比例：`-Xmx4g -Xms4g -XX:NewRatio=1`（老年代占 1/2 ≈ 2GB），或用 `-Xmn1g` 固定新生代让老年代拿到更多空间。
+- 升级到 G1（若仍是 Parallel）：`-XX:+UseG1GC -XX:MaxGCPauseMillis=200`，用 Mixed GC 分次回收 Old，避免 Full GC。
+- 长期：业务侧审查缓存对象生命周期，引入 LRU 淘汰（Caffeine）控制老年代增长速度。
+- **结论**：GC 后 Old 回落 = 容量问题，调大堆或调新老比例；GC 后 Old 不回落 = 泄漏，dump 找引用链。
+
+---
+
+**案例 2：Young GC 过长（Eden 太大）**
+
+**现象**：
+- 监控：每次 Young GC 停顿 300–500ms，接口偶发超时。
+- jstat：`YGC` 次数正常（不频繁），但 `YGCT / YGC`（单次 Young GC 耗时）偏高。
+- GC 日志：`Pause Young (G1 Evacuation Pause) 412ms`。
+
+**排查**：
+1. 看 G1 Region 配置：`-XX:G1HeapRegionSize=16m`，堆 16GB → 1024 个 Region。Eden 占比 `-XX:G1MaxNewSizePercent=60` → Young 最大占 9.6GB。
+2. Young GC 是 STW 复制算法，**Eden 越大、存活对象越多，复制耗时越长**。业务是批处理，单次产生大量短生命周期对象但同时存活，复制成本高。
+3. `jstat -gcutil` 看 `E`（Eden 使用率）每次 GC 前接近 100%，确认 Eden 过大。
+
+**解决**：
+- 调小新生代占比：`-XX:G1MaxNewSizePercent=30`（默认 60），让 Young GC 更频繁但每次更快，符合 G1「短停顿」目标。
+- 或调小 `-XX:G1HeapRegionSize=8m`（默认 JVM 自选 16m），让 G1 更细粒度选择 CSet，单次回收 Region 数变少。
+- 降低 `-XX:MaxGCPauseMillis=100`（默认 200），让 G1 更激进地缩小 CSet。
+- **权衡**：Young GC 停顿 ↓ 但频率 ↑，需观察 `YGCT` 总耗时是否下降。G1 调优本质是在「停顿时间」和「吞吐量」间找平衡。
+- **结论**：Young GC 过长通常是 Eden/Region 太大、单次复制对象多；调小新生代或 Region 大小，牺牲频率换单次停顿。
+
+---
+
+**案例 3：Metaspace OOM（动态生成类）**
+
+**现象**：
+- 服务运行一段时间后抛 `java.lang.OutOfMemoryError: Metaspace`，进程被 OOM Killer 杀或 JVM 退出。
+- jstat：`M`（Metaspace 使用率）持续上涨到 100%，Full GC 后不回落。
+
+**排查**：
+1. dump 后用 MAT Histogram，按 Class Name 过滤 `*\$*`（匿名内部类、代理类）或 `*Proxy*`、`*Enhancer*`，发现数十万个 `com.example.dto.XXDto_$$_jvst...`（CGLib 代理类）或 `org.codehaus.groovy.runtime...`（Groovy 动态类）。
+2. 看类加载器：`jcmd PID GC.class_histogram` 或 MAT 的 `Class Loader Explorer`，发现某个自定义 ClassLoader 实例数异常多——典型类加载器泄漏。
+3. 根因：业务用 CGLib 动态生成代理类但**没有缓存**，每次请求都生成新 Class，Class 对象进入 Metaspace 后无法回收（Class 对象被 ClassLoader 强引用，ClassLoader 未卸载则类不回收）。
+
+**解决**：
+- 短期：调大 `-XX:MaxMetaspaceSize=1g`（默认机器内存，但容器可能受限），延缓 OOM。
+- 根治：业务侧缓存代理类（`Class<?>` 按 key 缓存），避免重复生成；或改用 JDK 动态代理（接口固定，类数量可控）。
+- 排查类加载器泄漏：检查是否有热部署/动态加载场景下旧 ClassLoader 未释放（被静态字段、ThreadLocal、Thread 持有）。
+- **结论**：Metaspace OOM 几乎都是「动态类生成失控」或「类加载器泄漏」。看 Histogram 的代理类数量 + ClassLoader Explorer 的加载器实例数即可定位。
+
+**关键点**（三案例共性）：
+- 排查第一步都是 `jstat -gcutil` 看各区使用率走势，判断是「容量不足」还是「泄漏」。
+- GC 后区域回落 = 容量问题（调参）；GC 后不回落 = 泄漏（dump 找引用链）。
+- 调优本质是在「停顿时间」和「吞吐量」间权衡，没有银弹，需结合业务 SLA。
+- Metaspace OOM 不看堆看类——Histogram 过滤代理类、Class Loader Explorer 看加载器实例。
+
+> 💡 **面试话术**：「调优案例我举三个。第一是 Full GC 频繁，jstat 看 Old 区 GC 后回落说明是容量不足不是泄漏，原因是老年代太小或缓存对象多，解决是扩堆调新老比例或换 G1 用 Mixed GC。第二是 Young GC 过长，单次停顿 300ms+，原因是 Eden 或 Region 太大、单次复制对象多，解决是调小 G1MaxNewSizePercent 或 Region 大小，牺牲频率换单次停顿。第三是 Metaspace OOM，jstat 看 M 列涨到 100% 不回落，dump 用 MAT Histogram 过滤代理类发现几十万 CGLib 代理类，根因是动态生成类没缓存或类加载器泄漏，解决是缓存代理类、调大 MaxMetaspaceSize、排查类加载器。三个案例的共性是第一步都看 jstat 判断容量还是泄漏，GC 后回落是容量、不回落是泄漏。」
+
+**常见追问**：
+- Q: 怎么快速判断是容量不足还是泄漏？ → jstat 看 Old 区：GC 后回落 = 容量不足/瞬时压力；GC 后不回落 = 泄漏。前者调参，后者 dump。
+- Q: G1 调优的核心参数？ → `-XX:MaxGCPauseMillis`（目标停顿）、`-XX:G1HeapRegionSize`（Region 大小）、`-XX:InitiatingHeapOccupancyPercent`（触发并发标记）、`-XX:G1NewSizePercent`/`G1MaxNewSizePercent`（Young 占比）。
+- Q: Metaspace OOM 和堆 OOM 排查区别？ → 堆 OOM 看对象（Histogram/Dominator Tree 找大对象）；Metaspace OOM 看类（Class Loader Explorer、按 `*$*`/`*Proxy*` 过滤找动态生成类）。
+- Q: 线上 Full GC 频繁但不敢重启怎么办？ → 先 jstat 看走势判断容量还是泄漏；容量不足可尝试 `jcmd PID VM.set_flag` 动态调部分参数（少数 Manageable 参数支持）；泄漏则低峰期 dump 后重启修复。arthas 可在线观察不重启。
+
+**来源**：《深入理解 Java 虚拟机》第 3 版 第 5 章；[Oracle G1 Tuning Guide](https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-garbage-collector-tuning.html)；[美团技术博客 - Java OOM 排查](https://tech.meituan.com/)；[阿里 arthas 文档](https://arthas.aliyun.com/doc/)
+
+### 4.7 面试话术与追问
+
+**总览话术**（可直接口述，约 380 字）：
+
+「JVM 调优和 OOM 排查我分四块记。参数方面，堆内存用 -Xms -Xmx 生产设成一样避免抖动，-Xmn 设新生代，-XX:SurvivorRatio=8 控制 Eden:Survivor，-XX:MaxTenuringThreshold=15 控制晋升年龄；非堆用 -XX:MetaspaceSize 和 MaxMetaspaceSize 控制 Metaspace，注意 MetaspaceSize 是触发首次 Full GC 的高水位不是初始大小；生产必配 -XX:+HeapDumpOnOutOfMemoryError 让 OOM 自动 dump。工具方面，jps 查进程，jstat -gcutil 看 GC 统计和各区使用率，jmap dump 堆和看对象直方图但生产慎用，jstack 看线程栈查死锁和 CPU 飙高，JDK 9+ 推荐 jcmd 统一替代。OOM 和内存泄漏要分清，OOM 是症状，内存泄漏是根因，典型泄漏有静态集合、ThreadLocal 没 remove、连接没关闭。排查标准流程是先拿到堆现场（自动 dump 最关键），用 MAT 打开看 Leak Suspects 报告，Dominator Tree 按 Retained Heap 找大对象，Histogram 看自定义类数量，最后 Merge Shortest Paths to GC Roots 排除弱软虚引用看强引用链路定位代码。」
+
+**常见追问**（高频 6 问）：
+
+- Q: **线上 OOM 怎么不重启快速排查？** → ① 提前配 `-XX:+HeapDumpOnOutOfMemoryError`，OOM 时自动 dump，JVM 可能继续运行；② Old 高未 OOM 时 `jcmd PID GC.heap_dump` 拿 dump 不停进程；③ jstat -gcutil 持续看 Old 走势判断容量还是泄漏；④ arthas 在线 dashboard/heapdump 不影响进程；⑤ 重启是最后手段，会丢现场所以必须先 dump。
+- Q: **jstack 怎么查死锁？** → `jstack -l PID`，末尾输出 `Found Java-level deadlock` 并列出互相等待的线程和锁地址（`waiting to lock <0x...>` / `locked <0x...>`）；JDK 9+ 也可 `jcmd PID Thread.print`。代码层可用 `ManagementFactory.getThreadMXBean().findDeadlockedThreads()` 编程检测。
+- Q: **CPU 100% 怎么用 jstack 排查？** → `top` 定位 JVM 进程 PID → `top -Hp PID` 找高 CPU 线程 tid → `printf "%x\n" tid` 转 16 进制 → `jstack PID | grep nid=0x<hex> -A 30` 看该线程栈。常见原因：死循环、正则回溯、频繁 Full GC（GC 线程占 CPU）。
+- Q: **-XX:+HeapDumpOnOutOfMemoryError 会不会影响生产？** → dump 过程会 STW，大堆可能停顿几秒到几十秒，但此时已 OOM 进程基本不可用，dump 是值得的。可配合 `-XX:HeapDumpPath` 指定到挂载盘，避免写满容器临时目录。
+- Q: **jmap 和 jcmd GC.heap_dump 区别？** → 功能等价都生成 hprof。jcmd 是 JDK 9+ 推荐的统一工具，更安全（部分 jmap 选项在受限环境被禁）；老版本 JDK 8 只能用 jmap。
+- Q: **arthas 在 OOM 排查中有什么用？** → 不重启进程在线诊断：`dashboard` 看整体、`thread -n 3` 看最忙线程、`heapdump /path/x.hprof` dump 堆、`jad` 反编译看代码、`watch`/`trace` 看方法调用。适合无法重启又没提前配自动 dump 的应急场景。
+
+### 4.8 进阶阅读
+
+- **Eclipse MAT 官方文档**：[eclipse.dev/mat](https://eclipse.dev/mat/) — MAT 工具的权威来源，含 Dominator Tree、Path to GC Roots、OQL 的概念文档与教程，是 OOM 排查工具学习的首选。
+- **Oracle JDK 17 Tools Reference**：[docs.oracle.com](https://docs.oracle.com/en/java/javase/17/docs/specs/man/) — jps/jstat/jmap/jstack/jinfo/jcmd 的官方 man page，每个工具的选项与输出格式权威定义。
+- **Oracle G1 GC Tuning Guide**：[docs.oracle.com](https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-garbage-collector-tuning.html) — 官方 G1 调优指南，Region/CSet/IHOP/MaxGCPauseMillis 参数详解，调优第一手资料。
+- **JDK Mission Control (JMC)**：[jdk.java.net/jmc](https://jdk.java.net/jmc/) — Oracle 开源的 JVM 监控诊断工具，配合 JFR（Java Flight Recorder）做低开销持续录制，是 dump 之外的在线诊断利器。
+- **arthas 官方文档**：[arthas.aliyun.com/doc](https://arthas.aliyun.com/doc/) — 阿里开源的 Java 在线诊断工具，dashboard/heapdump/jad/watch/trace 等命令，无需重启即可排查 OOM/CPU/死锁。
+- **美团技术博客 - Java OOM 排查**：[tech.meituan.com](https://tech.meituan.com/) — 美团生产环境 OOM 排查实战文章，含真实案例的参数选择、dump 分析、修复过程，工程经验丰富。
+- **《深入理解 Java 虚拟机》第 3 版 第 5 章**：周志明著 — 调优案例与实战章节，含多个真实 OOM/GC 问题的排查过程，是中文社区最系统的调优参考。
+- **Stack Overflow: jstat/jmap 输出解读**：高票回答详细解读 `jstat -gcutil` 各列含义、`jmap -histo` 排查思路，是命令行工具使用的最佳补充。
+- **GitHub: alibaba/arthas**：[github.com/alibaba/arthas](https://github.com/alibaba/arthas) — arthas 源码与 issue，生产案例与使用技巧沉淀，遇到具体排查场景可在 issue 搜索。
 
 ---
 
