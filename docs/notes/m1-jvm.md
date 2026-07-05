@@ -1611,4 +1611,53 @@ graph LR
 
 ## 附：参考资料汇总
 
-（待填充）
+> 以下汇总全文第 1–4 章及各章进阶阅读中引用过的所有来源，按类别去重整理。
+
+### 官方文档（JVM 规范 / OpenJDK JEP / Oracle 文档）
+
+- [JVM 规范 §2.5 Runtime Data Areas（Java SE 17）](https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-2.html#jvms-2.5) — 5 个运行时数据区的权威定义，含 §2.5.1–2.5.5（程序计数器/虚拟机栈/本地方法栈/堆/方法区/运行时常量池）。
+- [JVM 规范 §2.6 Frames](https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-2.html#jvms-2.6) — 栈帧结构权威说明，对应局部变量表/操作数栈/动态链接/返回地址。
+- [JVM 规范 §5 Loading, Linking, and Initializing](https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-5.html) — 类加载全过程权威定义，§5.3 创建与加载、§5.4 链接、§5.5 初始化。
+- [JEP 122: Remove the Permanent Generation](https://openjdk.org/jeps/122) — 永久代废弃、Metaspace 演进的官方动机与设计。
+- [JEP 158: Unified JVM Logging](https://openjdk.org/jeps/158) — JDK 9+ 统一日志框架（`-Xlog:gc*`）的设计。
+- [JEP 243: G1 成为默认收集器](https://openjdk.org/jeps/243) — G1 默认化的官方动机与设计目标。
+- [JEP 261: Module System](https://openjdk.org/jeps/261) — JDK 9 模块化（JPMS）对类加载影响的官方设计。
+- [JEP 291: CMS Deprecated](https://openjdk.org/jeps/291) — CMS 废弃的官方说明。
+- [JEP 363: 移除 CMS](https://openjdk.org/jeps/363) — CMS 移除的官方理由（碎片、降级、维护成本）。
+- [JEP 377: ZGC 转正](https://openjdk.org/jeps/377) — ZGC 生产可用的官方里程碑。
+- [JEP 439: 分代 ZGC](https://openjdk.org/jeps/439) — 分代 ZGC 的官方设计。
+- [Oracle JDK 17 API - ClassLoader](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ClassLoader.html) — `loadClass` / `findClass` / `getParent` 等方法的官方契约。
+- [Oracle JDK 17 API - ServiceLoader](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ServiceLoader.html) — SPI 机制权威说明，含与 `Thread.contextClassLoader` 配合使用的约定。
+- [Oracle JDK 17 API - ThreadLocal](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ThreadLocal.html) — ThreadLocal 与线程池下内存泄漏的官方说明。
+- [Oracle JDK 17 API - java.lang.ref](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ref/package-summary.html) — 强/软/弱/虚四种引用的官方定义。
+- [Oracle JDK 17 Tools Reference](https://docs.oracle.com/en/java/javase/17/docs/specs/man/) — jps/jstat/jmap/jstack/jinfo/jcmd/java 的官方 man page。
+- [Oracle GC Tuning Guide](https://docs.oracle.com/en/java/javase/17/gctuning/available-collectors.html) — 官方 GC 调优指南，含 Available Collectors / Sizing the Generations / JVM Options / Implementation（含 GC Overhead Limit）等章节。
+- [Oracle G1 GC Tuning Guide](https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-garbage-collector-tuning.html) — 官方 G1 调优指南，Region/CSet/IHOP/MaxGCPauseMillis 参数详解，调优第一手资料。
+- [Oracle CMS Tuning Guide (JDK 11)](https://docs.oracle.com/en/java/javase/11/gctuning/concurrent-mark-sweep-cms-collector.html) — CMS 调优官方文档。
+- [OpenJDK HotSpot Wiki - CompressedOops](https://wiki.openjdk.org/display/HotSpot/CompressedOops) — 对象头 Mark Word 与压缩指针，理解年龄字段 4 bit 的依据。
+- [OpenJDK HotSpot Wiki - G1GC](https://wiki.openjdk.org/display/HotSpot/G1GC) — G1 实现细节，RSet、SATB、CSet 选择算法的内部文档。
+- [OpenJDK 17 源码 - G1 (`src/hotspot/share/gc/g1/`)](https://github.com/openjdk/jdk/tree/jdk-17%2B35/src/hotspot/share/gc/g1) — G1 源码，`g1SATBMarkQueue`/`g1CardTable`/`heapRegion` 等类，源码级理解 SATB 与 RSet。
+- [Tomcat 9 Class Loader HowTo](https://tomcat.apache.org/tomcat-9.0-doc/class-loader-howto.html) — Tomcat 官方类加载文档，WebAppClassLoader 与各级加载器的委派关系，打破双亲委派的权威依据。
+
+### 书籍
+
+- 《深入理解 Java 虚拟机》第 3 版 — 周志明著，中文社区公认最权威的 JVM 书籍：§2.5 运行时数据区、§2.4.3 永久代、第 7 章类加载机制（§7.3–7.5）、§3.1–3.5 GC 算法与分代、第 4 章垃圾收集器、§3.5.5 CMS、§3.5.6 G1、第 5 章调优实战。
+
+### 技术博客 / 社区
+
+- [美团技术博客 - G1 GC 调优实战](https://tech.meituan.com/2016/09/23/g1.html) — 美团生产环境 G1 调优实战案例，参数选择与问题排查的真实工程经验。
+- [美团技术博客 - Java OOM 排查](https://tech.meituan.com/) — 美团生产环境 OOM 排查实战文章，含真实案例的 dump 分析与修复过程。
+- R大（RednaxelaFX）知乎回答 — 知乎搜索「RednaxelaFX 永久代」「RednaxelaFX G1」「RednaxelaFX CMS」，对永久代废弃、SATB vs 增量更新、Card Table、写屏障等底层细节的深度回答，中文社区公认高质量来源。
+- Stack Overflow: Why DriverManager uses Thread.contextClassLoader — 高票回答详解 SPI 反向委派的设计动机与 `Class.forName` 在 Bootstrap 下失效的原因。
+- Stack Overflow: SATB vs Incremental Update — 高票回答对比 CMS 增量更新与 G1 SATB 的本质区别（新增引用 vs 消失引用）。
+- [Stack Overflow: jstack CPU 100% 排查](https://stackoverflow.com/questions/19453976) — `top -Hp` + `printf "%x"` + `jstack grep nid` 排查 CPU 飙高的标准套路。
+- Stack Overflow: jstat/jmap 输出解读 — 高票回答详解 `jstat -gcutil` 各列含义与 `jmap -histo` 排查思路。
+
+### 工具文档（MAT / arthas / JMC 等）
+
+- [Eclipse MAT 官方](https://eclipse.dev/mat/) — MAT 工具主页，OOM 排查事实标准。
+- [MAT 文档 - Dominator Tree](https://help.eclipse.org/latest/topic/org.eclipse.mat.ui.help/concepts/dominatortree.html) — 支配树与 Retained Heap 概念文档。
+- [MAT 文档 - Path to GC Roots / 查询堆对象](https://help.eclipse.org/latest/topic/org.eclipse.mat.ui.help/tasks/queryingheapobjects.html) — 引用链排查与 OQL 查询教程。
+- [arthas 官方文档](https://arthas.aliyun.com/doc/) — 阿里开源 Java 在线诊断工具，dashboard/heapdump/jad/watch/trace 等命令，无需重启即可排查 OOM/CPU/死锁。
+- [GitHub: alibaba/arthas](https://github.com/alibaba/arthas) — arthas 源码与 issue，生产案例与使用技巧沉淀。
+- [JDK Mission Control (JMC)](https://jdk.java.net/jmc/) — Oracle 开源 JVM 监控诊断工具，配合 JFR（Java Flight Recorder）做低开销持续录制，dump 之外的在线诊断利器。
