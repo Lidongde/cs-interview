@@ -1,0 +1,30 @@
+[
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/hot-search/hot-content?_=1783334088792",
+    "method": "OPTIONS"
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/replenish-ad/search-pop-ad?_=1783334088793",
+    "method": "OPTIONS"
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/question-tab/query-user-tab-list?_=1783334088794",
+    "method": "OPTIONS"
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/live/list/top?token=&_=1783334088693",
+    "method": "GET"
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/hot-search/hot-content?_=1783334088792",
+    "method": "GET"
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/replenish-ad/search-pop-ad?_=1783334088793",
+    "method": "GET"
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/question-tab/query-user-tab-list?_=1783334088794",
+    "method": "GET"
+  }
+]

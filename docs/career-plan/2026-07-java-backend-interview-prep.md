@@ -20,6 +20,23 @@
 
 ---
 
+## 本地学习资料快速索引 📚
+
+| 模块 | 本地笔记链接 |
+|---|---|
+| M1 JVM | [m1-jvm.md](../notes/m1-jvm.md) |
+| M2 Java并发 | [m2-concurrent.md](../notes/m2-concurrent.md) |
+| M3 Spring全家桶 | [m3-spring.md](../notes/m3-spring.md) |
+| M4 MySQL | [m4-mysql.md](../notes/m4-mysql.md) |
+| M5 Redis | [m5-redis.md](../notes/m5-redis.md) |
+| M6 微服务+分布式 | [m6-microservices.md](../notes/m6-microservices.md) |
+| M7 Kafka | [m7-kafka.md](../notes/m7-kafka.md) |
+| M8 OS+网络 | [m8-os-network.md](../notes/m8-os-network.md) |
+| M9 系统设计 | [m9-system-design.md](../notes/m9-system-design.md) |
+| 算法题库 | [top-100-liked.md](../../leetcode_data/output/top-100-liked.md) / [jianzhi-offer.md](../../leetcode_data/output/jianzhi-offer.md) / [top-interview-150.md](../../leetcode_data/output/top-interview-150.md) |
+
+---
+
 ## 一、课时资源总库 — 按模块分类
 
 > 以下每个模块的「资源 ID」供后续课表引用，避免课表中重复写长链接。
@@ -34,6 +51,7 @@
 | M1-D1 | 《深入理解Java虚拟机》第3版 | 书籍 | [豆瓣](https://book.douban.com/subject/34907497/) 周志明著 | — | ⭐⭐⭐ 必买 |
 | M1-D2 | JavaGuide JVM 篇 | 文档 | [javaguide.cn/java/](https://javaguide.cn/java/) | — | ⭐⭐⭐ 每日翻 |
 | M1-D3 | 美团技术 JVM 调优实战 | 文档 | [tech.meituan.com](https://tech.meituan.com/) 搜索 JVM | — | ⭐⭐ 项目可引用 |
+| M1-D4 | **JVM 本地笔记** | 本地文档 | [m1-jvm.md](../notes/m1-jvm.md) | — | ⭐⭐⭐ 本地学习资料 |
 
 **M1 面试高频题清单**（每个都要能边说边画）：
 1. JVM 运行时数据区（画图：堆/栈/方法区/PC/本地方法栈）
@@ -59,6 +77,7 @@
 | M2-D1 | 《Java并发编程的艺术》 | 书籍 | [豆瓣](https://book.douban.com/subject/35530796/) 方腾飞 | ⭐⭐⭐ |
 | M2-D2 | JavaGuide 并发篇 | 文档 | [javaguide.cn/java/concurrent/](https://javaguide.cn/java/concurrent/) | ⭐⭐⭐ |
 | M2-D3 | 图解 volatile + synchronized 原理 | 博客 | [xiaolincoding.com](https://xiaolincoding.com/) 搜索 volatile | ⭐⭐ |
+| M2-D4 | **Java并发 本地笔记** | 本地文档 | [m2-concurrent.md](../notes/m2-concurrent.md) | ⭐⭐⭐ 本地学习资料 |
 
 **M2 面试高频题清单**：
 1. synchronized 底层原理（对象头 Mark Word → 锁升级过程）
@@ -85,6 +104,7 @@
 | M3-D1 | 《Spring 实战》第6版 | 书籍 | [豆瓣](https://book.douban.com/subject/35526435/) Craig Walls | ⭐⭐ |
 | M3-D2 | Spring 官方文档 Core 部分 | 文档 | [docs.spring.io](https://docs.spring.io/spring-framework/reference/core.html) | ⭐⭐ |
 | M3-D3 | Spring 循环依赖三级缓存解析 | 博客 | [Spring三级缓存解决循环依赖](https://www.bilibili.com/video/BV1HwkvYmEXv)（B站视频7min） | ⭐⭐⭐ |
+| M3-D4 | **Spring 本地笔记** | 本地文档 | [m3-spring.md](../notes/m3-spring.md) | ⭐⭐⭐ 本地学习资料 |
 
 **M3 面试高频题清单**：
 1. BeanFactory vs FactoryBean vs ApplicationContext
@@ -110,6 +130,7 @@
 | M4-D1 | 《高性能MySQL》第4版 | 书籍 | [豆瓣](https://book.douban.com/subject/35444945/) O'Reilly | ⭐⭐ |
 | M4-D2 | JavaGuide MySQL 篇 | 文档 | [javaguide.cn/database/mysql/](https://javaguide.cn/database/mysql/) | ⭐⭐⭐ |
 | M4-D3 | 小林 coding MySQL 基础 | 文档 | [xiaolincoding.com/mysql](https://xiaolincoding.com/mysql/) | ⭐⭐⭐ |
+| M4-D4 | **MySQL 本地笔记** | 本地文档 | [m4-mysql.md](../notes/m4-mysql.md) | ⭐⭐⭐ 本地学习资料 |
 
 **M4 面试高频题清单**：
 1. 索引结构（B+Tree vs B-Tree vs Hash）
@@ -135,6 +156,7 @@
 | M5-D1 | 《Redis深度历险》 | 书籍 | [豆瓣](https://book.douban.com/subject/30386804/) 钱文品 | ⭐⭐⭐ |
 | M5-D2 | 小林coding Redis 篇 | 文档 | [xiaolincoding.com/redis](https://xiaolincoding.com/redis/) | ⭐⭐⭐ |
 | M5-D3 | Redis 命令参考 | 文档 | [redis.com.cn/commands.html](https://redis.com.cn/commands.html) | ⭐⭐ |
+| M5-D4 | **Redis 本地笔记** | 本地文档 | [m5-redis.md](../notes/m5-redis.md) | ⭐⭐⭐ 本地学习资料 |
 
 **M5 面试高频题清单**：
 1. 5 大数据结构底层（SDS/ziplist/skiplist/quicklist）
@@ -160,6 +182,7 @@
 | M6-D1 | 极客时间《微服务架构核心20讲》 | 付费课程 | [极客时间](https://time.geekbang.org/course/intro/100069901) | ⭐⭐ |
 | M6-D2 | Spring Cloud 官方文档 | 文档 | [spring.io/projects/spring-cloud](https://spring.io/projects/spring-cloud) | ⭐⭐ |
 | M6-D3 | CAP/BASE 最简理解 | 文档 | [xiaolincoding.com](https://xiaolincoding.com/) 搜索 CAP | ⭐⭐⭐ |
+| M6-D4 | **微服务 本地笔记** | 本地文档 | [m6-microservices.md](../notes/m6-microservices.md) | ⭐⭐⭐ 本地学习资料 |
 
 **M6 面试高频题清单**：
 1. CAP 定理 + BASE（AP vs CP 权衡）
@@ -183,6 +206,7 @@
 | M7-V2 | 极客时间《消息队列高手课》 | 付费课程 | [极客时间李玥](https://time.geekbang.org/column/intro/100043701) | ⭐⭐⭐ |
 | M7-D1 | Kafka 官方文档 | 文档 | [kafka.apache.org/documentation](https://kafka.apache.org/documentation/) | ⭐⭐ |
 | M7-D2 | Kafka 面试突击笔记 | 文档 | [Kafka夺命连环5连问](https://www.bilibili.com/video/BV1VpWKedEG6)（B站92min） | ⭐⭐⭐ |
+| M7-D3 | **Kafka 本地笔记** | 本地文档 | [m7-kafka.md](../notes/m7-kafka.md) | ⭐⭐⭐ 本地学习资料 |
 
 **M7 面试高频题清单**：
 1. Kafka 架构（Broker/Topic/Partition/Consumer Group）
@@ -205,6 +229,7 @@
 | M8-V3 | 图解 TCP 连接 | B站视频 | [TCP三次握手与四次挥手](https://www.bilibili.com/video/BV1at4y1Q77b)（20万播放14min） | ⭐⭐ |
 | M8-D1 | 小林coding OS篇 | 文档 | [xiaolincoding.com/os](https://xiaolincoding.com/os/) | ⭐⭐⭐ |
 | M8-D2 | 小林coding 网络篇 | 文档 | [xiaolincoding.com/network](https://xiaolincoding.com/network/) | ⭐⭐⭐ |
+| M8-D3 | **OS+网络 本地笔记** | 本地文档 | [m8-os-network.md](../notes/m8-os-network.md) | ⭐⭐⭐ 本地学习资料 |
 
 **M8 面试高频题清单**：
 1. 进程 vs 线程 vs 协程
@@ -229,6 +254,7 @@
 | M9-V3 | System Design Interview（Alex Xu讲解） | B站视频 | [System design interview中文字幕](https://www.bilibili.com/video/BV15C411V7PT)（240min） | ⭐⭐ |
 | M9-D1 | 《数据密集型应用系统设计》DDIA | 书籍 | [豆瓣](https://book.douban.com/subject/35217781/) Kleppmann | ⭐⭐⭐ |
 | M9-D2 | 美团技术博客 | 文档 | [tech.meituan.com](https://tech.meituan.com/) | ⭐⭐ |
+| M9-D3 | **系统设计 本地笔记** | 本地文档 | [m9-system-design.md](../notes/m9-system-design.md) | ⭐⭐⭐ 本地学习资料 |
 
 **M9 面试高频题清单**：
 1. 秒杀系统（流量过滤/库存扣减/Redis预减）
@@ -277,10 +303,10 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | JVM 运行时数据区 | M1-V1(第2章), M1-D2 | 看视频到堆/栈/方法区讲解；手动画 JVM 内存结构图 |
-| 🕐 第2学时 | Spring IoC / DI | M3-V1(前6集) | 看 @Configuration/@Bean/@ComponentScan |
+| 🕐 第1学时 | JVM 运行时数据区 | M1-V1(第2章), M1-D2, [M1-D4 §1](../notes/m1-jvm.md#1-运行时数据区) | 看视频到堆/栈/方法区讲解；手动画 JVM 内存结构图 |
+| 🕐 第2学时 | Spring IoC / DI | M3-V1(前6集), [M3-D4 §1](../notes/m3-spring.md#1-ioc-容器) | 看 @Configuration/@Bean/@ComponentScan |
 | 🕐 第3学时 | 算法：数组类 5 题 | M10-D1(数组篇) | [1. 两数之和](../../leetcode_data/output/top-100-liked.md#two-sum)〔热题100 + 面试150〕 + [167. 两数之和 II - 输入有序数组](../../leetcode_data/output/top-interview-150.md#two-sum-ii-input-array-is-sorted) / [15. 三数之和](../../leetcode_data/output/top-100-liked.md#3sum)〔热题100 + 面试150〕 / [88. 合并两个有序数组](../../leetcode_data/output/top-interview-150.md#merge-sorted-array) / [238. 除了自身以外数组的乘积](../../leetcode_data/output/top-100-liked.md#product-of-array-except-self)〔热题100 + 面试150〕 |
-| 🕐 第4学时 | 八股整理：JVM基础 | M1-D2 | 读完 JavaGuide JVM 篇第一章；整理自己的 10问答案 |
+| 🕐 第4学时 | 八股整理：JVM基础 | M1-D2, [M1-D4](../notes/m1-jvm.md) | 读完 JavaGuide JVM 篇第一章；整理自己的 10问答案 |
 
 **Day 1 产出**：JVM 运行时数据区手绘图（能面试时复现）+ 10道 JVM 基础题答案写在笔记里
 
@@ -290,10 +316,10 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | JVM 类加载机制 | M1-V1(第5章), M1-D1(P199-235) | 双亲委派模型画图；3次破坏双亲委派分别是什么 |
-| 🕐 第2学时 | MySQL 索引结构 | M4-V2(前8集), M4-D3 | B+Tree 手画；聚簇索引 vs 二级索引的区别 |
+| 🕐 第1学时 | JVM 类加载机制 | M1-V1(第5章), M1-D1(P199-235), [M1-D4 §2](../notes/m1-jvm.md#2-类加载机制) | 双亲委派模型画图；3次破坏双亲委派分别是什么 |
+| 🕐 第2学时 | MySQL 索引结构 | M4-V2(前8集), M4-D3, [M4-D4 §2](../notes/m4-mysql.md#2-索引) | B+Tree 手画；聚簇索引 vs 二级索引的区别 |
 | 🕐 第3学时 | 算法：链表 5 题 | M10-D1(链表篇) | [206. 反转链表](../../leetcode_data/output/top-100-liked.md#reverse-linked-list) + [92. 反转链表 II](../../leetcode_data/output/top-interview-150.md#reverse-linked-list-ii) / [141. 环形链表](../../leetcode_data/output/top-100-liked.md#linked-list-cycle)〔热题100 + 面试150〕 / [21. 合并两个有序链表](../../leetcode_data/output/top-100-liked.md#merge-two-sorted-lists)〔热题100 + 面试150〕 / [19. 删除链表的倒数第 N 个结点](../../leetcode_data/output/top-100-liked.md#remove-nth-node-from-end-of-list)〔热题100 + 面试150〕 |
-| 🕐 第4学时 | 项目思考：Dropwizard→Spring | M3-D3 | 先列出你项目当前依赖的 Dropwizard 组件，查 Spring 等价替代 |
+| 🕐 第4学时 | 项目思考：Dropwizard→Spring | M3-D3, [M3-D4](../notes/m3-spring.md) | 先列出你项目当前依赖的 Dropwizard 组件，查 Spring 等价替代 |
 
 **Day 2 产出**：类加载流程图 + MySQL B+Tree 手画 + 5道链表写完
 
@@ -303,10 +329,10 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | GC 算法 + 收集器对比 | M1-V1(第6章), M1-D1(P61-96) |  CMS / G1 画阶段图；G1 的 Region → SATB 全搞懂  |
-| 🕐 第2学时 | synchronized 原理 | M2-V1(synchronized段), M2-D2 | 对象头 Mark Word 画图；锁升级过程（无锁→偏向→轻量→重量） |
+| 🕐 第1学时 | GC 算法 + 收集器对比 | M1-V1(第6章), M1-D1(P61-96), [M1-D4 §3](../notes/m1-jvm.md#3-垃圾回收) |  CMS / G1 画阶段图；G1 的 Region → SATB 全搞懂  |
+| 🕐 第2学时 | synchronized 原理 | M2-V1(synchronized段), M2-D2, [M2-D4 §1](../notes/m2-concurrent.md#1-synchronized) | 对象头 Mark Word 画图；锁升级过程（无锁→偏向→轻量→重量） |
 | 🕐 第3学时 | 算法：栈/队列 5 题 | M10-D1 | [20. 有效的括号](../../leetcode_data/output/top-100-liked.md#valid-parentheses)〔热题100 + 面试150〕 / [155. 最小栈](../../leetcode_data/output/top-100-liked.md#min-stack)〔热题100 + 面试150〕 / `用队列实现栈`（手写算法） / [739. 每日温度](../../leetcode_data/output/top-100-liked.md#daily-temperatures) / [239. 滑动窗口最大值](../../leetcode_data/output/top-100-liked.md#sliding-window-maximum) |
-| 🕐 第4学时 | 八股整理：MySQL 基础 | M4-D2 | JavaGuide MySQL 索引+事务读完；整理 10 问 |
+| 🕐 第4学时 | 八股整理：MySQL 基础 | M4-D2, [M4-D4](../notes/m4-mysql.md) | JavaGuide MySQL 索引+事务读完；整理 10 问 |
 
 **Day 3 产出**：CMS/G1 对比表格 + 锁升级图
 
@@ -316,10 +342,10 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | volatile + CAS + AQS 框架 | M2-V1(AQS段), M2-D2 | volatile 不能替代 synchronized 的原因；AQS 3要素（state+CLH+tryAcquire） |
-| 🕐 第2学时 | MySQL 事务 + MVCC | M4-V1(第2-8讲), M4-D3 | ACID；4种隔离级别；间隙锁/临键锁 |
+| 🕐 第1学时 | volatile + CAS + AQS 框架 | M2-V1(AQS段), M2-D2, [M2-D4 §2-3](../notes/m2-concurrent.md#2-volatile) | volatile 不能替代 synchronized 的原因；AQS 3要素（state+CLH+tryAcquire） |
+| 🕐 第2学时 | MySQL 事务 + MVCC | M4-V1(第2-8讲), M4-D3, [M4-D4 §3-4](../notes/m4-mysql.md#3-事务与隔离级别) | ACID；4种隔离级别；间隙锁/临键锁 |
 | 🕐 第3学时 | 算法：二叉树遍历 5 题 | M10-D1(二叉树篇) |  前 / 中 / 后序递归+迭代 / [102. 二叉树的层序遍历](../../leetcode_data/output/top-100-liked.md#binary-tree-level-order-traversal)〔热题100 + 面试150〕 / [104. 二叉树的最大深度](../../leetcode_data/output/top-100-liked.md#maximum-depth-of-binary-tree)〔热题100 + 面试150〕 |
-| 🕐 第4学时 | 项目思考：Spring + MyBatis 集成 | M3-D3 | 对比 Dropwizard 中 DB 访问方式和 MyBatis/Mapper 区别 |
+| 🕐 第4学时 | 项目思考：Spring + MyBatis 集成 | M3-D3, [M3-D4](../notes/m3-spring.md) | 对比 Dropwizard 中 DB 访问方式和 MyBatis/Mapper 区别 |
 | 🕐 晚 | 公司面经浏览 | 牛客每周2-3篇 | 搜 "Java 后端 面经 2026" 看2篇，记下常问题目 |
 
 **Day 4 产出**：AQS 框架手画（CLH队列+state）+ MVCC 原理图
@@ -330,8 +356,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | Spring AOP 源码 | M3-V3 | JDK Proxy vs CGLIB；@Aspect 执行顺序 |
-| 🕐 第2学时 | Spring 事务 + @Transactional | M3-V3(后半), M3-D2 | 事务失效 7 种场景逐一列出 |
+| 🕐 第1学时 | Spring AOP 源码 | M3-V3, [M3-D4 §3](../notes/m3-spring.md#3-aop) | JDK Proxy vs CGLIB；@Aspect 执行顺序 |
+| 🕐 第2学时 | Spring 事务 + @Transactional | M3-V3(后半), M3-D2, [M3-D4 §4](../notes/m3-spring.md#4-事务管理) | 事务失效 7 种场景逐一列出 |
 | 🕐 第3学时 | 算法：二叉树递归 5 题 | M10-D1(Hot100) | [236. 二叉树的最近公共祖先](../../leetcode_data/output/top-100-liked.md#lowest-common-ancestor-of-a-binary-tree)〔热题100 + 面试150〕 / [112. 路径总和](../../leetcode_data/output/top-interview-150.md#path-sum) / [114. 二叉树展开为链表](../../leetcode_data/output/top-100-liked.md#flatten-binary-tree-to-linked-list)〔热题100 + 面试150〕 / [101. 对称二叉树](../../leetcode_data/output/top-100-liked.md#symmetric-tree)〔热题100 + 面试150〕 / [98. 验证二叉搜索树](../../leetcode_data/output/top-100-liked.md#validate-binary-search-tree)〔热题100 + 面试150〕 |
 | 🕐 第4学时 | 周总结 + 刷题补漏 | — | 复习本周所有画图笔记；补写未完成的题 |
 
@@ -354,8 +380,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | JVM 调优参数 + OOM 排查 | M1-V1(调优段), M1-D3 | -Xms/-Xmx/-XX:MetaspaceSize 等必记参数；jstack/jmap/jstat 工具 |
-| 🕐 第2学时 | ThreadPoolExecutor 源码 | M2-V1(线程池段), M2-D2 | 7参数+工作流程+5种拒绝策略；CPU/IO密集型怎么设corePoolSize |
+| 🕐 第1学时 | JVM 调优参数 + OOM 排查 | M1-V1(调优段), M1-D3, [M1-D4 §4](../notes/m1-jvm.md#4-性能调优与故障排查) | -Xms/-Xmx/-XX:MetaspaceSize 等必记参数；jstack/jmap/jstat 工具 |
+| 🕐 第2学时 | ThreadPoolExecutor 源码 | M2-V1(线程池段), M2-D2, [M2-D4 §5](../notes/m2-concurrent.md#5-线程池) | 7参数+工作流程+5种拒绝策略；CPU/IO密集型怎么设corePoolSize |
 | 🕐 第3学时 | 算法：DFS/BFS 5 题 | M10-D1 | [200. 岛屿数量](../../leetcode_data/output/top-100-liked.md#number-of-islands)〔热题100 + 面试150〕 / `省份数量`（手写算法） / [199. 二叉树的右视图](../../leetcode_data/output/top-100-liked.md#binary-tree-right-side-view)〔热题100 + 面试150〕 / [130. 被围绕的区域](../../leetcode_data/output/top-interview-150.md#surrounded-regions) / [207. 课程表](../../leetcode_data/output/top-100-liked.md#course-schedule)〔热题100 + 面试150〕 |
 | 🕐 第4学时 | 博客输出：写 ThreadPoolExecutor | — | 用你自己的话写一篇博客（面试时能讲出来的长度） |
 
@@ -365,10 +391,10 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | OOM 案例 + MAT 工具实操 | M1-V1(OOM段) | 看3种典型OOM：堆/栈/元空间；MAT的Dominator Tree |
-| 🕐 第2学时 | ReentrantLock + Condition | M2-V1, M2-D1 | 公平锁实现原理；Condition.await/signal 源码 |
+| 🕐 第1学时 | OOM 案例 + MAT 工具实操 | M1-V1(OOM段), [M1-D4 §4](../notes/m1-jvm.md#4-性能调优与故障排查) | 看3种典型OOM：堆/栈/元空间；MAT的Dominator Tree |
+| 🕐 第2学时 | ReentrantLock + Condition | M2-V1, M2-D1, [M2-D4 §4](../notes/m2-concurrent.md#4-lock与aqs) | 公平锁实现原理；Condition.await/signal 源码 |
 | 🕐 第3学时 | 算法：回溯 5 题 | M10-D1(回溯篇) | [46. 全排列](../../leetcode_data/output/top-100-liked.md#permutations)〔热题100 + 面试150〕 / [77. 组合](../../leetcode_data/output/top-interview-150.md#combinations) / [78. 子集](../../leetcode_data/output/top-100-liked.md#subsets) / [39. 组合总和](../../leetcode_data/output/top-100-liked.md#combination-sum)〔热题100 + 面试150〕 / [131. 分割回文串](../../leetcode_data/output/top-100-liked.md#palindrome-partitioning) |
-| 🕐 第4学时 | 八股整理：并发串讲 | M2-D2 | 把本周并发学的内容串成15问答案 |
+| 🕐 第4学时 | 八股整理：并发串讲 | M2-D2, [M2-D4](../notes/m2-concurrent.md) | 把本周并发学的内容串成15问答案 |
 
 ---
 
@@ -376,8 +402,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | ConcurrentHashMap 源码 | M2-V3 | JDK7分段锁 vs JDK8 synchronized+CAS；size()方法原理 |
-| 🕐 第2学时 | MySQL 锁机制深度 | M4-V2(锁段), M4-D3 | 行锁/间隙锁/临键锁；写next-key lock加锁规则（主键/非主键索引区别） |
+| 🕐 第1学时 | ConcurrentHashMap 源码 | M2-V3, [M2-D4 §6](../notes/m2-concurrent.md#6-concurrenthashmap) | JDK7分段锁 vs JDK8 synchronized+CAS；size()方法原理 |
+| 🕐 第2学时 | MySQL 锁机制深度 | M4-V2(锁段), M4-D3, [M4-D4 §5](../notes/m4-mysql.md#5-锁机制) | 行锁/间隙锁/临键锁；写next-key lock加锁规则（主键/非主键索引区别） |
 | 🕐 第3学时 | 算法：二分查找 5 题 | M10-D1 | [33. 搜索旋转排序数组](../../leetcode_data/output/top-100-liked.md#search-in-rotated-sorted-array)〔热题100 + 面试150〕 / [162. 寻找峰值](../../leetcode_data/output/top-interview-150.md#find-peak-element) / [34. 在排序数组中查找元素的第一个和最后一个位置](../../leetcode_data/output/top-100-liked.md#find-first-and-last-position-of-element-in-sorted-array)〔热题100 + 面试150〕 / [69. x 的平方根 ](../../leetcode_data/output/top-interview-150.md#sqrtx) / [287. 寻找重复数](../../leetcode_data/output/top-100-liked.md#find-the-duplicate-number) |
 | 🕐 第4学时 | 项目包装：选一个高并发场景 | — | 回顾你项目中压力最大的接口，写下：问题现象→根因→解决方案→效果量化 |
 
@@ -387,8 +413,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | CompletableFuture + 并发工具 | M2-V1 | supplyAsync/thenCompose/allOf; CountDownLatch vs CyclicBarrier |
-| 🕐 第2学时 | MySQL explain + 慢查询优化 | M4-V3, M4-D2 | type/key/rows/Extra 字段含义逐个记；手写2个SQL优化案例 |
+| 🕐 第1学时 | CompletableFuture + 并发工具 | M2-V1, [M2-D4 §7](../notes/m2-concurrent.md#7-并发工具类) | supplyAsync/thenCompose/allOf; CountDownLatch vs CyclicBarrier |
+| 🕐 第2学时 | MySQL explain + 慢查询优化 | M4-V3, M4-D2, [M4-D4 §6](../notes/m4-mysql.md#6-性能优化) | type/key/rows/Extra 字段含义逐个记；手写2个SQL优化案例 |
 | 🕐 第3学时 | 算法：排序手写 3 题 | M10-D1 | `手写快排`（手写算法） / `归并排序`（手写算法） / 堆排序（每个都要能背出来）  |
 | 🕐 第4学时 | 系统设计：从单体→微服务拆分思路 | M6-D3 | 画你的项目如果拆成微服务，怎么拆（按业务域/按读写） |
 
@@ -411,8 +437,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | Redis 5大数据结构 | M5-V1(前10集), M5-D2 | String/List/Set/ZSet/Hash 底层编码（SDS/ziplist/skiplist） |
-| 🕐 第2学时 | Redis 持久化 | M5-V1(持久化段) | RDB 快照 vs AOF 追加；AOF rewrite；混合持久化 |
+| 🕐 第1学时 | Redis 5大数据结构 | M5-V1(前10集), M5-D2, [M5-D4 §1](../notes/m5-redis.md#1-数据结构) | String/List/Set/ZSet/Hash 底层编码（SDS/ziplist/skiplist） |
+| 🕐 第2学时 | Redis 持久化 | M5-V1(持久化段), [M5-D4 §2](../notes/m5-redis.md#2-持久化) | RDB 快照 vs AOF 追加；AOF rewrite；混合持久化 |
 | 🕐 第3学时 | 算法：DP 入门 5 题 | M10-D1(DP篇) | [LCR 126. 斐波那契数](../../leetcode_data/output/8LSpuXqD.md#fei-bo-na-qi-shu-lie-lcof) / [70. 爬楼梯](../../leetcode_data/output/top-100-liked.md#climbing-stairs)〔热题100 + 面试150〕 / [198. 打家劫舍](../../leetcode_data/output/top-100-liked.md#house-robber)〔热题100 + 面试150〕 / [53. 最大子数组和](../../leetcode_data/output/top-100-liked.md#maximum-subarray)〔热题100 + 面试150〕 / [62. 不同路径](../../leetcode_data/output/top-100-liked.md#unique-paths) |
 | 🕐 第4学时 | 实操：本地搭 Redis + 敲命令 | — | Docker 启动 Redis，5种数据结构各敲10个命令 |
 
@@ -422,8 +448,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | 缓存穿透/击穿/雪崩 | M5-V3, M5-D2 | 区别+方案：布隆过滤器/互斥锁/缓存预热 |
-| 🕐 第2学时 | 缓存一致性 | M5-V2(缓存段) | 先删缓存 vs 先更新DB；延迟双删 vs 订阅Binlog |
+| 🕐 第1学时 | 缓存穿透/击穿/雪崩 | M5-V3, M5-D2, [M5-D4 §3](../notes/m5-redis.md#3-缓存问题) | 区别+方案：布隆过滤器/互斥锁/缓存预热 |
+| 🕐 第2学时 | 缓存一致性 | M5-V2(缓存段), [M5-D4 §3](../notes/m5-redis.md#3-缓存问题) | 先删缓存 vs 先更新DB；延迟双删 vs 订阅Binlog |
 | 🕐 第3学时 | 算法：DP 背包 5 题 | M10-D1 | `0-1背包`（手写算法） / `完全背包`（手写算法） / 目标和 / [322. 零钱兑换](../../leetcode_data/output/top-100-liked.md#coin-change)〔热题100 + 面试150〕 / [139. 单词拆分](../../leetcode_data/output/top-100-liked.md#word-break)〔热题100 + 面试150〕 |
 | 🕐 第4学时 | 项目包装：Redis 引入方案 | — | 你项目中最适合加缓存的接口是哪个？伪代码写出来 |
 
@@ -433,10 +459,10 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | 主从 + 哨兵 | M5-V1(高可用段) | 主从同步原理（全量+增量）；哨兵选举 |
-| 🕐 第2学时 | 过期策略 + 内存淘汰 | M5-V2, M5-D2 | 定期+惰性；8种淘汰策略逐一说 |
+| 🕐 第1学时 | 主从 + 哨兵 | M5-V1(高可用段), [M5-D4 §4](../notes/m5-redis.md#4-高可用) | 主从同步原理（全量+增量）；哨兵选举 |
+| 🕐 第2学时 | 过期策略 + 内存淘汰 | M5-V2, M5-D2, [M5-D4 §5](../notes/m5-redis.md#5-过期策略与内存淘汰) | 定期+惰性；8种淘汰策略逐一说 |
 | 🕐 第3学时 | 算法：滑动窗口 3题 + 双指针 3题 | M10-D1 | [3. 无重复字符的最长子串](../../leetcode_data/output/top-100-liked.md#longest-substring-without-repeating-characters)〔热题100 + 面试150〕 / [76. 最小覆盖子串](../../leetcode_data/output/top-100-liked.md#minimum-window-substring)〔热题100 + 面试150〕 / [LCR 180. 文件组合](../../leetcode_data/output/8LSpuXqD.md#he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof) / [283. 移动零](../../leetcode_data/output/top-100-liked.md#move-zeroes) |
-| 🕐 第4学时 | 八股整理：Redis 高频 15 题 | M5-D2 | 写自己的 Redis 面试题答案 |
+| 🕐 第4学时 | 八股整理：Redis 高频 15 题 | M5-D2, [M5-D4](../notes/m5-redis.md) | 写自己的 Redis 面试题答案 |
 
 ---
 
@@ -444,8 +470,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | Kafka 基础架构 | M7-V1(前8集), M7-D2 | Broker/Topic/Partition/Consumer Group 画图 |
-| 🕐 第2学时 | Kafka 可靠性 | M7-V1(可靠性段), M7-D2 | ACK配置：0/1/-1；幂等+事务；消息丢失三种情况 |
+| 🕐 第1学时 | Kafka 基础架构 | M7-V1(前8集), M7-D2, [M7-D3 §1](../notes/m7-kafka.md#1-核心架构) | Broker/Topic/Partition/Consumer Group 画图 |
+| 🕐 第2学时 | Kafka 可靠性 | M7-V1(可靠性段), M7-D2, [M7-D3 §2](../notes/m7-kafka.md#2-消息可靠性) | ACK配置：0/1/-1；幂等+事务；消息丢失三种情况 |
 | 🕐 第3学时 | 算法：字符串 5 题 | M10-D1 | [5. 最长回文子串](../../leetcode_data/output/top-100-liked.md#longest-palindromic-substring)〔热题100 + 面试150〕 / 字符串相加 / 大数相乘 / 反转字符串 / [14. 最长公共前缀](../../leetcode_data/output/top-interview-150.md#longest-common-prefix) |
 | 🕐 第4学时 | Kafka 实操 | — | 本地启动 Kafka；java代码写 Producer + Consumer |
 
@@ -455,8 +481,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | Kafka 消费模型 | M7-V1(消费段), M7-D1 | Rebalance 触发条件/避免方案；Offset 提交方式 |
-| 🕐 第2学时 | Kafka vs RocketMQ vs RabbitMQ | M7-V2 | 画对比表格：语言/模式/事务/顺序消息/延迟消息 |
+| 🕐 第1学时 | Kafka 消费模型 | M7-V1(消费段), M7-D1, [M7-D3 §3](../notes/m7-kafka.md#3-消费模型) | Rebalance 触发条件/避免方案；Offset 提交方式 |
+| 🕐 第2学时 | Kafka vs RocketMQ vs RabbitMQ | M7-V2, [M7-D3](../notes/m7-kafka.md) | 画对比表格：语言/模式/事务/顺序消息/延迟消息 |
 | 🕐 第3学时 | 算法：周综合刷题 | — |  本周所有 DP 题再过一遍，看能不能20分钟内AC  |
 | 🕐 第4学时 | 周总结 | — | Redis 脑图 + Kafka 脑图画完 |
 
@@ -468,8 +494,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | 什么是微服务？RPC vs HTTP | M6-V1(前5集), M6-D3 | 单体→微服务 演进画图；RPC框架和HTTP API区别 |
-| 🕐 第2学时 | Nacos 注册中心 + 配置中心 | M6-V1(Nacos段) | CAP切换（CP/AP）；服务发现流程；配置动态刷新 |
+| 🕐 第1学时 | 什么是微服务？RPC vs HTTP | M6-V1(前5集), M6-D3, [M6-D4 §1](../notes/m6-microservices.md#1-微服务基础) | 单体→微服务 演进画图；RPC框架和HTTP API区别 |
+| 🕐 第2学时 | Nacos 注册中心 + 配置中心 | M6-V1(Nacos段), [M6-D4 §2](../notes/m6-microservices.md#2-注册中心与配置中心) | CAP切换（CP/AP）；服务发现流程；配置动态刷新 |
 | 🕐 第3学时 | 算法：DP 进阶 5 题 | M10-D1 | [300. 最长递增子序列](../../leetcode_data/output/top-100-liked.md#longest-increasing-subsequence)〔热题100 + 面试150〕 / [1143. 最长公共子序列](../../leetcode_data/output/top-100-liked.md#longest-common-subsequence) / [72. 编辑距离](../../leetcode_data/output/top-100-liked.md#edit-distance)〔热题100 + 面试150〕 / [32. 最长有效括号](../../leetcode_data/output/top-100-liked.md#longest-valid-parentheses) / [10. 正则表达式匹配](../../leetcode_data/output/8LSpuXqD.md#regular-expression-matching) |
 | 🕐 第4学时 | 实操：搭 Nacos + 注册服务 | — | 本地启动 Nacos；写Spring Boot服务注册进去 |
 
@@ -479,10 +505,10 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | OpenFeign + 负载均衡 | M6-V1(Feign+Ribbon段) | @FeignClient；负载均衡策略；超时/重试配置 |
-| 🕐 第2学时 | Gateway | M6-V1(Gateway段) | 路由/断言/过滤器；网关和Nginx的定位区别 |
+| 🕐 第1学时 | OpenFeign + 负载均衡 | M6-V1(Feign+Ribbon段), [M6-D4 §3](../notes/m6-microservices.md#3-服务调用与网关) | @FeignClient；负载均衡策略；超时/重试配置 |
+| 🕐 第2学时 | Gateway | M6-V1(Gateway段), [M6-D4 §3](../notes/m6-microservices.md#3-服务调用与网关) | 路由/断言/过滤器；网关和Nginx的定位区别 |
 | 🕐 第3学时 | 算法：堆/优先队列 3题 + 并查集 2题 | M10-D1 | [215. 数组中的第K个最大元素](../../leetcode_data/output/top-100-liked.md#kth-largest-element-in-an-array)〔热题100 + 面试150〕 / [347. 前 K 个高频元素](../../leetcode_data/output/top-100-liked.md#top-k-frequent-elements) / [295. 数据流的中位数](../../leetcode_data/output/top-100-liked.md#find-median-from-data-stream)〔热题100 + 面试150〕 / `并查集模板`（手写算法） |
-| 🕐 第4学时 | 面试题：微服务 15问答案 | M6-D2 | 整理所有今天学的微服务概念，确保能说出来 |
+| 🕐 第4学时 | 面试题：微服务 15问答案 | M6-D2, [M6-D4](../notes/m6-microservices.md) | 整理所有今天学的微服务概念，确保能说出来 |
 
 ---
 
@@ -490,8 +516,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | Dubbo 核心原理 | M6-V2 | SPI机制；服务暴露(Export)→注册(Register)→订阅(Subscribe)→调用(Invoke) |
-| 🕐 第2学时 | CAP + BASE | M6-D3 | 用你nacos的理解讲CAP；BASE理论 |
+| 🕐 第1学时 | Dubbo 核心原理 | M6-V2, [M6-D4 §4](../notes/m6-microservices.md#4-rpc框架dubbo) | SPI机制；服务暴露(Export)→注册(Register)→订阅(Subscribe)→调用(Invoke) |
+| 🕐 第2学时 | CAP + BASE | M6-D3, [M6-D4 §1](../notes/m6-microservices.md#1-微服务基础) | 用你nacos的理解讲CAP；BASE理论 |
 | 🕐 第3学时 | 算法：图 2题 + 拓扑排序 1题 | M10-D1 | [207. 课程表](../../leetcode_data/output/top-100-liked.md#course-schedule)〔热题100 + 面试150〕 / 岛屿数量（分支限界） / [133. 克隆图](../../leetcode_data/output/top-interview-150.md#clone-graph) |
 | 🕐 第4学时 | 项目思考：微服务拆分假想 | — | 把你的项目画出5-6个微服务模块，标注调用关系 |
 
@@ -501,8 +527,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | Sentinel 限流/熔断 | M6-V1(Sentinel段) | 限流模式（QPS/线程数）+ 降级策略；和Hystrix区别 |
-| 🕐 第2学时 | 分布式事务 Seata | M6-V3 | AT / TCC / Saga 三种模式画图；XA vs TCC |
+| 🕐 第1学时 | Sentinel 限流/熔断 | M6-V1(Sentinel段), [M6-D4 §5](../notes/m6-microservices.md#5-限流熔断与降级) | 限流模式（QPS/线程数）+ 降级策略；和Hystrix区别 |
+| 🕐 第2学时 | 分布式事务 Seata | M6-V3, [M6-D4 §6](../notes/m6-microservices.md#6-分布式事务) | AT / TCC / Saga 三种模式画图；XA vs TCC |
 | 🕐 第3学时 | 算法：[剑指Offer 精选 10 题](../../leetcode_data/output/jianzhi-offer.md) | M10-D3 |  从剑指 Offer 中挑10道没做过的  |
 | 🕐 第4学时 | 系统设计：设计一个 RPC 框架 | M9-D1 P30-60 | 从客户端→动态代理→网络传输→服务端→反射执行，画完整流程 |
 
@@ -512,8 +538,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | 分布式锁（Redis / ZK） | M5-V2, M6-D1 | SETNX+Redisson；ZK 临时顺序节点；对比 |
-| 🕐 第2学时 | 分布式 ID | M6-D1 |  雪花算法（64位构成）；时钟回拨处理  |
+| 🕐 第1学时 | 分布式锁（Redis / ZK） | M5-V2, M6-D1, [M6-D4 §7](../notes/m6-microservices.md#7-分布式锁与分布式id) | SETNX+Redisson；ZK 临时顺序节点；对比 |
+| 🕐 第2学时 | 分布式 ID | M6-D1, [M6-D4 §7](../notes/m6-microservices.md#7-分布式锁与分布式id) |  雪花算法（64位构成）；时钟回拨处理  |
 | 🕐 第3学时 | 算法：本周算法补漏 | — |  把周一到周四没AC的题捡回来  |
 | 🕐 第4学时 | 周总结 | — | 微服务+分布式脑图画完 |
 
@@ -525,10 +551,10 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | 进程 vs 线程 + 调度 | M8-V1(进程段), M8-D1 |  PCB；调度算法；上下文切换代价  |
-| 🕐 第2学时 | TCP 三次握手/四次挥手 | M8-V2(TCP段), M8-D2 | 画TCP状态转移图；seq/ack数值变化 |
+| 🕐 第1学时 | 进程 vs 线程 + 调度 | M8-V1(进程段), M8-D1, [M8-D3 §1](../notes/m8-os-network.md#1-进程与线程) |  PCB；调度算法；上下文切换代价  |
+| 🕐 第2学时 | TCP 三次握手/四次挥手 | M8-V2(TCP段), M8-D2, [M8-D3 §4](../notes/m8-os-network.md#4-tcpip) | 画TCP状态转移图；seq/ack数值变化 |
 | 🕐 第3学时 | 算法：[热题100 前20题](../../leetcode_data/output/top-100-liked.md) | M10-D2 |  限时刷，每道10-15分钟  |
-| 🕐 第4学时 | 八股整理：OS 高频 10 题 | M8-D1 | 整理自己的答案 |
+| 🕐 第4学时 | 八股整理：OS 高频 10 题 | M8-D1, [M8-D3](../notes/m8-os-network.md) | 整理自己的答案 |
 
 ---
 
@@ -536,10 +562,10 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | 内存管理 | M8-V1(内存段), M8-D1 | 虚拟内存；分页vs分段 vs 段页式；缺页中断；LRU |
-| 🕐 第2学时 | HTTP 进化史 | M8-V2(HTTP段) | 1.0/1.1/2.0/3.0；HTTPS TLS握手流程画图 |
+| 🕐 第1学时 | 内存管理 | M8-V1(内存段), M8-D1, [M8-D3 §2](../notes/m8-os-network.md#2-内存管理) | 虚拟内存；分页vs分段 vs 段页式；缺页中断；LRU |
+| 🕐 第2学时 | HTTP 进化史 | M8-V2(HTTP段), [M8-D3 §5](../notes/m8-os-network.md#5-http与应用层) | 1.0/1.1/2.0/3.0；HTTPS TLS握手流程画图 |
 | 🕐 第3学时 | 算法：[热题100 21-40题](../../leetcode_data/output/top-100-liked.md) | M10-D2 |  同上限时刷  |
-| 🕐 第4学时 | 八股整理：网络高频 10 题 | M8-D2 | 整理自己的答案 |
+| 🕐 第4学时 | 八股整理：网络高频 10 题 | M8-D2, [M8-D3](../notes/m8-os-network.md) | 整理自己的答案 |
 
 ---
 
@@ -547,10 +573,10 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | 死锁 | M8-V1(死锁段), M8-D1 |  4个必要条件；死锁预防vs避免vs检测vs解除；银行家算法  |
-| 🕐 第2学时 | DNS + CDN + 负载均衡 | M8-V2(应用层段) | DNS 递归/迭代查询；CDN边缘节点；L4 vs L7负载均衡 |
+| 🕐 第1学时 | 死锁 | M8-V1(死锁段), M8-D1, [M8-D3 §3](../notes/m8-os-network.md#3-死锁) |  4个必要条件；死锁预防vs避免vs检测vs解除；银行家算法  |
+| 🕐 第2学时 | DNS + CDN + 负载均衡 | M8-V2(应用层段), [M8-D3 §5](../notes/m8-os-network.md#5-http与应用层) | DNS 递归/迭代查询；CDN边缘节点；L4 vs L7负载均衡 |
 | 🕐 第3学时 | 算法：[热题100 41-60题](../../leetcode_data/output/top-100-liked.md) | M10-D2 |  同上  |
-| 🕐 第4学时 | 系统设计：短 URL 系统 | M9-V2(短链段), M9-D2 | 发号器（雪花变种）→ 哈希冲突（base62）→ 302重定向；画架构图 |
+| 🕐 第4学时 | 系统设计：短 URL 系统 | M9-V2(短链段), M9-D2, [M9-D3 §2](../notes/m9-system-design.md#2-短url系统设计) | 发号器（雪花变种）→ 哈希冲突（base62）→ 302重定向；画架构图 |
 
 ---
 
@@ -558,8 +584,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | Linux 常用命令 | M8-D1 | top/ps/vmstat/netstat/strace/lsof/free；每10秒一个场景怎么查 |
-| 🕐 第2学时 | 从输入URL到页面展示全过程 | M8-V2 | DNS→TCP→TLS→HTTP→CDN→反向代理→应用→DB，完整链路 |
+| 🕐 第1学时 | Linux 常用命令 | M8-D1, [M8-D3 §6](../notes/m8-os-network.md#6-linux常用命令) | top/ps/vmstat/netstat/strace/lsof/free；每10秒一个场景怎么查 |
+| 🕐 第2学时 | 从输入URL到页面展示全过程 | M8-V2, [M8-D3 §5](../notes/m8-os-network.md#5-http与应用层) | DNS→TCP→TLS→HTTP→CDN→反向代理→应用→DB，完整链路 |
 | 🕐 第3学时 | 算法：[热题100 61-80题](../../leetcode_data/output/top-100-liked.md) | M10-D2 |  同上  |
 | 🕐 第4学时 | 面经对答案 | 牛客 | 搜2篇本周投递目标公司的面经，把不会的题记下来 |
 
@@ -569,8 +595,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | 秒杀系统设计 | M9-V1 | 流量过滤（前端限流+令牌桶）+ 库存 Redis预减 + MQ异步落单 |
-| 🕐 第2学时 | 秒杀细节追问 | M9-V1 | 超卖怎么解决？一人一单？热点 key？ |
+| 🕐 第1学时 | 秒杀系统设计 | M9-V1, [M9-D3 §1](../notes/m9-system-design.md#1-秒杀系统设计) | 流量过滤（前端限流+令牌桶）+ 库存 Redis预减 + MQ异步落单 |
+| 🕐 第2学时 | 秒杀细节追问 | M9-V1, [M9-D3 §1](../notes/m9-system-design.md#1-秒杀系统设计) | 超卖怎么解决？一人一单？热点 key？ |
 | 🕐 第3学时 | 算法：[热题100 81-100题](../../leetcode_data/output/top-100-liked.md) | M10-D2 |  完成 [热题100 第一轮](../../leetcode_data/output/top-100-liked.md)  |
 | 🕐 第4学时 | 周总结 | — | OS+网络脑图画完；系统设计笔记整理 |
 
@@ -582,8 +608,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | 设计微博/Twitter Feed流 | M9-V2(Feed段) | 推模式（Fanout写）vs 拉模式（Fanout读）vs 推拉结合 |
-| 🕐 第2学时 | 设计 IM 即时消息 | M9-V2(IM段) | 长连接WebSocket；消息存储（顺序写+分库）；离线消息 |
+| 🕐 第1学时 | 设计微博/Twitter Feed流 | M9-V2(Feed段), [M9-D3 §3](../notes/m9-system-design.md#3-feed流设计) | 推模式（Fanout写）vs 拉模式（Fanout读）vs 推拉结合 |
+| 🕐 第2学时 | 设计 IM 即时消息 | M9-V2(IM段), [M9-D3 §4](../notes/m9-system-design.md#4-im即时消息设计) | 长连接WebSocket；消息存储（顺序写+分库）；离线消息 |
 | 🕐 第3学时 | 算法：限时训练 40分钟 4题 | — |  找4道 Hot 100 里最难的，40分钟计时  |
 | 🕐 第4学时 | 面经对答案 | 牛客 | 找目标公司面经，重点看系统设计题 |
 
@@ -593,8 +619,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | 设计配置中心 | M9-V2 | Nacos/Apollo对比；长轮询 vs WebSocket；配置回滚 |
-| 🕐 第2学时 | 附近的人 / 打车系统 | M9-V2 |  GeoHash + 网格方案；派单算法  |
+| 🕐 第1学时 | 设计配置中心 | M9-V2, [M9-D3 §5](../notes/m9-system-design.md#5-配置中心设计) | Nacos/Apollo对比；长轮询 vs WebSocket；配置回滚 |
+| 🕐 第2学时 | 附近的人 / 打车系统 | M9-V2, [M9-D3 §6](../notes/m9-system-design.md#6-lbs附近的人设计) |  GeoHash + 网格方案；派单算法  |
 | 🕐 第3学时 | 算法：限时训练 | — |  40分钟 4题（不同tag）  |
 | 🕐 第4学时 | 项目包装强化 | — | 项目难点再改一遍，用 STAR 法则 + 量化指标 |
 
@@ -604,8 +630,8 @@
 
 | 学时 | 内容 | 资源引用 | 具体任务 |
 |---|---|---|---|
-| 🕐 第1学时 | 设计监控系统（Metrics/Trace/Logging） | M9-V2(监控段) | Prometheus + Grafana；Jaeger链路追踪 |
-| 🕐 第2学时 | 设计电商订单系统（含状态机） | M9-D1(DDIA Ch8) | 订单状态图；幂等；资损防控 |
+| 🕐 第1学时 | 设计监控系统（Metrics/Trace/Logging） | M9-V2(监控段), [M9-D3 §7](../notes/m9-system-design.md#7-监控系统设计) | Prometheus + Grafana；Jaeger链路追踪 |
+| 🕐 第2学时 | 设计电商订单系统（含状态机） | M9-D1(DDIA Ch8), [M9-D3 §8](../notes/m9-system-design.md#8-订单系统设计) | 订单状态图；幂等；资损防控 |
 | 🕐 第3学时 | 算法：综合复习 | — |  把之前不会的题再过一遍  |
 | 🕐 第4学时 | 补弱：Week 1-5最弱模块 | — | 回去翻你的笔记，找出最说不通的那个模块，重新看视频 |
 

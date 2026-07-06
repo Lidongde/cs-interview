@@ -1,0 +1,55 @@
+[
+  {
+    "url": "https://gw-c.nowcoder.com/api/live/list/top?token=&_=1783336193085",
+    "method": "GET",
+    "body": "",
+    "status": 200,
+    "mime": "application/json",
+    "response": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/hot-search/hot-content?_=1783336193322",
+    "method": "GET",
+    "body": "",
+    "status": 200,
+    "mime": "application/json",
+    "response": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/replenish-ad/search-pop-ad?_=1783336193322",
+    "method": "GET",
+    "body": "",
+    "status": 200,
+    "mime": "application/json",
+    "response": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/question-tab/query-user-tab-list?_=1783336193323",
+    "method": "GET",
+    "body": "",
+    "status": 200,
+    "mime": "application/json",
+    "response": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/hot-search/hot-content?_=1783336193322",
+    "method": "OPTIONS",
+    "body": "",
+    "status": 200,
+    "mime": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/replenish-ad/search-pop-ad?_=1783336193322",
+    "method": "OPTIONS",
+    "body": "",
+    "status": 200,
+    "mime": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/question-tab/query-user-tab-list?_=1783336193323",
+    "method": "OPTIONS",
+    "body": "",
+    "status": 200,
+    "mime": ""
+  }
+]

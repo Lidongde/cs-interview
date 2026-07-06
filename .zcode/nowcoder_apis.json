@@ -1,0 +1,72 @@
+[
+  {
+    "url": "https://www.nowcoder.com/api/questiontraining/intelligent/getKnowledgeRank?type=1&jobId=10&_=1783333618618",
+    "method": "GET",
+    "body": ""
+  },
+  {
+    "url": "https://www.nowcoder.com/api/questiontraining/intelligent/getUserRank?type=1&jobId=10&_=1783333618619",
+    "method": "GET",
+    "body": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/hot-search/hot-content?_=1783333618632",
+    "method": "GET",
+    "body": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/replenish-ad/search-pop-ad?_=1783333618632",
+    "method": "GET",
+    "body": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/question-tab/query-user-tab-list?_=1783333618633",
+    "method": "GET",
+    "body": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/question-tab/query-all-tab-list?_=1783333618642",
+    "method": "GET",
+    "body": ""
+  },
+  {
+    "url": "https://www.nowcoder.com/api/questiontraining/intelligent/practiceHistory?subTabName=intelligent_page&questionJobId=10&_=1783333618667",
+    "method": "GET",
+    "body": ""
+  },
+  {
+    "url": "https://www.nowcoder.com/api/questiontraining/intelligent/userSkillGraphs?_=1783333618667",
+    "method": "GET",
+    "body": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/private/growth/activity/hook?pageName=question&_=1783333618669",
+    "method": "GET",
+    "body": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/hot-search/hot-content?_=1783333618632",
+    "method": "OPTIONS",
+    "body": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/replenish-ad/search-pop-ad?_=1783333618632",
+    "method": "OPTIONS",
+    "body": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/question-tab/query-user-tab-list?_=1783333618633",
+    "method": "OPTIONS",
+    "body": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/question-tab/query-all-tab-list?_=1783333618642",
+    "method": "OPTIONS",
+    "body": ""
+  },
+  {
+    "url": "https://gw-c.nowcoder.com/api/sparta/private/growth/activity/hook?pageName=question&_=1783333618669",
+    "method": "OPTIONS",
+    "body": ""
+  }
+]
