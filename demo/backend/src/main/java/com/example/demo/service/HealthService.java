@@ -76,6 +76,10 @@ public class HealthService {
             // 同步 send.get() 等待 broker 确认，验证 broker 可达
             kafkaTemplate.send(HEALTH_TOPIC, "health-check-" + Instant.now().toEpochMilli()).get(5, TimeUnit.SECONDS);
             return "UP";
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.warn("Kafka health check interrupted", e);
+            return "DOWN";
         } catch (Exception e) {
             log.warn("Kafka health check failed", e);
             return "DOWN";
