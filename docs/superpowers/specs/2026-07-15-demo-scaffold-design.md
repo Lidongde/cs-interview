@@ -40,11 +40,11 @@
 | `redis` | redis:7-alpine | 缓存 | 6379 |
 | `zookeeper` | confluentinc/cp-zookeeper | Kafka 协调 | 2181 |
 | `kafka` | confluentinc/cp-kafka | 消息队列 | 9092 |
-| `backend` | eclipse-temurin:17-jre（运行） + maven:3.9（构建） | Spring Boot API | 8080 |
+| `backend` | eclipse-temurin:21-jre（运行） + maven:3.9（构建） | Spring Boot API | 8080 |
 | `frontend` | nginx:alpine（运行） + node:20-alpine（构建） | React 静态站点 | 80 |
 
 ### 3.2 构建流（Dockerfile 多阶段）
-- **backend**: `maven:3.9-eclipse-temurin-17` 阶段跑 `mvn package` -> `eclipse-temurin:17-jre` 阶段只 COPY jar 运行
+- **backend**: `maven:3.9-eclipse-temurin-21` 阶段跑 `mvn package` -> `eclipse-temurin:21-jre` 阶段只 COPY jar 运行
 - **frontend**: `node:20-alpine` 阶段跑 `npm ci && npm run build` -> `nginx:alpine` 阶段只 COPY dist 托管
 - 依赖层缓存（`go-offline` / `npm ci` 单独成层），改代码时不会重下依赖
 - 服务器只需装 Docker，不需 Maven/Node/JDK
@@ -72,7 +72,7 @@ demo/
 ├── backend/
 │   ├── pom.xml                # web + data-jpa + data-redis + spring-kafka
 │   ├── mvnw / mvnw.cmd
-│   ├── Dockerfile             # 多阶段：maven 构建 -> jre 运行
+├── Dockerfile             # 多阶段：maven 构建 -> jre 运行
 │   └── src/main/
 │       ├── java/com/example/demo/
 │       │   ├── DemoApplication.java
@@ -96,7 +96,7 @@ demo/
 ## 5. 后端设计 (Spring Boot)
 
 ### 5.1 技术栈
-- Java 17 + Spring Boot 3.3.x
+- Java 21 + Spring Boot 3.3.x
 - `spring-boot-starter-web`
 - `spring-boot-starter-data-jpa`
 - `spring-boot-starter-data-redis`
