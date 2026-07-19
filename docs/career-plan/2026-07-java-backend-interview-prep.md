@@ -104,9 +104,10 @@
 | M3-D1 | 《Spring 实战》第6版 | 书籍 | [豆瓣](https://book.douban.com/subject/35526435/) Craig Walls | ⭐⭐ |
 | M3-D2 | Spring 官方文档 Core 部分 | 文档 | [docs.spring.io](https://docs.spring.io/spring-framework/reference/core.html) | ⭐⭐ |
 | M3-D3 | Spring 循环依赖三级缓存解析 | 博客 | [Spring三级缓存解决循环依赖](https://www.bilibili.com/video/BV1HwkvYmEXv)（B站视频7min） | ⭐⭐⭐ |
-| M3-D4 | **Spring 本地笔记** | 本地文档 | [m3-spring.md](../notes/m3-spring.md) | ⭐⭐⭐ 本地学习资料 |
+| M3-D4 | **Spring 本地笔记** | 本地文档 | [m3-spring.md](../notes/m3-spring.md) [spring-doc-zh](https://spring-doc.muziseo.cn/spring-framework/core/beans/factory-scopes.html#%E5%8E%9F%E5%9E%8B%E4%BD%9C%E7%94%A8%E5%9F%9F-prototype-scope) | ⭐⭐⭐ 本地学习资料 |
 
 **M3 面试高频题清单**：
+
 1. BeanFactory vs FactoryBean vs ApplicationContext
 2. Bean 生命周期完整过程（7步配图）
 3. Spring 循环依赖如何解决（三级缓存 + 提前 AOP）
