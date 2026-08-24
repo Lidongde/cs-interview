@@ -13,6 +13,7 @@ struct Index {
   @State quotes: StockQuote[] = [];
   @State loading: boolean = false;
   @State error: string = '';
+  @State hasWatchlist: boolean = false;
   private repo: StockRepository = StockRepository.getInstance();
   private timerId: number = -1;
 
@@ -21,6 +22,7 @@ struct Index {
       this.quotes = this.repo.getQuotes();
       this.loading = this.repo.isLoading();
       this.error = this.repo.getLastError();
+      this.hasWatchlist = this.repo.getCodes().length > 0;
     });
     const ctx = getContext(this) as common.UIAbilityContext;
     this.repo.init(ctx);
@@ -67,16 +69,33 @@ struct Index {
         .layoutWeight(1)
         .justifyContent(FlexAlign.Center)
       } else if (this.quotes.length === 0) {
-        Column() {
-          Text('暂无自选股').fontSize(15).fontColor(Colors.TEXT_MAIN)
-          Text('点击"编辑"添加').fontSize(12).fontColor(Colors.TEXT_SUB)
-          if (this.error.length > 0) {
-            Text(this.error).fontSize(11).fontColor(Colors.TEXT_SUB)
+        if (this.hasWatchlist) {
+          Column() {
+            Text(this.error.length > 0 ? this.error : '暂无行情数据')
+              .fontSize(13)
+              .fontColor(Colors.TEXT_SUB)
+            Text('点击重试')
+              .fontSize(12)
+              .fontColor(Colors.TEXT_MAIN)
+              .onClick(() => {
+                this.repo.refresh();
+              })
           }
+          .width('100%')
+          .layoutWeight(1)
+          .justifyContent(FlexAlign.Center)
+        } else {
+          Column() {
+            Text('暂无自选股').fontSize(15).fontColor(Colors.TEXT_MAIN)
+            Text('点击"编辑"添加').fontSize(12).fontColor(Colors.TEXT_SUB)
+            if (this.error.length > 0) {
+              Text(this.error).fontSize(11).fontColor(Colors.TEXT_SUB)
+            }
+          }
+          .width('100%')
+          .layoutWeight(1)
+          .justifyContent(FlexAlign.Center)
         }
-        .width('100%')
-        .layoutWeight(1)
-        .justifyContent(FlexAlign.Center)
       } else {
         List({ space: 4 }) {
           ForEach(this.quotes, (q: StockQuote) => {

@@ -30,7 +30,7 @@ struct Edit {
       return;
     }
     const ok: boolean = await this.repo.add(code);
-    this.tip = ok ? `已添加 ${code.toUpperCase()}` : '已在自选中或无效';
+    this.tip = ok ? `已添加 ${code.toUpperCase()}` : '添加失败（已存在或保存失败）';
     this.input = '';
   }
 

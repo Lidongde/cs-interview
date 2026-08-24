@@ -90,23 +90,35 @@ export class StockRepository {
     if (this.codes.includes(normalized)) {
       return false;
     }
-    this.codes.push(normalized);
-    await this.persist();
+    this.codes = [...this.codes, normalized];
+    const persisted: boolean = await this.persist();
+    if (!persisted) {
+      this.codes = this.codes.filter((c: string) => c !== normalized);
+      return false;
+    }
     await this.refresh();
     return true;
   }
 
   async remove(code: string): Promise<void> {
-    this.codes = this.codes.filter((c: string) => c !== code);
-    this.quotes = this.quotes.filter((q: StockQuote) => q.code !== code);
+    const normalized: string = normalizeCode(code);
+    this.codes = this.codes.filter((c: string) => c !== normalized);
+    this.quotes = this.quotes.filter((q: StockQuote) => q.code !== normalized);
     await this.persist();
     this.notify();
   }
 
-  private async persist(): Promise<void> {
-    if (this.store !== undefined) {
+  private async persist(): Promise<boolean> {
+    if (this.store === undefined) {
+      return false;
+    }
+    try {
       await this.store.put(KEY_WATCHLIST, JSON.stringify(this.codes));
       await this.store.flush();
+      return true;
+    } catch (e) {
+      this.lastError = '本地保存失败';
+      return false;
     }
   }
 

@@ -43,3 +43,11 @@ test('parse multiple lines', () => {
 test('empty input returns empty array', () => {
   assert.equal(parseTencentQuote('').length, 0);
 });
+
+test('suspended stock with "-" values yields price 0 not NaN', () => {
+  const text = makeTencentLine('600519', '贵州茅台', '-', '-', '-', '-', '-', '-', '-');
+  const q = parseTencentQuote(text)[0];
+  assert.equal(Number.isFinite(q.price), true);
+  assert.equal(q.price, 0);
+  assert.equal(q.prevClose, 0);
+});
