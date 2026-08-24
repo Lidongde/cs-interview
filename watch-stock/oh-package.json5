@@ -1,0 +1,12 @@
+{
+  "modelVersion": "5.0.0",
+  "name": "watch_stock",
+  "version": "1.0.0",
+  "description": "huawei watch A-share stock quote app",
+  "dependencies": {},
+  "devDependencies": {
+    "@ohos/hvigor-ohos-plugin": "5.0.2",
+    "@ohos/hypium": "1.0.19",
+    "@ohos/hamock": "1.0.0"
+  }
+}

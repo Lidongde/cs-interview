@@ -1,0 +1,7 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "watch stock module" },
+    { "name": "EntryAbility_desc", "value": "A-share watchlist realtime quote" },
+    { "name": "EntryAbility_label", "value": "股票行情" }
+  ]
+}
