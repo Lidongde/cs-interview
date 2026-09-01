@@ -34,7 +34,7 @@ function main() {
     console.log("配置校验失败: " + problems.join("; "));
     return;
   }
-  if (!state.acquire()) {
+  if (!state.acquire(cfg.capture.dir)) {
     console.log("已有任务运行，跳过本次");
     return;
   }
@@ -67,7 +67,7 @@ function main() {
       pruneScreenshots(cfg);
     } catch (e) {}
     try { logger.write(cfg, result); } catch (e) { console.log("日志写入失败: " + e); }
-    state.release();
+    state.release(cfg.capture.dir);
   }
   result.subject = emailContent.buildSubject(cfg, result.status);
   result.body = emailContent.buildBody(cfg, result);

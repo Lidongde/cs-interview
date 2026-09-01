@@ -20,7 +20,7 @@ function defaultConfig() {
     },
     notify: { mode: "smtp", webhookUrl: "" },
     retry: { times: 2, intervalMs: 30000 },
-    capture: { dir: "/sdcard/Download/signin-log", keepDays: 7 },
+    capture: { dir: "/storage/emulated/0/脚本/autox-signin", keepDays: 7 },
   };
 }
 

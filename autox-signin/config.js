@@ -19,6 +19,9 @@ cfg.app.packageName = "com.kuaishou.nebula";
 // 屏幕：manual=需要每天第一次手动解锁（推荐）；pin=脚本输入PIN
 cfg.screen.unlockMode = "manual";
 
+// 运行时文件目录：截图、日志(log/)、幂等锁(.running) 都放在这个目录下（即项目所在目录）
+cfg.capture.dir = "/storage/emulated/0/脚本/autox-signin";
+
 // 邮箱（改成你的）
 cfg.email.smtpHost = "smtp.163.com";
 cfg.email.port = 465;

@@ -9,7 +9,7 @@
 
 ## 安装步骤
 1. 安装 AutoX.js，开启：无障碍服务、悬浮窗、自启动（设置→应用→AutoX.js→应用启动管理→手动管理全开）、电池优化→不允许优化。
-2. 把 `autox-signin/` 整个目录放入手机存储，例如 `/sdcard/autox-signin/`。
+2. 把 `autox-signin/` 整个目录放入手机存储，例如 `/storage/emulated/0/脚本/autox-signin/`（脚本运行时的截图、`log/` 日志、`.running` 锁都会放在这个目录下）。
 3. 下载 `javax.mail-1.6.2.jar` 与 `javax.activation-1.2.0.jar` 两个 jar 都放入 `libs/`（activation 下载地址：`https://repo1.maven.org/maven2/com/sun/activation/javax.activation/1.2.0/javax.activation-1.2.0.jar`）。发送邮件附件依赖 activation，两个 jar 缺一不可。
 4. 编辑 `config.js`，填：邮箱账号/授权码/收件人；如需脚本解锁，改 `unlockMode:"pin"` 并填 `pin`。
 5. 在 AutoX.js 中导入项目并打开 `main.js`，先点运行做一次手动验证。
