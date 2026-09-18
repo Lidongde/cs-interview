@@ -1064,7 +1064,7 @@ ________________________________________
 
 - [ ] **A.** 在@Entity类中使用@ManyToOne(fetch = FetchType.EAGER)关联属性
 - [ ] **B.** 通过@Query注解显式指定JOIN FETCH语句
-- [ ] **C.** 在Repository接口定义返回Page<Entity>的分页查询方法
+- [ ] **C.** 在Repository接口定义返回Page\<Entity\>的分页查询方法
 - [ ] **D.** 配置spring.jpa.properties.hibernate.default_batch_fetch_size
 
 **我的回答**：
@@ -1156,7 +1156,7 @@ ISOLATION_REPEATABLE_READ隔离级别下，对同一字段的多次读取结果�
 
 - [ ] **A.** singleton（单例，整个容器共享一个实例）
 - [ ] **B.** prototype（每次调用getBean时都新建实例，与请求无关）
-- [ ] **C.** request（每次HTTP请求对应一个新实例）
+- [x] **C.** request（每次HTTP请求对应一个新实例）
 - [ ] **D.** session（每个HTTP会话对应一个实例）
 
 **我的回答**：
@@ -1185,7 +1185,7 @@ Spring事务管理中，PROPAGATION_REQUIRES_NEW传播行为的特点是？
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 始终在现有事务中执行，不存在则新建
-- [ ] **B.** 新建独立事务并暂停当前事务（如果存在）
+- [x] **B.** 新建独立事务并暂停当前事务（如果存在）
 - [ ] **C.** 强制在无事务环境下执行，否则抛异常
 - [ ] **D.** 如果当前没有事务，则以非事务方式执行
 
@@ -1214,7 +1214,7 @@ PROPAGATION_REQUIRES_NEW传播行为在Spring事务管理中总是新建一个�
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 在 MyAutoConfiguration 上同时使用 @ConditionalOnClass 和 @ConditionalOnProperty(name="myapp.feature.enabled", havingValue="true")
+- [x] **A.** 在 MyAutoConfiguration 上同时使用 @ConditionalOnClass 和 @ConditionalOnProperty(name="myapp.feature.enabled", havingValue="true")
 - [ ] **B.** 在 MyAutoConfiguration 上使用 @ConditionalOnBean(com.example.ExternalLibrary.class) 和 @ConditionalOnProperty(name="myapp.feature.enabled", havingValue="true")
 - [ ] **C.** 在 MyAutoConfiguration 上使用 @ConditionalOnMissingClass("com.example.ExternalLibrary") 和 @ConditionalOnProperty(name="myapp.feature.enabled", havingValue="true")
 - [ ] **D.** 只需要使用 @ConditionalOnProperty(name="myapp.feature.enabled", havingValue="true")，因为 Spring Boot 会自动检测类是否存在

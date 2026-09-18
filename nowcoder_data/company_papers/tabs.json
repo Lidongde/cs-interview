@@ -1,0 +1,180 @@
+[
+  {
+    "tabId": 1,
+    "tabName": "软件开发",
+    "careerJobId": 11226,
+    "companyWrittenId": 100,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 2,
+    "tabName": "市场/销售/项目",
+    "careerJobId": 11231,
+    "companyWrittenId": 108,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 16,
+    "tabName": "产品/项目/运营",
+    "careerJobId": 11229,
+    "companyWrittenId": 104,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 3,
+    "tabName": "通信/硬件",
+    "careerJobId": 11227,
+    "companyWrittenId": 101,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 9,
+    "tabName": "咨询/管理",
+    "careerJobId": 11232,
+    "companyWrittenId": 109,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 4,
+    "tabName": "人力/财务/行政",
+    "careerJobId": 11233,
+    "companyWrittenId": 110,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 5,
+    "tabName": "供应链/物流",
+    "careerJobId": 142960,
+    "companyWrittenId": 103,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 6,
+    "tabName": "机械/制造",
+    "careerJobId": 11228,
+    "companyWrittenId": 102,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 7,
+    "tabName": "视觉/交互/设计",
+    "careerJobId": 143750,
+    "companyWrittenId": 105,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 8,
+    "tabName": "金融",
+    "careerJobId": 11230,
+    "companyWrittenId": 106,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 10,
+    "tabName": "生物医疗",
+    "careerJobId": 143882,
+    "companyWrittenId": 111,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 15,
+    "tabName": "国央企",
+    "careerJobId": 30574,
+    "companyWrittenId": 0,
+    "subTabs": [
+      "xingce_page",
+      "common_base",
+      "written_page",
+      "interview_page"
+    ]
+  },
+  {
+    "tabId": 13,
+    "tabName": "考公",
+    "careerJobId": 30573,
+    "companyWrittenId": 100,
+    "subTabs": [
+      "xingce_page",
+      "shenlun_page",
+      "written_page"
+    ]
+  },
+  {
+    "tabId": 12,
+    "tabName": "教师资格证",
+    "careerJobId": 0,
+    "companyWrittenId": 0,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "interview_page",
+      "online_coding_page"
+    ]
+  },
+  {
+    "tabId": 17,
+    "tabName": "考研",
+    "careerJobId": 299648,
+    "companyWrittenId": 0,
+    "subTabs": [
+      "intelligent_page",
+      "written_page",
+      "online_coding_page"
+    ]
+  }
+]

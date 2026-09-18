@@ -440,7 +440,7 @@
 |---|---|---|---|
 | 🕐 第1学时 | Redis 5大数据结构 | M5-V1(前10集), M5-D2, [M5-D4 §1](../notes/m5-redis.md#1-数据结构) | String/List/Set/ZSet/Hash 底层编码（SDS/ziplist/skiplist） |
 | 🕐 第2学时 | Redis 持久化 | M5-V1(持久化段), [M5-D4 §2](../notes/m5-redis.md#2-持久化) | RDB 快照 vs AOF 追加；AOF rewrite；混合持久化 |
-| 🕐 第3学时 | 算法：DP 入门 5 题 | M10-D1(DP篇) | [LCR 126. 斐波那契数](../../leetcode_data/output/8LSpuXqD.md#fei-bo-na-qi-shu-lie-lcof) / [70. 爬楼梯](../../leetcode_data/output/top-100-liked.md#climbing-stairs)〔热题100 + 面试150〕 / [198. 打家劫舍](../../leetcode_data/output/top-100-liked.md#house-robber)〔热题100 + 面试150〕 / [53. 最大子数组和](../../leetcode_data/output/top-100-liked.md#maximum-subarray)〔热题100 + 面试150〕 / [62. 不同路径](../../leetcode_data/output/top-100-liked.md#unique-paths) |
+| 🕐 第3学时 | 算法：DP 入门 5 题 | M10-D1(DP篇) | [LCR 126. 斐波那契数](../../leetcode_data/output/jianzhi-offer.md#fei-bo-na-qi-shu-lie-lcof) / [70. 爬楼梯](../../leetcode_data/output/top-100-liked.md#climbing-stairs)〔热题100 + 面试150〕 / [198. 打家劫舍](../../leetcode_data/output/top-100-liked.md#house-robber)〔热题100 + 面试150〕 / [53. 最大子数组和](../../leetcode_data/output/top-100-liked.md#maximum-subarray)〔热题100 + 面试150〕 / [62. 不同路径](../../leetcode_data/output/top-100-liked.md#unique-paths) |
 | 🕐 第4学时 | 实操：本地搭 Redis + 敲命令 | — | Docker 启动 Redis，5种数据结构各敲10个命令 |
 
 ---

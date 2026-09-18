@@ -1,0 +1,539 @@
+{
+  "allYearTags": [
+    {
+      "id": 28910,
+      "name": "2025",
+      "creatorId": 59,
+      "createTime": 1753777297000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 28909,
+      "name": "2024",
+      "creatorId": 59,
+      "createTime": 1753777294000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 28908,
+      "name": "2023",
+      "creatorId": 59,
+      "createTime": 1753777296000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    }
+  ],
+  "authCompanys": [
+    {
+      "id": 179,
+      "name": "美团",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "2010年3月4日成立的团购网站。美团网有着“美团一次，美一次”的宣传口号。为消费者发现最值得信赖的商家，让消费者享受超低折扣的优质服务；为商家找到最合适的消费者，给商家提供最大收益的互联网推广。",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220104/164872_1641280204212/%E7%BE%8E%E5%9B%A2.png",
+      "tagType": 1002
+    },
+    {
+      "id": 134,
+      "name": "阿里巴巴集团",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "阿里巴巴集团经营多元化的互联网业务，致力为全球所有人创造便捷的交易渠道。自成立以来，阿里巴巴集团建立了领先的消费者电子商务、网上支付、B2B网上交易市场及云计算业务，近几年更积极开拓无线应用、手机操作系统和互联网电视等领域。",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20230302/962361711_1677764132334/igEcAqNwbmcDAQTNAfcFzQH3BtoAI4QBpCEzzzYCqotKWp4sv_0hBJoDzwAAAYPpoyBIBM4AeuKRB86TBhC-CAAKBAvNGA8.png_620x10000g.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 151,
+      "name": "京东",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "京东是中国最大的自营式电商企业，在线销售计算机、手机及其它数码产品、家电、汽车配件、服装与鞋类、奢侈品、家居与家庭用品、化妆品与其它个人护理用 品、食品与营养品、书籍与其它媒体产品、母婴用品与玩具、体育与健身器材以及虚拟商品等13大类3,150万种SKU优质商品。",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220104/164872_1641280165699/%E4%BA%AC%E4%B8%9C.png",
+      "tagType": 1002
+    },
+    {
+      "id": 239,
+      "name": "华为HUAWEI",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "华为技术有限公司是一家生产销售通信设备的民营通信科技公司，总部位于中国广东省深圳市龙岗区坂田华为基地。华为的产品主要涉及通信网络中的交换网络、传输网络、无线及有线固定接入网络和数据通信网络及无线终端产品，为世界各地通信运营商及专业网络拥有者提供硬件设备、软件、服务和解决方案",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641371810991/%E5%8D%8E%E4%B8%BA.png",
+      "tagType": 1002
+    },
+    {
+      "id": 153,
+      "name": "携程",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "中国领先的在线票务服务公司，创立于1999年，总部设在中国上海。携程旅行网拥有国内外五千余家会员酒店可供预订，是中国领先的酒店预订服务中心，每月酒店预订量达到五十余万间夜。",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20240228/841502154_1709093486517/%E6%A0%A1%E6%8B%9B%E6%97%A5%E7%A8%8B%E5%9C%86-120p-%E5%BD%A9%E6%98%9F%E8%BE%B0%E5%A4%A9%E5%90%88.png",
+      "tagType": 1002
+    },
+    {
+      "id": 147,
+      "name": "小米集团",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "小米公司正式成立于2010年4月，是一家专注于智能产品自主研发的移动互联网公司。“为发烧而生”是小米的产品理念。小米公司首创了用互联网模式开发手机操作系统、发烧友参与开发改进的模式。",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250620/59_1750390423167/xiaomi1.png",
+      "tagType": 1002
+    },
+    {
+      "id": 931,
+      "name": "蚂蚁集团",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20240308/841502154_1709872039310/%E8%9A%82%E8%9A%81%E9%9B%86%E5%9B%A2-%E5%BD%A9%E8%89%B2Logo.png",
+      "tagType": 1002
+    },
+    {
+      "id": 676,
+      "name": "OPPO",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20230315/698145070_1678875801892/oppo.png",
+      "tagType": 1002
+    },
+    {
+      "id": 715,
+      "name": "小红书",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641354341916/%E5%B0%8F%E7%BA%A2%E4%B9%A6.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 665,
+      "name": "字节跳动",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220104/164872_1641280248741/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8.png",
+      "tagType": 1002
+    },
+    {
+      "id": 889,
+      "name": "vivo",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20240131/999991353_1706682341787/vivo.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 652,
+      "name": "滴滴",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "滴滴打车，立刻出行",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641351095168/%E6%BB%B4%E6%BB%B4.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 898,
+      "name": "快手",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641351920129/%E5%BF%AB%E6%89%8B.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 958,
+      "name": "联想",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250619/816588511_1750336151037/%E8%81%94%E6%83%B3logo.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 138,
+      "name": "腾讯",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "深圳市腾讯计算机系统有限公司（腾讯）是一家民营IT企业，成立于1998年11月29日，总部位于中国广东深圳，是中国最大的互联网综合服务提供商之一，也是中国服务用户最多，最广的互联网企业之一。",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220104/164872_1641280227264/%E8%85%BE%E8%AE%AF.png",
+      "tagType": 1002
+    },
+    {
+      "id": 735,
+      "name": "科大讯飞",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20240228/999991353_1709087832515/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_170901276248981.png",
+      "tagType": 1002
+    },
+    {
+      "id": 998,
+      "name": "中国联通",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250911/59_1757582673848/liantong.png",
+      "tagType": 1002
+    },
+    {
+      "id": 924,
+      "name": "中国移动",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250911/59_1757577979838/yidong.png",
+      "tagType": 1002
+    },
+    {
+      "id": 664,
+      "name": "中兴通讯",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220929/588579017_1664424578109/63_1502949438246_%E4%B8%AD%E5%85%B45.png",
+      "tagType": 1002
+    },
+    {
+      "id": 899,
+      "name": "淘宝闪购",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20240221/999991353_1708517196236/%E9%A5%BF%E4%BA%86%E4%B9%88logo1.png",
+      "tagType": 1002
+    },
+    {
+      "id": 961,
+      "name": "蔚来",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20230315/698145070_1678877767182/%E8%94%9A%E6%9D%A5.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 12240,
+      "name": "理想汽车",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20210724/999991370_1627057778441/%E7%90%86%E6%83%B3%E6%B1%BD%E8%BD%A6%E5%BD%A9-%E5%9C%86-120x120.png",
+      "tagType": 1002
+    },
+    {
+      "id": 1059,
+      "name": "度小满",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641371752341/%E5%BA%A6%E5%B0%8F%E6%BB%A1.png",
+      "tagType": 1002
+    },
+    {
+      "id": 1106,
+      "name": "掌阅科技",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250820/816588511_1755675778184/%E6%8E%8C%E9%98%85logo.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 158288,
+      "name": "飞猪",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20240131/999991353_1706682034182/7BBCEF71FE8F2600A886C27CF67AE4C3.png",
+      "tagType": 1002
+    },
+    {
+      "id": 139,
+      "name": "百度",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "百度（Nasdaq简称：BIDU）是全球最大的中文搜索引擎，2000年1月由李彦宏、徐勇两人创立于北京中关村，致力于向人们提供“简单，可依赖”的 信息获取方式。“百度”二字源于中国宋朝词人辛弃疾的《青玉案·元夕》词句“众里寻他千百度”，象征着百度对中文信息检索技术的执著追求。",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220104/164872_1641280140480/%E7%99%BE%E5%BA%A6.png",
+      "tagType": 1002
+    },
+    {
+      "id": 141,
+      "name": "去哪儿旅行",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "去哪儿是中国领先的旅游搜索引擎，目前全球最大的中文在线旅行网站，创立于2005年2月，总部在北京。微博新浪微博是一个由新浪网推出，提供微型博客服务的类Twitter网站。用户可以通过网页、WAP页面、手机客户端、手机短信、彩信发布消息或上传图片。",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641371950996/%E5%8E%BB%E5%93%AA.png",
+      "tagType": 1002
+    },
+    {
+      "id": 160,
+      "name": "完美世界",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "完美世界（北京）网络技术有限公司是中国领先的网络游戏开发商和运营商之一。公司成立于2004年，一直致力于创造优质的互动娱乐产业品牌，倾力打造拥有自主知识产权的高质量网游精品。",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641354132610/%E5%AE%8C%E7%BE%8E%E4%B8%96%E7%95%8C.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 710,
+      "name": "好未来",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20240220/999991353_1708420886352/%E5%A5%BD%E6%9C%AA%E6%9D%A5logo.png",
+      "tagType": 1002
+    },
+    {
+      "id": 711,
+      "name": "深信服",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641371985944/%E6%B7%B1%E4%BF%A1%E6%9C%8D%E7%A7%91%E6%8A%80.png",
+      "tagType": 1002
+    },
+    {
+      "id": 768,
+      "name": "4399游戏",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641371633419/360%E5%A4%87%E4%BB%BD.png",
+      "tagType": 1002
+    },
+    {
+      "id": 782,
+      "name": "用友",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641354615704/%E7%94%A8%E5%8F%8B.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 2144,
+      "name": "建信金科",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "",
+      "tagType": 1002
+    },
+    {
+      "id": 21938,
+      "name": "交银金科",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20240131/999991353_1706681695127/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1706668306449.png",
+      "tagType": 1002
+    },
+    {
+      "id": 2227,
+      "name": "奇安信",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641352536229/%E5%A5%87%E5%AE%89%E4%BF%A1.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 9140,
+      "name": "满帮集团",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20230315/698145070_1678877335621/%E6%BB%A1%E5%B8%AE%E9%9B%86%E5%9B%A2.png",
+      "tagType": 1002
+    }
+  ],
+  "jobTags": [
+    {
+      "id": 11208,
+      "name": "机械",
+      "creatorId": 1,
+      "createTime": 1613737786000,
+      "parentId": 11228,
+      "info": null,
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1003
+    },
+    {
+      "id": 11209,
+      "name": "汽车制造",
+      "creatorId": 1,
+      "createTime": 1613737786000,
+      "parentId": 11228,
+      "info": null,
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1003
+    },
+    {
+      "id": 143895,
+      "name": "化工",
+      "creatorId": 1,
+      "createTime": 1645597022000,
+      "parentId": 11228,
+      "info": null,
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1003
+    },
+    {
+      "id": 144396,
+      "name": "电气/自动化",
+      "creatorId": 1,
+      "createTime": 1698202850000,
+      "parentId": 11228,
+      "info": null,
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1003
+    },
+    {
+      "id": 144400,
+      "name": "能源",
+      "creatorId": 1,
+      "createTime": 1698203127000,
+      "parentId": 11228,
+      "info": null,
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1003
+    },
+    {
+      "id": 144409,
+      "name": "技术支持",
+      "creatorId": 1,
+      "createTime": 1698207465000,
+      "parentId": 11228,
+      "info": null,
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1003
+    }
+  ],
+  "noAuthCompanys": [],
+  "yearTags": [
+    {
+      "id": 28908,
+      "name": "2023",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 28909,
+      "name": "2024",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 28910,
+      "name": "2025",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1001
+    }
+  ]
+}

@@ -30,6 +30,13 @@
   # 只用已有 JSON 转 MD
   python nowcoder_crawler.py --only-md
 
+  # 直接爬取指定试卷 URL（testId + pid；内网直连超时时用 --proxy 指定代理）
+  python nowcoder_crawler.py --url "https://www.nowcoder.com/exam/test/99849624/detail?pid=69356018"
+
+说明：公司/内网环境直连牛客常被网络层阻断导致“连接超时”。
+  方案一：设置环境变量  set http_proxy=http://代理:端口  /  set https_proxy=http://代理:端口
+  方案二：运行时加  --proxy http://代理:端口
+
 数据来源（API 链路）：
   智能组卷：
     POST /api/sparta/common-practice/request-make-paper-pc  → 创建试卷
@@ -47,7 +54,7 @@
 依赖：pip install curl_cffi
 """
 
-import os, sys, json, re, time, argparse, hashlib
+import os, sys, json, re, time, argparse, hashlib, urllib.parse
 from datetime import datetime
 from curl_cffi import requests
 
@@ -98,33 +105,97 @@ HEADERS = {
     'Cookie': COOKIE,
 }
 
-# 标签列表（id → 名称）
+# 可选显式代理：内网/公司网络直连牛客常被阻断导致连接超时，
+# 用 --proxy 指定（或设置 NOWCODER_PROXY 环境变量），否则自动沿用 http_proxy/https_proxy
+PROXY = os.environ.get('NOWCODER_PROXY', '')
+
+# 复用 Session：连接复用 + 一致的浏览器指纹，显著减少握手与超时
+_session = None
+
+
+def _get_session():
+    global _session
+    if _session is None:
+        _session = requests.Session(impersonate='chrome124', timeout=30)
+    return _session
+
+# 标签列表（id → 名称，与智能组卷 getPCIntelligentList 一致）
 TAGS = {
+    # 推荐
     570: 'Java',
-    3935: 'Spring',
-    21048: 'Redis',
-    21049: 'Kafka',
     604: '网络基础',
+    3427: 'SQL',
+    305566: '提示词工程',
+    305563: 'Agent',
+    292035: '大模型概念',
     607: '操作系统',
+    305564: 'RAG',
+    305565: 'Prompt判断',
+    305562: '微调',
     606: '数据库',
     618: 'Linux',
-    3410: '设计模式',
-    612: '软件工程',
+    # 数据结构
     578: '数组',
+    579: '字符串',
     580: '链表',
+    581: '栈',
+    582: '队列',
     583: '树',
+    584: '图',
+    586: '堆',
+    # 基础算法
     585: '哈希',
+    589: '查找',
     590: '排序',
-    3427: 'SQL',
+    591: '递归',
+    597: '复杂度',
+    # 计算机基础
+    3410: '设计模式',
+    610: '编译和体系结构',
+    612: '软件工程',
     608: '加密和安全',
-    3463: 'ZooKeeper',
-    3457: 'Hive',
-    3453: 'Hadoop',
+    613: '软件测试',
+    # 编程语言
+    809: 'Go',
     569: 'C++',
-    573: 'Python',
     571: 'Javascript',
-    617: 'Android',
+    573: 'Python',
+    574: 'HTML',
+    6803: 'CSS',
+    6804: 'C语言',
+    3999: 'Kotlin',
+    491: 'Swift',
+    # 行测
+    1401: '常识判断',
+    1403: '数学运算',
+    1404: '判断推理',
+    1405: '资料分析',
+    # 中间件
+    21048: 'Redis',
+    21049: 'Kafka',
+    3453: 'Hadoop',
+    3457: 'Hive',
+    3463: 'ZooKeeper',
+    # 人工智能
+    21047: '概率论与数理统计',
+    3445: '数据挖掘',
+    631: '机器学习基础',
+    3448: '深度学习基础',
+    3450: '计算机视觉',
+    305561: '推理优化',
+    292034: '大模型开发',
+    4074: '线性代数',
+    # 移动端开发
     616: 'iOS',
+    617: 'Android',
+    # 数据分析
+    21055: 'Python分析库',
+    21056: '数据思维',
+    # 框架技术
+    146755: 'React',
+    3960: 'Vue',
+    # devops
+    161405: 'gitlab',
 }
 
 # 名称 → ID 反查（supplement 模式按名称匹配试卷）
@@ -138,14 +209,16 @@ QUESTIONS_PER_PAPER = 5
 #  工具函数
 # =====================================================================
 
-def api_request(url, method='GET', body=None, retries=2, delay=0.5):
-    """HTTP 请求，失败自动重试"""
+def api_request(url, method='GET', body=None, retries=3, delay=1.0):
+    """HTTP 请求，失败自动重试。连接超时给出代理排查提示"""
+    sess = _get_session()
+    kwargs = {'proxies': {'http': PROXY, 'https': PROXY}} if PROXY else {}
     for attempt in range(retries + 1):
         try:
             if method == 'GET':
-                r = requests.get(url, headers=HEADERS, impersonate='chrome124', timeout=20)
+                r = sess.get(url, headers=HEADERS, timeout=30, **kwargs)
             else:
-                r = requests.post(url, json=body, headers=HEADERS, impersonate='chrome124', timeout=20)
+                r = sess.post(url, json=body, headers=HEADERS, timeout=30, **kwargs)
             if r.status_code == 200:
                 data = r.json()
                 if data.get('code') == 999 or data.get('msg') == 'need login':
@@ -154,7 +227,11 @@ def api_request(url, method='GET', body=None, retries=2, delay=0.5):
                 return data
             print(f'  ⚠️ HTTP {r.status_code}，重试 {attempt + 1}/{retries}')
         except Exception as e:
+            msg = str(e)
             print(f'  ⚠️ 请求异常: {e}，重试 {attempt + 1}/{retries}')
+            if attempt == retries and any(k in msg for k in ('timed out', 'timeout', 'Connection', 'connect')):
+                print('  💡 连接超时通常是网络/代理问题：内网环境请设置 http_proxy/https_proxy，')
+                print('     或用 --proxy http://代理地址:端口 指定代理后重试')
         time.sleep(delay * (attempt + 1))
     return None
 
@@ -232,9 +309,9 @@ def load_existing(tag_id, tag_name):
 
 
 def save_json(tag_id, tag_name, questions):
-    """保存 JSON"""
+    """保存 JSON（tag_id 为 None 时按纯标签名命名，供 --url 模式使用）"""
     os.makedirs(DATA_DIR, exist_ok=True)
-    slug = f'{tag_id}_{tag_name}'
+    slug = f'{tag_id}_{tag_name}' if tag_id is not None else tag_name
     path = os.path.join(DATA_DIR, f'{slug}.json')
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(questions, f, ensure_ascii=False, indent=2)
@@ -271,6 +348,28 @@ def is_tag_practiced(tag_id, tag_stats):
     if not info:
         return False, 0, 0
     return info['rcount'] > 0, info['rcount'], info['tcount']
+
+
+def cmd_list_tags():
+    """--list-tags：列出智能组卷全部有效标签 ID（供 --tags 使用）"""
+    url = f'{BASE_API}/intelligent/getPCIntelligentList?questionJobId=10'
+    data = api_request(url, 'GET')
+    if not data or not data.get('data'):
+        print('❌ 获取标签列表失败')
+        return
+    total = 0
+    for group in data['data'].get('tags', []):
+        items = group.get('items', [])
+        if not items:
+            continue
+        print(f'\n【{group.get("title", "")}】')
+        for item in items:
+            total += 1
+            print(f"  {item['id']:8}  {item.get('title', ''):24} "
+                  f"总数={item.get('tcount', 0):5}  已做={item.get('rcount', 0):5}  "
+                  f"剩余={item.get('leftCount', 0):5}")
+    print(f'\n共 {total} 个标签。')
+    print('用法示例: python nowcoder_crawler.py --tags 570 3935 21048')
 
 
 # =====================================================================
@@ -350,12 +449,22 @@ def crawl_tag_intelligent(tag_id, tag_name, target_count=10):
         return all_questions[:target_count]
 
     paper_count = 0
-    max_papers = (target_count // QUESTIONS_PER_PAPER) + max(10, target_count // 2)
+    # 组卷轮数上限：默认 --count 10000 时原本会创建数千份试卷、上万次请求，
+    # 极易触发牛客 WAF 限流导致中途连接超时，这里统一收紧到 300 份
+    max_papers = min(300, (target_count // QUESTIONS_PER_PAPER) + max(5, target_count // 10))
     no_new_streak = 0
+    fail_streak = 0
 
     while len(all_questions) < target_count and paper_count < max_papers:
         paper_count += 1
         questions = fetch_one_paper(tag_id, paper_count)
+        if not questions:
+            fail_streak += 1
+            if fail_streak >= 5:
+                print(f'  ⚠️ 连续 {fail_streak} 份试卷获取失败（多为网络超时/限流），提前停止')
+                break
+        else:
+            fail_streak = 0
 
         new_count = 0
         for q in questions:
@@ -442,6 +551,28 @@ def fetch_paper_questions(test_id, paper_id, tag_id=None):
         merged = {**d, **{k: v for k, v in q.items() if k in (
             'analysis', 'referenceAnswer', 'userAnswerContent', 'isMember', 'type', 'title', 'id', 'uuid')}}
         questions.append(normalize_question(merged, tag_id))
+    return questions
+
+
+def parse_test_url(url):
+    """从试卷详情 URL 提取 testId / paperId / 标签名（testclass 参数）"""
+    m = re.search(r'/exam/test/(\d+)', url)
+    test_id = m.group(1) if m else None
+    qs = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+    pid = (qs.get('pid') or [None])[0]
+    name = (qs.get('testclass') or [None])[0]
+    return test_id, pid, urllib.parse.unquote(name) if name else None
+
+
+def crawl_url(test_id, paper_id, tag_name):
+    """按 URL 直接爬取指定试卷（test/detail + test/report），保存 JSON"""
+    print(f'  拉取试卷 testId={test_id}, paperId={paper_id} ...')
+    questions = fetch_paper_questions(test_id, paper_id, tag_id=None)
+    if not questions:
+        print('  ⚠️ 未获取到题目（试卷可能已失效、无权限或 Cookie 不匹配）')
+        return []
+    path = save_json(None, tag_name, questions)
+    print(f'  ✅ {len(questions)} 题，保存: {path}')
     return questions
 
 
@@ -706,8 +837,12 @@ def build_tag_md(tag_name, questions):
     return '\n'.join(lines), slug
 
 
-def run_convert():
-    """将 JSON 转换为交互式 Markdown"""
+def run_convert(target_names=None):
+    """将 JSON 转换为交互式 Markdown。
+
+    target_names：本次爬到的标签名集合。只生成这些标签的 MD，不重写其他文件；
+                  为 None 时（--only-md 全量模式）生成全部已有 JSON + README。
+    """
     os.makedirs(MD_DIR, exist_ok=True)
     json_files = [f for f in os.listdir(DATA_DIR) if f.endswith('.json') and f != 'index.json']
 
@@ -715,21 +850,30 @@ def run_convert():
         print('⚠️ 没有找到 JSON 数据文件，请先运行爬取')
         return
 
+    generated = 0
     for jf in sorted(json_files):
+        m = re.match(r'(?:\d+_)?(.+)', jf.replace('.json', ''))
+        tag_name = m.group(1) if m else jf.replace('.json', '')
+        if target_names is not None and tag_name not in target_names:
+            continue
         path = os.path.join(DATA_DIR, jf)
         with open(path, 'r', encoding='utf-8') as f:
             questions = json.load(f)
         if not questions:
             continue
-        m = re.match(r'\d+_(.+)', jf.replace('.json', ''))
-        tag_name = m.group(1) if m else jf.replace('.json', '')
 
         print(f'📄 生成: {tag_name} ({len(questions)} 题)...')
         md, slug = build_tag_md(tag_name, questions)
         out_path = os.path.join(MD_DIR, f'{slug}.md')
         with open(out_path, 'w', encoding='utf-8') as f:
             f.write(md)
+        generated += 1
         print(f'  ✅ {slug}.md ({len(md)} 字符)')
+
+    # 定向模式：只输出本次爬到的标签，不动 README 和其他文件
+    if target_names is not None:
+        print(f'\n✅ 完成！本次生成 {generated} 个标签的 MD（未改动其他文件）')
+        return
 
     # 生成 README
     readme = f"""# 牛客网专项练习题集
@@ -743,7 +887,7 @@ def run_convert():
 |------|------|
 """
     for jf in sorted(json_files):
-        m = re.match(r'\d+_(.+)', jf.replace('.json', ''))
+        m = re.match(r'(?:\d+_)?(.+)', jf.replace('.json', ''))
         name = m.group(1) if m else jf
         readme += f"| {name} | `{name}.md` |\n"
 
@@ -779,6 +923,10 @@ def main():
   python nowcoder_crawler.py                              # 自动模式爬 Java（默认全部）
   python nowcoder_crawler.py --tags 570 3935 21048         # 自动模式爬指定标签
   python nowcoder_crawler.py --count 50                    # 限制每标签 50 题
+  python nowcoder_crawler.py --url "https://www.nowcoder.com/exam/test/99849624/detail?pid=69356018"
+                                                           # 直接爬指定试卷
+  python nowcoder_crawler.py --url <url> --proxy http://代理:端口
+                                                           # 内网直连超时时走代理
   python nowcoder_crawler.py --supplement-only --tags 570  # 强制只用历史补全
   python nowcoder_crawler.py --only-md                     # 只用已有 JSON 转 MD
   python nowcoder_crawler.py --no-md                       # 爬取后不生成 MD
@@ -794,12 +942,48 @@ def main():
                         help='每个标签爬取题数上限（默认 10000=全部，仅智能组卷阶段生效）')
     parser.add_argument('--supplement-only', action='store_true',
                         help='强制只用历史补全模式（不做智能组卷）')
+    parser.add_argument('--url', help='直接爬取指定试卷 URL（含 testId 与 pid 参数）')
+    parser.add_argument('--name', help='--url 模式下自定义标签名（默认取 URL 的 testclass 参数）')
+    parser.add_argument('--proxy', help='HTTP 代理地址，如 http://127.0.0.1:7890（内网直连超时时使用）')
+    parser.add_argument('--list-tags', action='store_true',
+                        help='列出智能组卷全部标签 ID（供 --tags 使用）')
     parser.add_argument('--only-md', action='store_true', help='只用已有 JSON 转 MD（不爬取）')
     parser.add_argument('--no-md', action='store_true', help='爬取后不生成 MD')
     args = parser.parse_args()
 
+    if args.proxy:
+        global PROXY
+        PROXY = args.proxy
+
+    if args.list_tags:
+        cmd_list_tags()
+        return
+
     if args.only_md:
         run_convert()
+        return
+
+    if args.url:
+        test_id, paper_id, name = parse_test_url(args.url)
+        if not test_id or not paper_id:
+            print('❌ 无法从 URL 解析 testId/paperId，请提供 '
+                  'exam/test/<testId>/detail?pid=<paperId> 形式的链接')
+            sys.exit(1)
+        tag_name = args.name or name or f'试卷{test_id}'
+        print(f'🔄 爬取指定试卷: testId={test_id}, paperId={paper_id}, 标签={tag_name}')
+        all_data = {test_id: {'name': tag_name,
+                              'questions': crawl_url(test_id, paper_id, tag_name)}}
+        if not args.no_md:
+            run_convert({tag_name})
+        else:
+            print('\n⏭️ 跳过 MD 生成（--no-md）')
+        total = sum(len(d['questions']) for d in all_data.values())
+        print(f'\n{"=" * 60}')
+        print(f'✅ 完成！共 {total} 题')
+        print(f'📁 JSON: {DATA_DIR}')
+        if not args.no_md:
+            print(f'📁 Markdown: {MD_DIR}')
+        print(f'{"=" * 60}')
         return
 
     if not COOKIE or 'acw_tc' not in COOKIE:
@@ -825,9 +1009,9 @@ def main():
         print(f'🔄 自动模式，标签: {list(tags.values())}')
         all_data = crawl_all_auto(tags, args.count)
 
-    # 生成 Markdown（默认生成，--no-md 跳过）
+    # 生成 Markdown（默认只生成本次爬到的标签，--no-md 跳过）
     if not args.no_md:
-        run_convert()
+        run_convert(set(tags.values()))
     else:
         print('\n⏭️ 跳过 MD 生成（--no-md）')
 

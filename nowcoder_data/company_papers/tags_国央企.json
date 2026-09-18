@@ -1,0 +1,417 @@
+{
+  "allYearTags": [
+    {
+      "id": 305917,
+      "name": "2026",
+      "creatorId": 919247,
+      "createTime": 1774421499000,
+      "parentId": 249,
+      "info": "",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 28910,
+      "name": "2025",
+      "creatorId": 59,
+      "createTime": 1753777297000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 28909,
+      "name": "2024",
+      "creatorId": 59,
+      "createTime": 1753777294000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 28908,
+      "name": "2023",
+      "creatorId": 59,
+      "createTime": 1753777296000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 28907,
+      "name": "2022",
+      "creatorId": 59,
+      "createTime": 1753777293000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 10059,
+      "name": "2021",
+      "creatorId": 0,
+      "createTime": 1644995656000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 2491,
+      "name": "2020",
+      "creatorId": 0,
+      "createTime": 1644995656000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 1657,
+      "name": "2019",
+      "creatorId": 0,
+      "createTime": 1644995656000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 888,
+      "name": "2018",
+      "creatorId": 0,
+      "createTime": 1644995656000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 672,
+      "name": "2017",
+      "creatorId": 0,
+      "createTime": 1644995656000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 651,
+      "name": "2016",
+      "creatorId": 0,
+      "createTime": 1644995656000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 250,
+      "name": "2015",
+      "creatorId": 0,
+      "createTime": 1644995656000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 251,
+      "name": "2014",
+      "creatorId": 0,
+      "createTime": 1644995656000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 252,
+      "name": "2013",
+      "creatorId": 0,
+      "createTime": 1644995656000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 253,
+      "name": "2012",
+      "creatorId": 0,
+      "createTime": 1644995656000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 254,
+      "name": "2011",
+      "creatorId": 0,
+      "createTime": 1644995656000,
+      "parentId": 249,
+      "info": "\"\"",
+      "iconCode": 0,
+      "iconUrl": null,
+      "tagType": 1001
+    }
+  ],
+  "authCompanys": [
+    {
+      "id": 811,
+      "name": "中国电信",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641354806273/%E4%B8%AD%E5%9B%BD%E7%94%B5%E4%BF%A1.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 3240,
+      "name": "中国石化",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250916/59_1758001957047/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_0e267ea9-fa9c-428b-88af-011bda5ea0a7.png",
+      "tagType": 1002
+    },
+    {
+      "id": 25787,
+      "name": "中国石油",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250916/59_1758001877697/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_884d9c46-c2a6-43b4-be4d-2760eac1c427.png",
+      "tagType": 1002
+    },
+    {
+      "id": 3341,
+      "name": "中国海油",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250916/59_1758002063480/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_627ef765-6b2f-4d0b-8048-6a4c5d0d20ba.png",
+      "tagType": 1002
+    },
+    {
+      "id": 4944,
+      "name": "中国邮政",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250916/59_1757995191217/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_4b7834d4-74e3-4bf6-94e4-fe8fd3127b74.png",
+      "tagType": 1002
+    },
+    {
+      "id": 7984,
+      "name": "国家能源集团",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250916/59_1758001644508/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_e6b2d357-98a1-4141-b5fa-c84ede3657dd.png",
+      "tagType": 1002
+    },
+    {
+      "id": 21159,
+      "name": "中国人民保险",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250916/59_1758001176171/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_93b91581-aa54-4fd3-850b-c6f1813e2113.png",
+      "tagType": 1002
+    },
+    {
+      "id": 2953,
+      "name": "中国建筑",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250916/59_1757994922925/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_fe532439-6b0b-4810-925a-8c3ae2e8f3e4.png",
+      "tagType": 1002
+    },
+    {
+      "id": 2891,
+      "name": "中国烟草",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250916/59_1758002394114/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_14f34fbc-fa96-4d1d-a5c2-5338f512636c.png",
+      "tagType": 1002
+    },
+    {
+      "id": 1010,
+      "name": "工商银行",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641351383230/%E5%B7%A5%E5%95%86%E9%93%B6%E8%A1%8C.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 1012,
+      "name": "中国建设银行",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641351706519/%E5%BB%BA%E8%A1%8C.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 900,
+      "name": "中国农业银行",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250916/59_1758003073550/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_419cf2ca-e728-4f50-92ca-6a4665e5ba25.png",
+      "tagType": 1002
+    },
+    {
+      "id": 998,
+      "name": "中国联通",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250911/59_1757582673848/liantong.png",
+      "tagType": 1002
+    },
+    {
+      "id": 924,
+      "name": "中国移动",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250911/59_1757577979838/yidong.png",
+      "tagType": 1002
+    },
+    {
+      "id": 1011,
+      "name": "交通银行",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20220105/164872_1641351725750/%E4%BA%A4%E9%80%9A%E9%93%B6%E8%A1%8C.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 2304,
+      "name": "中国邮政储蓄银行",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20230315/698145070_1678877876063/%E9%82%AE%E5%82%A8%E9%93%B6%E8%A1%8C.jpg",
+      "tagType": 1002
+    },
+    {
+      "id": 1229,
+      "name": "光大银行",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250916/59_1758003140864/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_965d1f0e-72ea-4cc6-8e2b-41a448f6de56.png",
+      "tagType": 1002
+    },
+    {
+      "id": 1154,
+      "name": "中国银行",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "",
+      "iconCode": null,
+      "iconUrl": "https://uploadfiles.nowcoder.com/files/20250916/59_1758003702530/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_d0c2750b-d43d-4360-8ccf-7d2267dbb043.png",
+      "tagType": 1002
+    }
+  ],
+  "jobTags": [],
+  "noAuthCompanys": [],
+  "yearTags": [
+    {
+      "id": 28908,
+      "name": "2023",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 28909,
+      "name": "2024",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1001
+    },
+    {
+      "id": 28910,
+      "name": "2025",
+      "creatorId": null,
+      "createTime": null,
+      "parentId": null,
+      "info": "\"\"",
+      "iconCode": null,
+      "iconUrl": null,
+      "tagType": 1001
+    }
+  ]
+}
