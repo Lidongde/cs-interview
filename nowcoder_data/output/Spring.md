@@ -267,7 +267,7 @@
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 使用@Before和@After手动计算时间差值并记录
-- [ ] **B.** 通过@Around环绕通知调用ProceedingJoinPoint.proceed()并记录时间差
+- [x] **B.** 通过@Around环绕通知调用ProceedingJoinPoint.proceed()并记录时间差
 - [ ] **C.** 利用@AfterReturning和@AfterThrowing分别计算成功与异常场景的耗时
 - [ ] **D.** 在Bean内部使用System.currentTimeMillis()实现每个方法的计时
 
@@ -297,7 +297,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** `outerMethod` 和 `innerMethod` 中的所有数据库操作都被回滚。
-- [ ] **B.** `innerMethod` 中的数据库操作被回滚，但 `outerMethod` 在调用 `innerMethod` 之前的数据库操作被提交。
+- [x] **B.** `innerMethod` 中的数据库操作被回滚，但 `outerMethod` 在调用 `innerMethod` 之前的数据库操作被提交。
 - [ ] **C.** `outerMethod` 中的数据库操作被回滚，但 `innerMethod` 中的数据库操作被提交。
 - [ ] **D.** `outerMethod` 和 `innerMethod` 中的所有数据库操作都被提交。
 
@@ -329,7 +329,7 @@ ________________________________________
 - [ ] **A.** 使用构造函数注入强制bean在初始化时完成所有依赖解析。
 - [ ] **B.** 使用setter注入并配合部分初始化的方式延迟依赖设置。
 - [ ] **C.** 在bean上添加@Lazy注解，延迟依赖bean的初始化直到实际使用时。
-- [ ] **D.** 所有以上选项都可基于场景综合使用来解决循环依赖问题。
+- [x] **D.** 所有以上选项都可基于场景综合使用来解决循环依赖问题。
 
 **我的回答**：
 
@@ -358,7 +358,7 @@ ________________________________________
 
 - [ ] **A.** server.servlet.enabled=false
 - [ ] **B.** spring.tomcat.enabled=false
-- [ ] **C.** spring.main.web-application-type=none
+- [x] **C.** spring.main.web-application-type=none
 - [ ] **D.** spring.web.enabled=false
 
 **我的回答**：
@@ -388,7 +388,7 @@ ________________________________________
 
 - [ ] **A.** 首先控制器接收用户的请求，决定调用哪个模型来进行处理。
 - [ ] **B.** 模型处理用户的请求并返回数据。
-- [ ] **C.** 模型确定调用哪个视图进行数据展示。
+- [x] **C.** 模型确定调用哪个视图进行数据展示。
 - [ ] **D.** 视图将模型返回的数据呈现给用户。
 
 **我的回答**：
@@ -423,7 +423,7 @@ ________________________________________
 - [ ] **A.** 自动配置会根据classpath中的依赖和application.properties中的配置属性，按需生效（即存在对应依赖时才配置）
 - [ ] **B.** 可以通过@SpringBootApplication注解的exclude属性，排除特定的自动配置类
 - [ ] **C.** spring-boot-starter-*系列依赖会自动引入相关的库和对应的自动配置类，简化依赖管理
-- [ ] **D.** 自动配置类的优先级高于用户自定义的配置类，用户无法通过任何方式覆盖自动配置的Bean
+- [x] **D.** 自动配置类的优先级高于用户自定义的配置类，用户无法通过任何方式覆盖自动配置的Bean
 
 **我的回答**：
 
@@ -450,7 +450,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 如果当前没有事务存在，则创建一个新事务；如果当前有事务，则挂起现有事务并创建新事务。
+- [x] **A.** 如果当前没有事务存在，则创建一个新事务；如果当前有事务，则挂起现有事务并创建新事务。
 - [ ] **B.** 仅当没有事务存在时才创建新事务，否则加入现有事务。
 - [ ] **C.** 总是创建一个独立的新事务，无论当前事务是否存在，但不会挂起任何事务。
 - [ ] **D.** 该方法在无事务环境下运行，即使有父事务也忽略，不支持回滚操作。
@@ -482,7 +482,7 @@ Propagation.REQUIRES_NEW 的行为是：如果当前没有事务，则创建一�
 
 - [ ] **A.** preHandle()
 - [ ] **B.** postHandle()
-- [ ] **C.** afterHandle()
+- [x] **C.** afterHandle()
 - [ ] **D.** afterCompletion()
 
 **我的回答**：
@@ -514,7 +514,7 @@ Spring MVC拦截器包含三个方法：preHandle()、postHandle()、afterCompl
 
 - [ ] **A.** 每次调用方法时，Spring 都会创建一个新的 `PrototypeBean` 实例供其使用。
 - [ ] **B.** 只有在第一次调用方法时会创建一个 `PrototypeBean` 实例，后续调用将重用此实例。
-- [ ] **C.** Spring 在注入依赖时（即 `SingletonService` 创建时）创建了一个 `PrototypeBean` 实例，之后所有调用都将重用这个被缓存的实例。
+- [x] **C.** Spring 在注入依赖时（即 `SingletonService` 创建时）创建了一个 `PrototypeBean` 实例，之后所有调用都将重用这个被缓存的实例。
 - [ ] **D.** 应用启动时会因为作用域不匹配而抛出 `BeanCreationException` 异常。
 
 **我的回答**：
@@ -550,7 +550,7 @@ D：错误。Spring允许Singleton注入Prototype，不会抛异常。
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 构造器注入的Bean无法解决循环依赖，因容器启动时需完全初始化Bean
+- [x] **A.** 构造器注入的Bean无法解决循环依赖，因容器启动时需完全初始化Bean
 - [ ] **B.** Setter注入的Bean默认延迟初始化，因此能解决所有循环依赖场景
 - [ ] **C.** @Autowired(required=true)时若存在多个匹配Bean，会抛出NoSuchBeanDefinitionException
 - [ ] **D.** 可选依赖推荐用构造器注入并配合@Nullable注解
@@ -582,7 +582,7 @@ ________________________________________
 
 - [ ] **A.** REQUIRES_NEW
 - [ ] **B.** SUPPORTS
-- [ ] **C.** REQUIRED
+- [x] **C.** REQUIRED
 - [ ] **D.** MANDATORY
 
 **我的回答**：
@@ -610,7 +610,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 发生运行时异常（RuntimeException）或 Error 时回滚，受检异常（Checked Exception）默认不回滚
+- [x] **A.** 发生运行时异常（RuntimeException）或 Error 时回滚，受检异常（Checked Exception）默认不回滚
 - [ ] **B.** 任何异常（包括受检与非受检）以及 Error 都回滚
 - [ ] **C.** 仅受检异常回滚，运行时异常不回滚
 - [ ] **D.** 非受检异常默认不回滚，需显式配置 rollbackFor 才回滚
@@ -642,7 +642,7 @@ Spring AOP 常用于实现横切关注点，在事务管理场景中，它通过
 
 - [ ] **A.** 连接点（Join Point）
 - [ ] **B.** 切点（Pointcut）
-- [ ] **C.** 通知（Advice）
+- [x] **C.** 通知（Advice）
 - [ ] **D.** 切面（Aspect）
 
 **我的回答**：
@@ -672,7 +672,7 @@ ________________________________________
 
 - [ ] **A.** Spring 通过三级缓存机制来解决单例（Singleton）作用域下，通过字段或 Setter 方法注入产生的循环依赖。
 - [ ] **B.** 对于通过构造函数注入（Constructor Injection）产生的循环依赖，Spring 无法解决，并在容器启动时会抛出异常。
-- [ ] **C.** 使用 `@Lazy` 注解可以解决原型（Prototype）作用域 Bean 之间通过 Setter 方法注入产生的循环依赖问题。
+- [x] **C.** 使用 `@Lazy` 注解可以解决原型（Prototype）作用域 Bean 之间通过 Setter 方法注入产生的循环依赖问题。
 - [ ] **D.** `@DependsOn` 注解可以指定 Bean 的初始化顺序，但它不能解决循环依赖问题。
 
 **我的回答**：
@@ -701,7 +701,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 只要 classpath 中存在 `DataSource` 类，并且用户没有定义任何 `DataSource` 类型的 Bean，就一定会尝试配置一个嵌入式数据源。
-- [ ] **B.** 只有当 classpath 中同时存在 `DataSource` 和 `EmbeddedDatabaseType` 类，并且容器中不存在任何 `DataSource` 或 `XADataSource` 类型的 Bean 时，才会尝试配置一个嵌入式数据源。
+- [x] **B.** 只有当 classpath 中同时存在 `DataSource` 和 `EmbeddedDatabaseType` 类，并且容器中不存在任何 `DataSource` 或 `XADataSource` 类型的 Bean 时，才会尝试配置一个嵌入式数据源。
 - [ ] **C.** 只要用户在 `application.properties` 中配置了嵌入式数据库的 URL，就会自动配置数据源。
 - [ ] **D.** 无论用户是否定义了 `DataSource`，只要 classpath 中存在 `EmbeddedDatabaseType` 类，就会强制创建一个嵌入式数据源并覆盖用户定义。
 
@@ -730,7 +730,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** submitOrder与deductStock的事务均回滚
+- [x] **A.** submitOrder与deductStock的事务均回滚
 - [ ] **B.** submitOrder事务回滚，deductStock事务提交
 - [ ] **C.** submitOrder事务提交，deductStock事务回滚
 - [ ] **D.** 两个事务均提交
@@ -760,7 +760,7 @@ submitOrder方法的事务传播行为是REQUIRED，因此它会加入当前事�
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** JDK 动态代理
+- [x] **A.** JDK 动态代理
 - [ ] **B.** CGLIB 子类代理
 - [ ] **C.** ByteBuddy 代理
 - [ ] **D.** ASM 直接生成字节码代理
@@ -791,7 +791,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** methodB的事务回滚，methodA的事务继续提交
-- [ ] **B.** methodB的事务回滚，methodA的事务也回滚
+- [x] **B.** methodB的事务回滚，methodA的事务也回滚
 - [ ] **C.** methodB的事务提交，methodA的事务回滚
 - [ ] **D.** 两个事务均提交
 
@@ -822,7 +822,7 @@ ________________________________________
 
 - [ ] **A.** method
 - [ ] **B.** value
-- [ ] **C.** required
+- [x] **C.** required
 - [ ] **D.** params
 
 **我的回答**：
@@ -852,7 +852,7 @@ method属性代表指定请求的method的类型，value属性指请求的实际
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 事务不会在 B 上生效，因为自调用绕过代理；应将 B 提取到独立 Bean 并通过外部调用触发事务
+- [x] **A.** 事务不会在 B 上生效，因为自调用绕过代理；应将 B 提取到独立 Bean 并通过外部调用触发事务
 - [ ] **B.** 事务会在 B 上生效，因为 rollbackFor 覆盖了默认异常回滚规则
 - [ ] **C.** 将方法设为 private 可以强制走 CGLIB 代理，从而事务生效
 - [ ] **D.** 将 Bean 的 scope 改为 prototype 即可让事务生效
@@ -882,7 +882,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 在同一个类的内部方法间调用异步方法
+- [x] **A.** 在同一个类的内部方法间调用异步方法
 - [ ] **B.** 在Spring Boot启动类添加@EnableAsync
 - [ ] **C.** 使用自定义的ThreadPoolTaskExecutor线程池
 - [ ] **D.** 通过代理对象调用被@Async标注的方法
@@ -913,7 +913,7 @@ Spring MVC应用中，ContextLoaderListener加载的根上下文（Root WebAppli
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 根上下文Bean可被子上下文访问，子上下文Bean也可被根上下文访问
-- [ ] **B.** 根上下文Bean可被子上下文访问，子上下文Bean不可被根上下文访问
+- [x] **B.** 根上下文Bean可被子上下文访问，子上下文Bean不可被根上下文访问
 - [ ] **C.** 根上下文Bean不可被子上下文访问，子上下文Bean可被根上下文访问
 - [ ] **D.** 两个上下文的Bean互不访问
 
@@ -943,7 +943,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 每次访问都会触发容器创建一个新的 `PrototypeBean` 实例。
-- [ ] **B.** 总是获取到同一个 `PrototypeBean` 实例，即 `SingletonBean` 初始化时注入的那一个。
+- [x] **B.** 总是获取到同一个 `PrototypeBean` 实例，即 `SingletonBean` 初始化时注入的那一个。
 - [ ] **C.** 第一次访问时会创建一个 `PrototypeBean` 实例，后续访问都返回该实例的缓存副本。
 - [ ] **D.** 这种注入方式会导致循环依赖异常，应用启动失败。
 
@@ -974,7 +974,7 @@ Spring Boot应用启动时，自动配置机制主要通过哪种方式加载条
 
 - [ ] **A.** 显式配置在application.properties文件中
 - [ ] **B.** 通过@Autowired注解自动扫描
-- [ ] **C.** 使用SpringFactoriesLoader加载META-INF/spring.factories文件
+- [x] **C.** 使用SpringFactoriesLoader加载META-INF/spring.factories文件
 - [ ] **D.** 依赖@Configuration注解手动定义
 
 **我的回答**：
@@ -1003,7 +1003,7 @@ Spring Boot的自动配置机制通过SpringFactoriesLoader加载META-INF/spring
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 返回同一个共享实例
-- [ ] **B.** 创建并返回一个新实例
+- [x] **B.** 创建并返回一个新实例
 - [ ] **C.** 抛出NoSuchBeanDefinitionException
 - [ ] **D.** 调用bean的销毁方法
 
@@ -1033,7 +1033,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 仅方法 B 的操作回滚，方法 A 的后续操作继续执行
-- [ ] **B.** 方法 A 和方法 B 的所有操作均回滚
+- [x] **B.** 方法 A 和方法 B 的所有操作均回滚
 - [ ] **C.** 仅方法 B 的操作回滚，方法 A 的事务不受影响
 - [ ] **D.** 抛出 TransactionRolledbackException 但所有操作仍提交
 
@@ -1062,7 +1062,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 在@Entity类中使用@ManyToOne(fetch = FetchType.EAGER)关联属性
+- [x] **A.** 在@Entity类中使用@ManyToOne(fetch = FetchType.EAGER)关联属性
 - [ ] **B.** 通过@Query注解显式指定JOIN FETCH语句
 - [ ] **C.** 在Repository接口定义返回Page\<Entity\>的分页查询方法
 - [ ] **D.** 配置spring.jpa.properties.hibernate.default_batch_fetch_size
@@ -1093,7 +1093,7 @@ N+1查询问题在JPA/Hibernate中常见，指加载一个实体列表时，每�
 **选项**（勾选你的答案）：
 
 - [ ] **A.** BeanPostProcessor
-- [ ] **B.** BeanFactoryPostProcessor
+- [x] **B.** BeanFactoryPostProcessor
 - [ ] **C.** InitializingBean
 - [ ] **D.** ApplicationContextAware
 
@@ -1123,7 +1123,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 脏读
-- [ ] **B.** 幻读
+- [x] **B.** 幻读
 - [ ] **C.** 不可重复读
 - [ ] **D.** 都有可能发生
 
@@ -1251,7 +1251,7 @@ A
 
 - [ ] **A.** ApplicationContext 的核心增强是提供了对 Bean 的延迟加载（Lazy Loading）能力
 - [ ] **B.** ApplicationContext 提供了更底层的 Bean 定义和管理机制，而 BeanFactory 提供了企业级功能
-- [ ] **C.** ApplicationContext 增加了对国际化（i18n）、事件发布（Event Publishing）、以及更便捷的 AOP 集成等企业级应用支持
+- [x] **C.** ApplicationContext 增加了对国际化（i18n）、事件发布（Event Publishing）、以及更便捷的 AOP 集成等企业级应用支持
 - [ ] **D.** 只有 ApplicationContext 支持 'singleton' 和 'prototype' 作用域，BeanFactory 不支持
 
 **我的回答**：
@@ -1281,7 +1281,7 @@ Spring Boot的自动配置机制主要基于哪种技术实现？
 
 - [ ] **A.** 依赖XML配置文件
 - [ ] **B.** 使用Java反射动态创建Bean
-- [ ] **C.** 条件注解如@ConditionalOnClass
+- [x] **C.** 条件注解如@ConditionalOnClass
 - [ ] **D.** 基于AOP的动态代理
 
 **我的回答**：
@@ -1310,7 +1310,7 @@ Spring Boot的自动配置机制主要基于条件注解如@ConditionalOnClass�
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 两者都会暂停当前事务并开启全新的独立事务
-- [ ] **B.** PROPAGATION_REQUIRES_NEW的事务与原事务完全独立，而PROPAGATION_NESTED依赖原事务的保存点
+- [x] **B.** PROPAGATION_REQUIRES_NEW的事务与原事务完全独立，而PROPAGATION_NESTED依赖原事务的保存点
 - [ ] **C.** 两者都依赖原事务的保存点，原事务回滚时嵌套事务也会回滚
 - [ ] **D.** PROPAGATION_NESTED会开启独立事务，而PROPAGATION_REQUIRES_NEW会创建嵌套事务
 
@@ -1339,7 +1339,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 订单创建和库存扣减操作均回滚
+- [x] **A.** 订单创建和库存扣减操作均回滚
 - [ ] **B.** 仅库存扣减操作回滚，订单创建操作提交
 - [ ] **C.** 仅订单创建操作回滚，库存扣减操作提交
 - [ ] **D.** 两者操作均不回滚
@@ -1369,7 +1369,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 开发者必须手动调用ProceedingJoinPoint.proceed()方法来执行目标方法
+- [x] **A.** 开发者必须手动调用ProceedingJoinPoint.proceed()方法来执行目标方法
 - [ ] **B.** @Around通知会自动代理执行目标方法，无需显式调用proceed()
 - [ ] **C.** @Around通知只能用于返回值为void的方法
 - [ ] **D.** @Around通知无法修改目标方法的参数
@@ -1400,7 +1400,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** @ComponentScan注解用于定义Bean的扫描策略。
-- [ ] **B.** @ComponentScan注解默认规则是对当前包的子包中的Bean进行扫描。
+- [x] **B.** @ComponentScan注解默认规则是对当前包的子包中的Bean进行扫描。
 - [ ] **C.** @ComponentScan注解的basePackages属性用于自定义要扫描哪些包。
 - [ ] **D.** @ComponentScan注解只是定义了扫描范围，在此范围内带有特定注解的Bean才会被载入容器。
 
@@ -1431,7 +1431,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 初始化：构造器 → @PostConstruct → InitializingBean.afterPropertiesSet() → 自定义init-method；销毁：@PreDestroy → DisposableBean.destroy() → 自定义destroy-method
+- [x] **A.** 初始化：构造器 → @PostConstruct → InitializingBean.afterPropertiesSet() → 自定义init-method；销毁：@PreDestroy → DisposableBean.destroy() → 自定义destroy-method
 - [ ] **B.** 初始化：构造器 → InitializingBean.afterPropertiesSet() → @PostConstruct → 自定义init-method；销毁：DisposableBean.destroy() → @PreDestroy → 自定义destroy-method
 - [ ] **C.** 初始化：构造器 → 自定义init-method → @PostConstruct → InitializingBean.afterPropertiesSet()；销毁：自定义destroy-method → @PreDestroy → DisposableBean.destroy()
 - [ ] **D.** 初始化：构造器 → @PostConstruct → 自定义init-method → InitializingBean.afterPropertiesSet()；销毁：@PreDestroy → 自定义destroy-method → DisposableBean.destroy()
@@ -1464,7 +1464,7 @@ ________________________________________
 - [ ] **A.** 织入，就是将方面组件中定义的横切逻辑，织入到目标对象的连接点的过程。
 - [ ] **B.** 可以在编译时织入，需要使用特殊的编译器。
 - [ ] **C.** 可以在装载类时织入，需要使用特殊的类装载器。
-- [ ] **D.** 可以在运行时织入，需要使用特殊的JRE。
+- [x] **D.** 可以在运行时织入，需要使用特殊的JRE。
 
 **我的回答**：
 
@@ -1497,7 +1497,7 @@ ________________________________________
 
 - [ ] **A.** @Bean注解作用在方法上，表示该方法的返回值将被装配到容器中。
 - [ ] **B.** @Bean注解包含name属性，可以通过该属性指定装配的Bean的名称。
-- [ ] **C.** @Bean注解依赖于@Configuration注解，即它所在的类必须带有@Configuration注解。
+- [x] **C.** @Bean注解依赖于@Configuration注解，即它所在的类必须带有@Configuration注解。
 - [ ] **D.** @Bean注解可以装配任意的Bean，尤其适合装配那些初始化过程十分复杂的Bean。
 
 **我的回答**：
@@ -1537,7 +1537,7 @@ Spring Boot的自动配置机制主要基于什么来动态决定是否启用某
 
 - [ ] **A.** 应用的启动参数
 - [ ] **B.** Maven或Gradle构建文件的依赖分析
-- [ ] **C.** Spring的条件注解（如@ConditionalOnClass）
+- [x] **C.** Spring的条件注解（如@ConditionalOnClass）
 - [ ] **D.** Java反射机制的动态检查
 
 **我的回答**：
@@ -1565,7 +1565,7 @@ Spring Boot应用中的自动配置功能主要基于哪种机制来动态判断
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 使用@Conditional注解来检查类路径或属性
+- [x] **A.** 使用@Conditional注解来检查类路径或属性
 - [ ] **B.** 在启动时扫描所有@Component类
 - [ ] **C.** 解析application.properties中的所有设置
 - [ ] **D.** 动态生成Bean的代理类
@@ -1596,7 +1596,7 @@ Spring Boot的自动配置功能主要依赖@Conditional注解及其变体（如
 **选项**（勾选你的答案）：
 
 - [ ] **A.** Model
-- [ ] **B.** ModelAttribute
+- [x] **B.** ModelAttribute
 - [ ] **C.** ModelMap
 - [ ] **D.** ModelAndView
 
@@ -1629,7 +1629,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** @PostConstruct → InitializingBean.afterPropertiesSet → BeanPostProcessor.postProcessAfterInitialization
+- [x] **A.** @PostConstruct → InitializingBean.afterPropertiesSet → BeanPostProcessor.postProcessAfterInitialization
 - [ ] **B.** InitializingBean.afterPropertiesSet → @PostConstruct → BeanPostProcessor.postProcessAfterInitialization
 - [ ] **C.** BeanPostProcessor.postProcessAfterInitialization → @PostConstruct → InitializingBean.afterPropertiesSet
 - [ ] **D.** @PostConstruct → BeanPostProcessor.postProcessAfterInitialization → InitializingBean.afterPropertiesSet
@@ -1662,7 +1662,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** @Value
-- [ ] **B.** @ConstructorBinding
+- [x] **B.** @ConstructorBinding
 - [ ] **C.** @ConditionalOnProperty
 - [ ] **D.** @RefreshScope
 
@@ -1694,7 +1694,7 @@ ________________________________________
 - [ ] **A.** JDK动态代理要求目标类必须实现接口
 - [ ] **B.** CGLIB代理通过生成子类覆盖父类方法实现增强
 - [ ] **C.** 同一个Bean内部的方法调用不会触发AOP拦截
-- [ ] **D.** @Aspect注解配置的切面默认采用CGLIB代理
+- [x] **D.** @Aspect注解配置的切面默认采用CGLIB代理
 
 **我的回答**：
 
@@ -1721,7 +1721,7 @@ D选项描述错误。在Spring AOP中，@Aspect注解配置的切面默认代�
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** `inner()` 方法的事务回滚，`outer()` 方法的事务也回滚。
+- [x] **A.** `inner()` 方法的事务回滚，`outer()` 方法的事务也回滚。
 - [ ] **B.** `inner()` 方法的事务回滚，`outer()` 方法的事务正常提交。
 - [ ] **C.** `inner()` 方法和 `outer()` 方法的事务都正常提交。
 - [ ] **D.** `inner()` 方法的事务不回滚，`outer()` 方法的事务回滚。
@@ -1751,7 +1751,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** `BeanPostProcessor.postProcessBeforeInitialization` -> `@PostConstruct` 方法 -> `BeanPostProcessor.postProcessAfterInitialization`
+- [x] **A.** `BeanPostProcessor.postProcessBeforeInitialization` -> `@PostConstruct` 方法 -> `BeanPostProcessor.postProcessAfterInitialization`
 - [ ] **B.** `@PostConstruct` 方法 -> `BeanPostProcessor.postProcessBeforeInitialization` -> `BeanPostProcessor.postProcessAfterInitialization`
 - [ ] **C.** `BeanPostProcessor.postProcessBeforeInitialization` -> `BeanPostProcessor.postProcessAfterInitialization` -> `@PostConstruct` 方法
 - [ ] **D.** `BeanPostProcessor.postProcessAfterInitialization` -> `@PostConstruct` 方法 -> `BeanPostProcessor.postProcessBeforeInitialization`
@@ -1783,7 +1783,7 @@ ________________________________________
 
 - [ ] **A.** CircuitBreaker的forceOpen属性
 - [ ] **B.** Hystrix的fallback方法
-- [ ] **C.** 熔断器半开状态
+- [x] **C.** 熔断器半开状态
 - [ ] **D.** Ribbon的重试机制
 
 **我的回答**：
@@ -1813,7 +1813,7 @@ ________________________________________
 
 - [ ] **A.** BeanNameUrlHandlerMapping
 - [ ] **B.** SimpleUrlHandlerMapping
-- [ ] **C.** RequestMappingHandlerMapping
+- [x] **C.** RequestMappingHandlerMapping
 - [ ] **D.** ControllerBeanNameHandlerMapping
 
 **我的回答**：
@@ -1843,7 +1843,7 @@ ________________________________________
 
 - [ ] **A.** 构造器注入可保证依赖的不可变性，推荐在需要确保依赖不可变的场景使用
 - [ ] **B.** Setter注入适合可选依赖，允许对象创建后灵活修改依赖
-- [ ] **C.** 字段注入（通过@Autowired在字段上）是Spring官方最推荐的注入方式，因其代码简洁且不依赖setter或构造器
+- [x] **C.** 字段注入（通过@Autowired在字段上）是Spring官方最推荐的注入方式，因其代码简洁且不依赖setter或构造器
 - [ ] **D.** 依赖注入的核心是将对象的创建和依赖管理交给Spring容器，而非由对象自身负责
 
 **我的回答**：
@@ -1873,7 +1873,7 @@ ________________________________________
 
 - [ ] **A.** @Bean注解作用在方法上，表示该方法的返回值将被装配到容器中。
 - [ ] **B.** @Bean注解包含name属性，可以通过该属性指定装配的Bean的名称。
-- [ ] **C.** @Bean注解依赖于@Configuration注解，即它所在的类必须带有@Configuration注解。
+- [x] **C.** @Bean注解依赖于@Configuration注解，即它所在的类必须带有@Configuration注解。
 - [ ] **D.** @Bean注解可以装配任意的Bean，尤其适合装配那些初始化过程十分复杂的Bean。
 
 **我的回答**：
@@ -1904,7 +1904,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 实现AOP切面的异常处理逻辑
-- [ ] **B.** 提供全局性的控制器层异常处理
+- [x] **B.** 提供全局性的控制器层异常处理
 - [ ] **C.** 替代@Controller注解的控制器声明
 - [ ] **D.** 校验请求参数的合法性
 
@@ -1938,7 +1938,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 两个 Bean 都使用构造器注入
-- [ ] **B.** 两个 Bean 都使用字段或 Setter 注入
+- [x] **B.** 两个 Bean 都使用字段或 Setter 注入
 - [ ] **C.** 两个 Bean 都设为 prototype 并使用构造器注入
 - [ ] **D.** 两个 Bean 使用构造器注入，但把其中一个声明为 @Primary
 
@@ -1968,7 +1968,7 @@ Spring默认的循环依赖解决机制基于三级缓存（early exposure），
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 用于配置 Spring Bean 的作用域
-- [ ] **B.** 用于自动装配 Spring 容器中的 Bean
+- [x] **B.** 用于自动装配 Spring 容器中的 Bean
 - [ ] **C.** 用于定义事务的传播行为
 - [ ] **D.** 用于声明方法的异步执行
 
@@ -1998,7 +1998,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 只有当 `SomeLibrary.class` 这个Bean被成功注册到Spring容器中时，该配置类才会生效。
-- [ ] **B.** 只有当应用程序的classpath路径下能够找到 `SomeLibrary.class` 这个类时，该配置类才会生效。
+- [x] **B.** 只有当应用程序的classpath路径下能够找到 `SomeLibrary.class` 这个类时，该配置类才会生效。
 - [ ] **C.** 该注解会强制Spring容器去创建一个 `SomeLibrary.class` 类型的Bean。
 - [ ] **D.** 当classpath中缺少 `SomeLibrary.class` 时，应用程序会在启动时打印一条警告信息，但配置类依然会生效。
 
@@ -2028,7 +2028,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** @Scope("singleton")
-- [ ] **B.** @Scope("prototype")
+- [x] **B.** @Scope("prototype")
 - [ ] **C.** @Scope("session")
 - [ ] **D.** @Scope("application")
 
@@ -2058,7 +2058,7 @@ Spring 中依赖注入（DI）的类型区分中，哪种注入方式在 Bean �
 **选项**（勾选你的答案）：
 
 - [ ] **A.** Setter 注入
-- [ ] **B.** 构造函数注入
+- [x] **B.** 构造函数注入
 - [ ] **C.** 字段注入
 - [ ] **D.** 基于注解的自动注入
 
@@ -2089,7 +2089,7 @@ ________________________________________
 
 - [ ] **A.** 构造函数注入可以确保Bean在创建时就具有完整状态
 - [ ] **B.** Setter注入允许在Bean创建后动态更改依赖
-- [ ] **C.** 字段注入（Field Injection）是Spring官方推荐的主要注入方式
+- [x] **C.** 字段注入（Field Injection）是Spring官方推荐的主要注入方式
 - [ ] **D.** 依赖注入减少组件之间的紧耦合，提高代码可测性
 
 **我的回答**：
@@ -2120,7 +2120,7 @@ ________________________________________
 - [ ] **A.** 默认作用域是singleton，所有请求共享同一个bean实例。
 - [ ] **B.** prototype作用域每次从容器中获取bean时都会创建新实例。
 - [ ] **C.** request作用域在HTTP请求结束时自动销毁bean实例。
-- [ ] **D.** session作用域在非web应用环境下也可以使用，bean实例在整个应用生命周期中存在。
+- [x] **D.** session作用域在非web应用环境下也可以使用，bean实例在整个应用生命周期中存在。
 
 **我的回答**：
 
@@ -2149,7 +2149,7 @@ A选项正确：默认作用域是singleton，所有请求共享同一个bean实
 
 - [ ] **A.** 继续执行后续拦截器链
 - [ ] **B.** 终止请求并返回HTTP 400错误
-- [ ] **C.** 中断请求处理流程且不执行控制器
+- [x] **C.** 中断请求处理流程且不执行控制器
 - [ ] **D.** 触发全局异常处理机制
 
 **我的回答**：
@@ -2179,7 +2179,7 @@ ________________________________________
 
 - [ ] **A.** singleton
 - [ ] **B.** prototype
-- [ ] **C.** request
+- [x] **C.** request
 - [ ] **D.** session
 
 **我的回答**：
@@ -2209,9 +2209,9 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** **singleton**
-- [ ] **B.** **prototype**
-- [ ] **C.** **request**
+- [x] **A.** **singleton**
+- [x] **B.** **prototype**
+- [x] **C.** **request**
 - [ ] **D.** **response**
 
 **我的回答**：
@@ -2255,7 +2255,7 @@ D. response不是Spring Bean的合法作用域，这个选项是错误的。Spri
 **选项**（勾选你的答案）：
 
 - [ ] **A.** Bean的作用域可以通过@Scope注解来修改，该注解有五个不同的取值。
-- [ ] **B.** 对定义为session的Bean，每次HTTP请求都会创建一个新的Bean。
+- [x] **B.** 对定义为session的Bean，每次HTTP请求都会创建一个新的Bean。
 - [ ] **C.** 每次通过Spring容器获取prototype定义的Bean时，容器都将创建一个新的Bean实例。
 - [ ] **D.** 作用域为globalSession的Bean来讲，在一个全局的HTTP Session中，容器会返回该Bean的同一个实例
 
@@ -2286,7 +2286,7 @@ B选项的说法应是定义为request的Bean；作用域为Session的Bean在同
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** @Transactional可以作用在类上，代表这个类的所有方法都将启用事务。
+- [x] **A.** @Transactional可以作用在类上，代表这个类的所有方法都将启用事务。
 - [ ] **B.** 可以通过@Transactional的propagation属性，指定事务的传播行为。
 - [ ] **C.** 可以通过@Transactional的isolation属性，指定事务的隔离级别。
 - [ ] **D.** 可以通过@Transactional的rollbackFor属性，指定发生哪些异常时回滚。
@@ -2319,7 +2319,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 在@Around增强中通过ProceedingJoinPoint.proceed()调用前后计算时间差
-- [ ] **B.** 在@AfterReturning增强中通过JoinPoint获取方法开始时间戳
+- [x] **B.** 在@AfterReturning增强中通过JoinPoint获取方法开始时间戳
 - [ ] **C.** 使用@Before记录开始时间并存入ThreadLocal，在@After中计算耗时
 - [ ] **D.** 通过实现MethodInterceptor接口在invoke方法中计算执行时间
 
@@ -2349,7 +2349,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** execution(public String com.example.service.*.*(Long, *))
-- [ ] **B.** execution(public String com.example.service..*.*(Long, ..))
+- [x] **B.** execution(public String com.example.service..*.*(Long, ..))
 - [ ] **C.** execution(String com.example.service..*.*(Long, ..))
 - [ ] **D.** execution(public String com.example.service.*.*(Long, ..))
 
@@ -2389,7 +2389,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** `@ConditionalOnClass` 检查指定的类是否存在于 Bean 容器中，而 `@ConditionalOnBean` 检查指定的类是否存在于 classpath 中。
-- [ ] **B.** `@ConditionalOnClass` 检查指定的类是否存在于 classpath 中，而 `@ConditionalOnBean` 检查指定类型的 Bean 是否已经存在于 Bean 容器中。
+- [x] **B.** `@ConditionalOnClass` 检查指定的类是否存在于 classpath 中，而 `@ConditionalOnBean` 检查指定类型的 Bean 是否已经存在于 Bean 容器中。
 - [ ] **C.** 两者功能相同，都是检查指定的 Bean 是否已在容器中注册，只是别名关系。
 - [ ] **D.** `@ConditionalOnClass` 用于启用一个配置类，而 `@ConditionalOnBean` 用于在该配置类中声明一个 Bean。
 
@@ -2419,7 +2419,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** `methodB` 中的数据库操作被回滚，但 `methodA` 中的数据库操作被正常提交。
-- [ ] **B.** `methodA` 和 `methodB` 中的所有数据库操作都将被回滚。
+- [x] **B.** `methodA` 和 `methodB` 中的所有数据库操作都将被回滚。
 - [ ] **C.** 只有 `methodB` 中的数据库操作被回滚，`methodA` 的事务状态不受影响，并继续执行。
 - [ ] **D.** `methodB` 中的数据库操作被提交，而 `methodA` 中的数据库操作因为异常被回滚。
 
@@ -2449,7 +2449,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** DispatcherServlet
-- [ ] **B.** SpringFactoriesLoader
+- [x] **B.** SpringFactoriesLoader
 - [ ] **C.** HandlerMapping
 - [ ] **D.** ModelAndView
 
@@ -2480,7 +2480,7 @@ SpringFactoriesLoader是Spring Boot的组件，不是Spring MVC的组件。
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** ApplicationContext继承自BeanFactory，且默认自动初始化所有单例Bean
+- [x] **A.** ApplicationContext继承自BeanFactory，且默认自动初始化所有单例Bean
 - [ ] **B.** BeanFactory支持国际化和事件发布，而ApplicationContext不支持
 - [ ] **C.** ApplicationContext仅能通过XML配置初始化，BeanFactory可通过注解配置
 - [ ] **D.** BeanFactory比ApplicationContext更占用内存，因为它缓存了更多元数据
@@ -2510,7 +2510,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 在 application.properties 中设置相关属性
+- [x] **A.** 在 application.properties 中设置相关属性
 - [ ] **B.** 创建自定义 AutoConfiguration 类
 - [ ] **C.** 使用 @ConditionalOnProperty 注解
 - [ ] **D.** 手动创建 DataSource Bean
@@ -2542,7 +2542,7 @@ SpringBoot注解中，主要功能是启动Spring应用程序上下文时进行�
 
 - [ ] **A.** @SpringBootApplication
 - [ ] **B.** @Import
-- [ ] **C.** @EnableAutoConfiguration
+- [x] **C.** @EnableAutoConfiguration
 - [ ] **D.** @Conditional
 
 **我的回答**：
@@ -2573,7 +2573,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** @Transactional 注解会生效，methodA() 会在一个新的事务中执行
-- [ ] **B.** @Transactional 注解不会生效，methodA() 会在无事务的环境下执行（除非 methodB 已处于一个事务中）
+- [x] **B.** @Transactional 注解不会生效，methodA() 会在无事务的环境下执行（除非 methodB 已处于一个事务中）
 - [ ] **C.** Spring 容器会抛出异常，因为不允许在对象内部进行此类调用
 - [ ] **D.** 效果等同于直接调用外部代理对象的 methodA() 方法，事务完全正常
 
@@ -2603,7 +2603,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 每个线程调用 `process()` 方法时，都会得到一个全新的 `PrototypeComponent` 实例。
-- [ ] **B.** 所有线程访问的 `proto` 字段引用的始终是 `SingletonService` 实例化时注入的同一个 `PrototypeComponent` 实例。
+- [x] **B.** 所有线程访问的 `proto` 字段引用的始终是 `SingletonService` 实例化时注入的同一个 `PrototypeComponent` 实例。
 - [ ] **C.** 只有在第一次调用 `process()` 方法时才会创建一个 `PrototypeComponent` 实例，后续调用都复用此实例。
 - [ ] **D.** 应用启动时会因为作用域不匹配而抛出 `BeanCreationException`。
 
@@ -2635,7 +2635,7 @@ ________________________________________
 - [ ] **A.** 在Controller中捕获MultipartException并返回自定义错误信息
 - [ ] **B.** 配置spring.servlet.multipart.max-file-size属性自动拦截
 - [ ] **C.** 实现HandlerExceptionResolver接口处理MultipartException
-- [ ] **D.** 使用@ControllerAdvice结合@ExceptionHandler全局处理
+- [x] **D.** 使用@ControllerAdvice结合@ExceptionHandler全局处理
 
 **我的回答**：
 
@@ -2665,7 +2665,7 @@ ________________________________________
 - [ ] **A.** 基于属性注入
 - [ ] **B.** 基于构造方法注入
 - [ ] **C.** 基于setter方法注入
-- [ ] **D.** 基于getter方法注入
+- [x] **D.** 基于getter方法注入
 
 **我的回答**：
 
@@ -2695,7 +2695,7 @@ Spring IoC的注入方式有三种，分别是基于属性注入、基于构造
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 监听SIGTERM信号→立即关闭应用进程
-- [ ] **B.** 监听SIGTERM信号→拒绝新请求→等待处理中请求完成（默认30s）→关闭
+- [x] **B.** 监听SIGTERM信号→拒绝新请求→等待处理中请求完成（默认30s）→关闭
 - [ ] **C.** 在@PreDestroy方法中调用Thread.sleep(60000)
 - [ ] **D.** 通过spring.lifecycle.timeout-per-shutdown-phase配置直接延长终止时间
 
@@ -2724,7 +2724,7 @@ Spring AOP中，若需要对标记特定注解的方法进行增强，最准确�
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** execution(* *(..)) && @annotation(com.example.Loggable)
+- [x] **A.** execution(* *(..)) && @annotation(com.example.Loggable)
 - [ ] **B.** @within(com.example.Loggable)
 - [ ] **C.** target(com.example.Service+)
 - [ ] **D.** within(@com.example.Loggable *)
@@ -2771,7 +2771,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 目标Service方法会正常执行，且“方法执行前”和“方法执行后”日志都会输出
-- [ ] **B.** 目标Service方法不会执行，但“方法执行前”和“方法执行后”日志都会输出
+- [x] **B.** 目标Service方法不会执行，但“方法执行前”和“方法执行后”日志都会输出
 - [ ] **C.** 目标Service方法会正常执行，但仅输出“方法执行前”日志
 - [ ] **D.** 目标Service方法不会执行，且仅输出“方法执行前”日志
 
@@ -2800,7 +2800,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** `afterPropertiesSet` -> `init-method` -> `postProcessAfterInitialization`
+- [x] **A.** `afterPropertiesSet` -> `init-method` -> `postProcessAfterInitialization`
 - [ ] **B.** `postProcessAfterInitialization` -> `afterPropertiesSet` -> `init-method`
 - [ ] **C.** `afterPropertiesSet` -> `postProcessAfterInitialization` -> `init-method`
 - [ ] **D.** `init-method` -> `afterPropertiesSet` -> `postProcessAfterInitialization`
@@ -2830,7 +2830,7 @@ Spring AOP中，切点（Pointcut）的核心作用是？
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 确定哪些目标方法会被织入通知（Advice）
+- [x] **A.** 确定哪些目标方法会被织入通知（Advice）
 - [ ] **B.** 定义通知（Advice）的执行时机（如前置、后置等）
 - [ ] **C.** 实现具体的横切业务逻辑（如日志、权限校验）
 - [ ] **D.** 管理多个切面（Aspect）之间的执行优先级
@@ -2862,7 +2862,7 @@ A正确，因为切点（Pointcut）的核心作用是确定哪些目标方法�
 
 - [ ] **A.** 使用JDK动态代理，因为它是Spring AOP的默认首选。
 - [ ] **B.** 编译时织入（AspectJ LTW），直接修改该类的字节码。
-- [ ] **C.** 使用CGLIB库，通过继承目标类来创建子类作为代理。
+- [x] **C.** 使用CGLIB库，通过继承目标类来创建子类作为代理。
 - [ ] **D.** 抛出`AopConfigException`，因为目标对象必须实现至少一个接口。
 
 **我的回答**：
@@ -2893,7 +2893,7 @@ ________________________________________
 - [ ] **A.** @Singleton
 - [ ] **B.** @Prototype
 - [ ] **C.** @Request
-- [ ] **D.** @SessionScope
+- [x] **D.** @SessionScope
 
 **我的回答**：
 
@@ -2920,7 +2920,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 每次注入时都会创建新的实例
+- [x] **A.** 每次注入时都会创建新的实例
 - [ ] **B.** 整个应用中只存在一个实例
 - [ ] **C.** 该bean是线程安全的
 - [ ] **D.** 只能在单线程环境中使用
@@ -2950,7 +2950,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** REQUIRED
+- [x] **A.** REQUIRED
 - [ ] **B.** SUPPORTS
 - [ ] **C.** MANDATORY
 - [ ] **D.** REQUIRES_NEW
@@ -2981,7 +2981,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 匹配所有包路径在com.example.service下的方法执行
-- [ ] **B.** 匹配所有类上带有@Service注解的方法执行
+- [x] **B.** 匹配所有类上带有@Service注解的方法执行
 - [ ] **C.** 匹配所有方法参数中包含Service类型的执行
 - [ ] **D.** 匹配所有返回类型为Service的方法执行
 
@@ -3011,7 +3011,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** @Autowired private UserService userService;
-- [ ] **B.** @Resource private UserService userServiceV2;
+- [x] **B.** @Resource private UserService userServiceV2;
 - [ ] **C.** @Autowired @Qualifier("userServiceV1") private UserService userService;
 - [ ] **D.** @Resource(name = "userServiceV1") private UserService userService;
 
@@ -3046,7 +3046,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** methodY 的调用仍由 CGLIB 代理拦截，返回容器中的同一个 Bean
-- [ ] **B.** methodY 会被当作普通方法调用，可能导致得到一个新的实例，破坏单例语义
+- [x] **B.** methodY 会被当作普通方法调用，可能导致得到一个新的实例，破坏单例语义
 - [ ] **C.** 仅在多线程场景下才会出现新的实例
 - [ ] **D.** proxyBeanMethods 与 @Bean 的单例语义无关，不会影响返回对象
 
@@ -3076,7 +3076,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 始终使用现有事务，不存在则抛出异常
-- [ ] **B.** 总是新建独立事务，原事务被挂起
+- [x] **B.** 总是新建独立事务，原事务被挂起
 - [ ] **C.** 在无事务环境下执行，有事务则加入
 - [ ] **D.** 强制所有操作在只读事务中运行
 
@@ -3105,7 +3105,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 必须显式调用 ProceedingJoinPoint.proceed() 才能执行目标方法
+- [x] **A.** 必须显式调用 ProceedingJoinPoint.proceed() 才能执行目标方法
 - [ ] **B.** 优先于 @Before 通知执行但晚于 @After 通知
 - [ ] **C.** 无法修改目标方法的返回值类型
 - [ ] **D.** 不适用于需要处理已检查异常的场景
@@ -3136,7 +3136,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** `methodA` 和 `methodB` 的操作都会被回滚。
-- [ ] **B.** `methodA` 的操作会提交，`methodB` 的操作会被回滚到它开始前的保存点。
+- [x] **B.** `methodA` 的操作会提交，`methodB` 的操作会被回滚到它开始前的保存点。
 - [ ] **C.** `methodA` 的操作会提交，`methodB` 的操作也会被提交。
 - [ ] **D.** 由于内部事务异常，即使被捕获，整个外部事务也必须回滚。
 
@@ -3167,7 +3167,7 @@ ________________________________________
 
 - [ ] **A.** @PostConstruct
 - [ ] **B.** @EnableAutoConfiguration
-- [ ] **C.** @Conditional
+- [x] **C.** @Conditional
 - [ ] **D.** @SpringBootApplication
 
 **我的回答**：
@@ -3196,10 +3196,10 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 该注解由组合注解@SpringBootApplication引入。
-- [ ] **B.** 该注解作用是开启Spring Boot自动配置。
-- [ ] **C.** 该注解会扫描各个jar包下的spring.factories文件，并加载文件中注册的AutoConfiguration类等。
-- [ ] **D.** @EnableAutoConfiguration的关键功能是通过@Import注解导入的ImportSelector来完成的。
+- [x] **A.** 该注解由组合注解@SpringBootApplication引入。
+- [x] **B.** 该注解作用是开启Spring Boot自动配置。
+- [x] **C.** 该注解会扫描各个jar包下的spring.factories文件，并加载文件中注册的AutoConfiguration类等。
+- [x] **D.** @EnableAutoConfiguration的关键功能是通过@Import注解导入的ImportSelector来完成的。
 
 **我的回答**：
 
@@ -3228,7 +3228,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 如果当前存在事务则挂起当前事务，始终创建新事务
+- [x] **A.** 如果当前存在事务则挂起当前事务，始终创建新事务
 - [ ] **B.** 如果当前存在事务则加入该事务，不存在则创建新事务
 - [ ] **C.** 如果当前存在事务则抛出异常，不存在则创建新事务
 - [ ] **D.** 始终使用当前事务，不存在事务则抛出异常
@@ -3259,7 +3259,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** @Value用于注入单个属性值
-- [ ] **B.** @ConfigurationProperties提供类型安全绑定
+- [x] **B.** @ConfigurationProperties提供类型安全绑定
 - [ ] **C.** @PropertySource用于加载自定义属性文件
 - [ ] **D.** @Autowired用于自动注入Bean
 
@@ -3288,7 +3288,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 实例化（Instantiation）→ 属性注入（Populate）→ 初始化（Initialization）→ 销毁（Destruction）
+- [x] **A.** 实例化（Instantiation）→ 属性注入（Populate）→ 初始化（Initialization）→ 销毁（Destruction）
 - [ ] **B.** 属性注入 → 实例化 → 初始化 → 销毁
 - [ ] **C.** 实例化 → 初始化 → 属性注入 → 销毁
 - [ ] **D.** 初始化 → 实例化 → 属性注入 → 销毁
@@ -3318,7 +3318,7 @@ Spring Bean的生命周期标准顺序为：实例化（Instantiation）→ 属�
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** REQUIRES_NEW
+- [x] **A.** REQUIRES_NEW
 - [ ] **B.** REQUIRED
 - [ ] **C.** SUPPORTS
 - [ ] **D.** NOT_SUPPORTED
@@ -3349,7 +3349,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 在 @EnableAspectJAutoProxy 中设置 proxyTargetClass=false
-- [ ] **B.** 在 @EnableAspectJAutoProxy 中设置 proxyTargetClass=true
+- [x] **B.** 在 @EnableAspectJAutoProxy 中设置 proxyTargetClass=true
 - [ ] **C.** 为目标类手动实现一个空接口
 - [ ] **D.** 将切面声明顺序移到其他 Bean 之前
 
@@ -3379,7 +3379,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** `ApplicationContext` 是 `BeanFactory` 的一个子接口，它完全继承了 `BeanFactory` 的功能，并且没有添加任何新功能。
-- [ ] **B.** `BeanFactory` 采用懒加载（lazy-loading）机制，只有在 `getBean()` 被调用时才实例化 Bean；而 `ApplicationContext` 在默认情况下会在启动时预先实例化所有单例（singleton）Bean。
+- [x] **B.** `BeanFactory` 采用懒加载（lazy-loading）机制，只有在 `getBean()` 被调用时才实例化 Bean；而 `ApplicationContext` 在默认情况下会在启动时预先实例化所有单例（singleton）Bean。
 - [ ] **C.** `BeanFactory` 和 `ApplicationContext` 都可以支持国际化（i18n）、事件发布和AOP，但 `ApplicationContext` 的实现更轻量。
 - [ ] **D.** 在任何情况下，使用 `BeanFactory` 都比使用 `ApplicationContext` 的性能更好，是构建高性能应用的首选。
 
@@ -3414,7 +3414,7 @@ Spring AOP中，以下哪种通知（Advice）可以阻止目标方法执行？
 
 - [ ] **A.** @Before
 - [ ] **B.** @AfterReturning
-- [ ] **C.** @Around
+- [x] **C.** @Around
 - [ ] **D.** @After
 
 **我的回答**：
@@ -3443,7 +3443,7 @@ Spring Boot自动配置生效的条件是：
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 必须在application.properties中显式启用spring.autoconfigure.enable=true
-- [ ] **B.** 满足@ConditionalOnClass等条件注解且无用户自定义Bean覆盖时
+- [x] **B.** 满足@ConditionalOnClass等条件注解且无用户自定义Bean覆盖时
 - [ ] **C.** 只要引入starter依赖就会强制激活所有相关配置
 - [ ] **D.** 需要在启动类添加@EnableAutoConfiguration(exclude=...)排除其他配置
 
@@ -3472,7 +3472,7 @@ Spring Boot自动配置生效的核心机制是依赖于条件注解（如@Condi
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 延迟Bean的初始化直到首次被使用
+- [x] **A.** 延迟Bean的初始化直到首次被使用
 - [ ] **B.** 强制Bean在容器启动时立即初始化
 - [ ] **C.** 优化Bean的依赖注入顺序
 - [ ] **D.** 控制Bean的并发访问
@@ -3505,7 +3505,7 @@ ________________________________________
 - [ ] **A.** @RequestParam
 - [ ] **B.** @RequestMapping
 - [ ] **C.** @ResponseBody
-- [ ] **D.** @PathVariable
+- [x] **D.** @PathVariable
 
 **我的回答**：
 
@@ -3535,7 +3535,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 在Bean被销毁后执行清理逻辑
-- [ ] **B.** 在Bean注入依赖后立即执行初始化逻辑
+- [x] **B.** 在Bean注入依赖后立即执行初始化逻辑
 - [ ] **C.** 在Bean被创建但依赖注入前执行配置逻辑
 - [ ] **D.** 在Bean被容器加载后动态修改属性
 
@@ -3565,7 +3565,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** @PostConstruct -> BeanNameAware.setBeanName -> init-method
-- [ ] **B.** BeanNameAware.setBeanName -> @PostConstruct -> init-method
+- [x] **B.** BeanNameAware.setBeanName -> @PostConstruct -> init-method
 - [ ] **C.** init-method -> BeanNameAware.setBeanName -> @PostConstruct
 - [ ] **D.** 执行顺序不确定，取决于 JVM 的实现
 
@@ -3595,7 +3595,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 将 proxyBeanMethods 设为 false 时，@Bean 方法之间的直接调用仍通过容器，始终返回同一单例实例
-- [ ] **B.** 将 proxyBeanMethods 设为 true 时，配置类会被 CGLIB 增强，@Bean 方法间的直接调用也会走容器，从而保证单例一致性
+- [x] **B.** 将 proxyBeanMethods 设为 true 时，配置类会被 CGLIB 增强，@Bean 方法间的直接调用也会走容器，从而保证单例一致性
 - [ ] **C.** proxyBeanMethods 的取值只影响懒加载，不影响 @Bean 返回对象的一致性
 - [ ] **D.** 两者唯一差异是是否允许 @Bean 方法声明为 static
 
@@ -3627,7 +3627,7 @@ Spring Boot的自动配置机制中，@ConditionalOnMissingBean注解的关键�
 - [ ] **A.** 当指定Bean存在时启用配置
 - [ ] **B.** 当类路径存在指定类时启用配置
 - [ ] **C.** 当环境变量满足条件时启用配置
-- [ ] **D.** 当容器中无指定类型Bean时启用配置
+- [x] **D.** 当容器中无指定类型Bean时启用配置
 
 **我的回答**：
 
@@ -3654,7 +3654,7 @@ Spring Bean的生命周期中，以下回调的执行顺序正确的是？
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 构造器 -> @PostConstruct -> InitializingBean -> 自定义init-method
+- [x] **A.** 构造器 -> @PostConstruct -> InitializingBean -> 自定义init-method
 - [ ] **B.** @PostConstruct -> 构造器 -> InitializingBean -> 自定义init-method
 - [ ] **C.** 构造器 -> InitializingBean -> @PostConstruct -> 自定义init-method
 - [ ] **D.** 自定义init-method -> 构造器 -> @PostConstruct -> InitializingBean
@@ -3684,7 +3684,7 @@ Spring Bean 的默认作用范围是（   ）
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** singleton
+- [x] **A.** singleton
 - [ ] **B.** prototype
 - [ ] **C.** request
 - [ ] **D.** session
@@ -3716,10 +3716,10 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** @Autowired是Spring提供的注解。
+- [x] **A.** @Autowired是Spring提供的注解。
 - [ ] **B.** @Autowired是JDK提供的注解。
 - [ ] **C.** @Autowired注解只能根据类型注入Bean。
-- [ ] **D.** @Autowired注解既可以根据类型注入Bean也可以根据名称注入Bean。
+- [x] **D.** @Autowired注解既可以根据类型注入Bean也可以根据名称注入Bean。
 
 **我的回答**：
 
@@ -3748,7 +3748,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** singleton
+- [x] **A.** singleton
 - [ ] **B.** prototype
 - [ ] **C.** request
 - [ ] **D.** session
@@ -3779,7 +3779,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 使用字段注入（如@Autowired直接注入字段）
-- [ ] **B.** 使用构造函数注入
+- [x] **B.** 使用构造函数注入
 - [ ] **C.** 使用setter方法注入
 - [ ] **D.** 使用静态工厂方法注入
 
@@ -3810,7 +3810,7 @@ ________________________________________
 
 - [ ] **A.** 在其中一个实现类上添加@Primary注解
 - [ ] **B.** 使用@Qualifier("beanName")明确指定Bean名称
-- [ ] **C.** 通过构造函数参数名称隐式匹配（需启用-parameters编译参数）
+- [x] **C.** 通过构造函数参数名称隐式匹配（需启用-parameters编译参数）
 - [ ] **D.** 用@Resource(name="beanName")替代@Autowired
 
 **我的回答**：
@@ -3838,7 +3838,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** ApplicationContext支持事件发布，BeanFactory不支持
+- [x] **A.** ApplicationContext支持事件发布，BeanFactory不支持
 - [ ] **B.** BeanFactory默认预初始化所有单例Bean，ApplicationContext延迟初始化
 - [ ] **C.** ApplicationContext不支持国际化消息解析
 - [ ] **D.** BeanFactory提供更完善的AOP支持
@@ -3870,7 +3870,7 @@ ________________________________________
 
 - [ ] **A.** 当Bean不存在时强制创建该Bean
 - [ ] **B.** 仅在指定类路径存在时注册Bean
-- [ ] **C.** 当容器中不存在指定类型的Bean时才注册当前Bean
+- [x] **C.** 当容器中不存在指定类型的Bean时才注册当前Bean
 - [ ] **D.** 在单元测试中模拟缺失的Bean
 
 **我的回答**：
@@ -3898,7 +3898,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 将其中一个Bean的注入方式改为Setter注入，并保持单例作用域
+- [x] **A.** 将其中一个Bean的注入方式改为Setter注入，并保持单例作用域
 - [ ] **B.** 两个Bean均使用@Scope("prototype")
 - [ ] **C.** 删除其中一个Bean的@Autowired注解
 - [ ] **D.** 将其中一个Bean的@Autowired改为@Resource
@@ -3928,7 +3928,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 每次注入时都会创建新的实例
+- [x] **A.** 每次注入时都会创建新的实例
 - [ ] **B.** 所有线程共享同一个实例
 - [ ] **C.** 仅初始化两次：首次调用时和容器启动时
 - [ ] **D.** 依赖注入时自动继承父 Bean 的配置
@@ -3958,7 +3958,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** JDK 动态代理
+- [x] **A.** JDK 动态代理
 - [ ] **B.** CGLIB 代理
 - [ ] **C.** 静态代理
 - [ ] **D.** 编译时织入 (AspectJ)
@@ -3991,7 +3991,7 @@ ________________________________________
 - [ ] **A.** 通过自动使用@Lazy注解延迟初始化bean
 - [ ] **B.** 通过抛出BeanCurrentlyInCreationException异常阻止启动
 - [ ] **C.** 通过Setter注入或构造函数注入自动解决
-- [ ] **D.** 通过BeanFactory的早期引用机制处理
+- [x] **D.** 通过BeanFactory的早期引用机制处理
 
 **我的回答**：
 
@@ -4019,7 +4019,7 @@ Spring框架默认通过BeanFactory的早期引用机制（即三级缓存：sin
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 直接在代码中使用 `new` 关键字创建 DataSource 对象。
-- [ ] **B.** 在 `application.properties` 或 `application.yml` 文件中配置数据源属性。
+- [x] **B.** 在 `application.properties` 或 `application.yml` 文件中配置数据源属性。
 - [ ] **C.** 使用 Spring JDBC 模板手动配置数据源。
 - [ ] **D.** 只能通过 JNDI 查找数据源。
 
@@ -4049,7 +4049,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 随外层事务回滚
-- [ ] **B.** 保持提交状态
+- [x] **B.** 保持提交状态
 - [ ] **C.** 取决于外层事务的回滚状态
 - [ ] **D.** 抛出TransactionRollbackException
 
@@ -4080,7 +4080,7 @@ ________________________________________
 
 - [ ] **A.** `@PropertySource` 加载的配置 > 命令行参数 > `application-dev.properties` > `application.properties`
 - [ ] **B.** `application.properties` > `application-dev.properties` > `@PropertySource` 加载的配置 > 命令行参数
-- [ ] **C.** 命令行参数 > `application-dev.properties` > `application.properties` > `@PropertySource` 加载的配置
+- [x] **C.** 命令行参数 > `application-dev.properties` > `application.properties` > `@PropertySource` 加载的配置
 - [ ] **D.** 命令行参数 > `@PropertySource` 加载的配置 > `application-dev.properties` > `application.properties`
 
 **我的回答**：
@@ -4109,7 +4109,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 按bean的名称（name）进行唯一匹配
-- [ ] **B.** 按bean的类型（type）进行匹配
+- [x] **B.** 按bean的类型（type）进行匹配
 - [ ] **C.** 按配置文件的顺序进行匹配
 - [ ] **D.** 按构造器参数的数量进行匹配
 
@@ -4139,7 +4139,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 直接使用 @Autowired 字段注入，无需额外配置
-- [ ] **B.** 为 request 作用域的 Bean 启用作用域代理，例如使用 @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+- [x] **B.** 为 request 作用域的 Bean 启用作用域代理，例如使用 @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 - [ ] **C.** 将单例 Bean 也改为 request 作用域以避免代理
 - [ ] **D.** 在单例中缓存 HttpServletRequest 并重复使用，以减少对象创建
 
@@ -4171,7 +4171,7 @@ Spring事务管理中，关于@Transactional注解的使用，下列说法**错�
 - [ ] **A.** @Transactional可作用于类，此时类中所有公共方法都会应用事务配置
 - [ ] **B.** 方法内部调用同类的@Transactional方法时，默认事务不会生效（因Spring事务基于代理）
 - [ ] **C.** rollbackFor属性可指定触发事务回滚的异常，默认仅RuntimeException和Error会回滚
-- [ ] **D.** isolation属性设为ISOLATION_SERIALIZABLE时，事务并发性能最高，适合高并发场景
+- [x] **D.** isolation属性设为ISOLATION_SERIALIZABLE时，事务并发性能最高，适合高并发场景
 
 **我的回答**：
 
@@ -4199,7 +4199,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 在该服务上使用 @Scope("prototype")
-- [ ] **B.** 在该服务上使用 @RequestScope，并设置 proxyMode=ScopedProxyMode.TARGET_CLASS
+- [x] **B.** 在该服务上使用 @RequestScope，并设置 proxyMode=ScopedProxyMode.TARGET_CLASS
 - [ ] **C.** 在该服务上使用 @Scope("request")，并在非 Web 环境中禁用该 Bean
 - [ ] **D.** 在该服务上使用 @Scope("session")
 
@@ -4228,10 +4228,10 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** JDK动态代理，是Java提供的动态代理技术，可以在运行时创建接口的代理实例。
+- [x] **A.** JDK动态代理，是Java提供的动态代理技术，可以在运行时创建接口的代理实例。
 - [ ] **B.** JDK动态代理，是Java提供的动态代理技术，可以在运行时创建子类的代理实例。
 - [ ] **C.** CGLib动态代理，采用底层的字节码技术，在运行时创建接口代理的实例。
-- [ ] **D.** CGLib动态代理，采用底层的字节码技术，在运行时创建子类代理的实例。
+- [x] **D.** CGLib动态代理，采用底层的字节码技术，在运行时创建子类代理的实例。
 
 **我的回答**：
 
@@ -4260,9 +4260,9 @@ JDK动态代理，是Java提供的动态代理技术，可以在运行时创建�
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** @Autowired用于注入Bean，该注解只能写在成员变量的前面。
-- [ ] **B.** @Qualifier用于声明Bean的名称，该注解只能引用Bean的自定义名称。
-- [ ] **C.** @Bean用于装配第三方的Bean，它不能装配自定义的Bean。
+- [x] **A.** @Autowired用于注入Bean，该注解只能写在成员变量的前面。
+- [x] **B.** @Qualifier用于声明Bean的名称，该注解只能引用Bean的自定义名称。
+- [x] **C.** @Bean用于装配第三方的Bean，它不能装配自定义的Bean。
 - [ ] **D.** @Configuration用于声明配置类，该注解是基于@Component实现的。
 
 **我的回答**：
@@ -4295,7 +4295,7 @@ ________________________________________
 - [ ] **A.** @RequestMapping可以声明类或方法的访问路径，还可以声明请求的方式。
 - [ ] **B.** @PathVariable可以将请求路径中的参数，绑定到控制器中方法的参数。
 - [ ] **C.** @RequestParam可以将请求对象中的参数，绑定到控制器中方法的参数。
-- [ ] **D.** @ResponseBody用于向浏览器响应字符串，它只能应用于异步请求之中。
+- [x] **D.** @ResponseBody用于向浏览器响应字符串，它只能应用于异步请求之中。
 
 **我的回答**：
 
@@ -4325,7 +4325,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** `AliPayService`，因为 `@Primary` 注解有更高的优先级。
-- [ ] **B.** `WeChatPayService`，因为 `@Qualifier` 注解的匹配优先级高于 `@Primary`。
+- [x] **B.** `WeChatPayService`，因为 `@Qualifier` 注解的匹配优先级高于 `@Primary`。
 - [ ] **C.** 容器启动失败，因为存在多个符合条件的Bean，导致注入歧义。
 - [ ] **D.** 不确定，取决于Bean的加载顺序。
 
@@ -4354,10 +4354,10 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** execution(public * com.example.service.*.save*(..))
-- [ ] **B.** execution(* com.example.service.impl.*.save*(..))
-- [ ] **C.** execution(* com.example.service.*.save(..))
-- [ ] **D.** execution(public com.example.service.*.save*(..))
+- [x] **A.** execution(public * com.example.service.\*.save\*(..))
+- [ ] **B.** execution(* com.example.service.impl.\*.save\*(..))
+- [ ] **C.** execution(* com.example.service.\*.save(..))
+- [ ] **D.** execution(public com.example.service.\*.save\*(..))
 
 **我的回答**：
 
@@ -4385,7 +4385,7 @@ Spring容器中，两个Bean（BeanA和BeanB）互相依赖。若两者均使用
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 容器正常启动，自动解决循环依赖
-- [ ] **B.** 容器启动失败，抛出BeanCurrentlyInCreationException
+- [x] **B.** 容器启动失败，抛出BeanCurrentlyInCreationException
 - [ ] **C.** 需添加@Lazy注解才能正常启动
 - [ ] **D.** 需将其中一个Bean的注入方式改为Setter注入才能正常启动
 
@@ -4416,7 +4416,7 @@ ________________________________________
 
 - [ ] **A.** 前置通知
 - [ ] **B.** 后置通知
-- [ ] **C.** 织入通知
+- [x] **C.** 织入通知
 - [ ] **D.** 异常通知
 
 **我的回答**：
@@ -4446,7 +4446,7 @@ Spring AOP支持的通知类型包括前置通知、后置通知、环绕通知
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** JDK动态代理要求目标对象必须实现接口，代理类是接口的实现类
+- [x] **A.** JDK动态代理要求目标对象必须实现接口，代理类是接口的实现类
 - [ ] **B.** CGLIB动态代理通过实现接口生成代理类，因此目标类可以是final类
 - [ ] **C.** 当目标对象同时实现接口和存在实现类时，Spring总是优先使用CGLIB代理
 - [ ] **D.** 配置proxyTargetClass=true时，Spring会强制使用JDK动态代理
@@ -4479,7 +4479,7 @@ A选项正确：JDK动态代理要求目标对象必须实现接口，生成的�
 - [ ] **A.** prototype作用域的Bean在每次注入时都会创建新实例
 - [ ] **B.** request作用域适用于Web应用，每个HTTP请求创建独立实例
 - [ ] **C.** singleton作用域的Bean在多线程场景下需要显式处理线程安全问题
-- [ ] **D.** application作用域指在整个JVM进程中只存在一个Bean实例
+- [x] **D.** application作用域指在整个JVM进程中只存在一个Bean实例
 
 **我的回答**：
 
@@ -4507,7 +4507,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 强制从 Session 中读取数据而非请求参数
-- [ ] **B.** 将 HTTP 请求参数自动绑定到 Java 对象
+- [x] **B.** 将 HTTP 请求参数自动绑定到 Java 对象
 - [ ] **C.** 验证参数格式是否符合正则表达式
 - [ ] **D.** 将返回值直接序列化为 JSON 响应
 
@@ -4536,10 +4536,10 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** execution(public * com.example.service.*.*(..))
-- [ ] **B.** within(com.example.service.*)
-- [ ] **C.** execution(* com.example.service..*(..))
-- [ ] **D.** args(com.example.dto.*)
+- [x] **A.** execution(public * com.example.service.\*.\*(..))
+- [ ] **B.** within(com.example.service.\*)
+- [ ] **C.** execution(* com.example.service..\*(..))
+- [ ] **D.** args(com.example.dto.\*)
 
 **我的回答**：
 
@@ -4567,7 +4567,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** Bean实例化后，属性设置前
-- [ ] **B.** 依赖注入完成后，初始化方法（如@PostConstruct）调用前
+- [x] **B.** 依赖注入完成后，初始化方法（如@PostConstruct）调用前
 - [ ] **C.** 所有初始化方法执行后，Bean准备就绪前
 - [ ] **D.** Bean销毁前，作为清理阶段的一部分
 
