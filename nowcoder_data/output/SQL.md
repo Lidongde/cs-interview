@@ -241,7 +241,7 @@
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** WHERE过滤单个行，HAVING过滤组级结果
+- [x] **A.** WHERE过滤单个行，HAVING过滤组级结果
 - [ ] **B.** WHERE仅用于JOIN操作，HAVING用于子查询
 - [ ] **C.** HAVING必须与ORDER BY一起使用
 - [ ] **D.** WHERE可包含聚合函数，HAVING不能
@@ -272,7 +272,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 确保列值不重复，主键唯一。
-- [ ] **B.** 强制引用完整性，确保值匹配另一表的主键。
+- [x] **B.** 强制引用完整性，确保值匹配另一表的主键。
 - [ ] **C.** 自动优化涉及外键的查询性能。
 - [ ] **D.** 允许表中的列值任意更改。
 
@@ -303,7 +303,7 @@ ________________________________________
 
 - [ ] **A.** ROW_NUMBER()可为分区内每行生成唯一序号
 - [ ] **B.** LAG(column)可获取当前行前N行的值
-- [ ] **C.** SUM() OVER()必须与GROUP BY子句配合使用
+- [x] **C.** SUM() OVER()必须与GROUP BY子句配合使用
 - [ ] **D.** RANK()在遇到相同值时会跳过后续序号
 
 **我的回答**：
@@ -331,7 +331,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 为JOIN条件中的外键列添加索引
+- [x] **A.** 为JOIN条件中的外键列添加索引
 - [ ] **B.** 将JOIN操作替换为子查询
 - [ ] **C.** 在SELECT语句中使用通配符(*)选择所有列
 - [ ] **D.** 增加数据库服务器的内存分配
@@ -364,7 +364,7 @@ ________________________________________
 - [ ] **A.** EXISTS始终优于IN，因IN需要执行完整子查询
 - [ ] **B.** IN始终优于EXISTS，因EXISTS需要多次执行子查询
 - [ ] **C.** 当子查询结果集大时EXISTS更优，主查询结果集大时IN更优
-- [ ] **D.** 效率差异取决于数据库优化器能否改写查询逻辑
+- [x] **D.** 效率差异取决于数据库优化器能否改写查询逻辑
 
 **我的回答**：
 
@@ -393,7 +393,7 @@ ________________________________________
 
 - [ ] **A.** 左表的所有记录均被排除
 - [ ] **B.** 右表的所有记录均被保留
-- [ ] **C.** 左表的所有记录被保留，右表匹配字段值为NULL
+- [x] **C.** 左表的所有记录被保留，右表匹配字段值为NULL
 - [ ] **D.** 查询会产生语法错误
 
 **我的回答**：
@@ -424,7 +424,7 @@ ________________________________________
 - [ ] **A.** CREATE，DROP，SELECT
 - [ ] **B.** CREATE，DROP，UPDATE
 - [ ] **C.** CREATE，DROP，GRANT
-- [ ] **D.** CREATE，DROP，ALTER
+- [x] **D.** CREATE，DROP，ALTER
 
 **我的回答**：
 
@@ -467,7 +467,7 @@ SELECT INSERT('1234567',-1,4,'ab');
 
 - [ ] **A.** ab67
 - [ ] **B.** ab567
-- [ ] **C.** 1234567
+- [x] **C.** 1234567
 - [ ] **D.** 执行报错
 
 **我的回答**：
@@ -483,7 +483,7 @@ ________________________________________
 
 答案: C
  
- 解析: MySQL 字符串函数 INSERT(str, pos, len, newstr) 中 pos 从 1 开始计数；当 pos < 1 或 pos > LENGTH(str) 时，返回原字符串不变。因此 pos = -1 越界，结果为 '1234567'。
+ 解析: MySQL 字符串函数 INSERT(str, pos, len, newstr) 中 pos 从 1 开始计数；当 pos 小于 1 或 pos 大于 LENGTH(str) 时，返回原字符串不变。因此 pos = -1 越界，结果为 '1234567'。
 
 </details>
 
@@ -500,7 +500,7 @@ ________________________________________
 - [ ] **A.** 内连接也称为等值连接，连接结果仅包含符合连接条件的行，参与连接的两个表都应该符合连接条件
 - [ ] **B.** 交叉连接返回两个表的乘积，所以表在左右的位置顺序没有区别
 - [ ] **C.** 外连接分为外左连接和外右连接，例如左连接是取左边表的全部，右边的表按条件，符合的显示，不符的显示NULL
-- [ ] **D.** 全连接是在结果中除了显示满足连接的条件的行外，还显示了join两侧表中所有满足检索条件的行
+- [x] **D.** 全连接是在结果中除了显示满足连接的条件的行外，还显示了join两侧表中所有满足检索条件的行
 
 **我的回答**：
 
@@ -515,7 +515,7 @@ ________________________________________
 
 在MySQL数据库中，连接查询是主要的查询方式之一。针对题目中的选项，我们需要分析每个说法的正确性，并找出不正确的说法。以下是详细分析：    选项分析：       
     **A. 内连接也称为等值连接，连接结果仅包含符合连接条件的行，参与连接的两个表都应该符合连接条件**
- 这个说法基本正确。内连接（INNER JOIN）的结果确实只包含两个表中符合连接条件的行。虽然内连接常基于等值条件（例如ON table1.column = table2.column），但它也可以使用非等值条件（如>、<等）。术语“等值连接”常用于描述基于等值条件的内连接，但内连接不限于等值条件。在MySQL文档中，内连接通常不严格称为“等值连接”，但该描述在上下文中是可接受的，没有本质错误。          
+ 这个说法基本正确。内连接（INNER JOIN）的结果确实只包含两个表中符合连接条件的行。虽然内连接常基于等值条件（例如ON table1.column = table2.column），但它也可以使用非等值条件（如小于、大于等）。术语“等值连接”常用于描述基于等值条件的内连接，但内连接不限于等值条件。在MySQL文档中，内连接通常不严格称为“等值连接”，但该描述在上下文中是可接受的，没有本质错误。          
     **B. 交叉连接返回两个表的乘积，所以表在左右的位置顺序没有区别**
  这个说法正确。交叉连接（CROSS JOIN）返回两个表的笛卡尔积，即左表的每一行与右表的每一行组合。结果的行数是两个表行数的乘积，且表的顺序（左表或右表）不影响结果内容（只影响列的顺序）。在MySQL中，CROSS JOIN的行为符合此描述。          
     **C. 外连接分为外左连接和外右连接，例如左连接是取左边表的全部，右边的表按条件，符合的显示，不符的显示NULL**
@@ -536,10 +536,10 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 主键索引
-- [ ] **B.** 唯一索引
-- [ ] **C.** 普通索引
-- [ ] **D.** 全文索引
+- [x] **A.** 主键索引
+- [x] **B.** 唯一索引
+- [x] **C.** 普通索引
+- [x] **D.** 全文索引
 
 **我的回答**：
 
@@ -594,7 +594,7 @@ D. 全文索引(FULLTEXT):
 - [ ] **A.** INSERT
 - [ ] **B.** DELETE
 - [ ] **C.** MODIFY
-- [ ] **D.** UPDATE
+- [x] **D.** UPDATE
 
 **我的回答**：
 
@@ -1024,7 +1024,7 @@ UPDATE 语句用于更新表中的现有数据：A. INSERT 用于插入新数据
 
 - [ ] **A.** SELECT name, course, ROW_NUMBER() OVER (PARTITION BY course ORDER BY score DESC) AS rank FROM t_stu_course_score GROUP BY name, course HAVING rank <= 2
 - [ ] **B.** SELECT name, course, score FROM ( SELECT name, course, score, ROW_NUMBER() OVER (PARTITION BY name ORDER BY score DESC) AS rank FROM t_stu_course_score ) t WHERE rank <= 2
-- [ ] **C.** SELECT name, course, score FROM ( SELECT name, course, score, ROW_NUMBER() OVER (PARTITION BY course ORDER BY score DESC) AS rank FROM t_stu_course_score ) t WHERE rank <= 2
+- [x] **C.** SELECT name, course, score FROM ( SELECT name, course, score, ROW_NUMBER() OVER (PARTITION BY course ORDER BY score DESC) AS rank FROM t_stu_course_score ) t WHERE rank <= 2
 - [ ] **D.** SELECT name, course, score FROM t_stu_course_score ORDER BY score LIMIT 2
 
 **我的回答**：
@@ -1034,7 +1034,7 @@ ________________________________________
 <details>
 <summary>💡 点击查看答案与解析</summary>
 
-**爬虫提交的答案**：SELECT name, course, ROW_NUMBER() OVER (PARTITION BY course ORDER BY score DESC) AS rank FROM t_stu_course_score GROUP BY name, course HAVING rank <= 2（仅用于触发解析，不一定正确）
+**爬虫提交的答案**：SELECT name, course, ROW_NUMBER() OVER (PARTITION BY course ORDER BY score DESC) AS rank FROM t_stu_course_score GROUP BY name, course HAVING rank 小于等于 2（仅用于触发解析，不一定正确）
 
 **官方解析**：
 
@@ -1052,7 +1052,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** SELECT user_id, SUM(amount) FROM orders WHERE status = '已支付' GROUP BY user_id
+- [x] **A.** SELECT user_id, SUM(amount) FROM orders WHERE status = '已支付' GROUP BY user_id
 - [ ] **B.** SELECT user_id, SUM(amount) FROM orders GROUP BY user_id HAVING status = '已支付'
 - [ ] **C.** SELECT user_id, AVG(amount) FROM orders WHERE status = '已支付' GROUP BY user_id
 - [ ] **D.** SELECT user_id, COUNT(*) FROM orders WHERE status = '已支付' GROUP BY user_id
@@ -1083,7 +1083,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** MySQL不能对已经存在的存储过程代码进行修改，如果必须要修改存储过程，必须使用DROP语句删除之后，重新编写
-- [ ] **B.** MySQL在存储过程中不可以调用其他存储过程，但是可以使用DROP语句删除其他存储过程
+- [x] **B.** MySQL在存储过程中不可以调用其他存储过程，但是可以使用DROP语句删除其他存储过程
 - [ ] **C.** MySQL在定义存储过程中的参数列表时，参数不能与数据表中的字段名相同
 - [ ] **D.** 如果在存储过程中传入中文参数，则需要在定义存储过程的时候在后面加上character set gbk。否则会在调用过程使用该参数的时候出错
 
@@ -1113,9 +1113,9 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 在select子句中的字段
-- [ ] **B.** 外键字段
-- [ ] **C.** 主键字段
-- [ ] **D.** 在where子句中的字段
+- [x] **B.** 外键字段
+- [x] **C.** 主键字段
+- [x] **D.** 在where子句中的字段
 
 **我的回答**：
 
@@ -1165,7 +1165,7 @@ A选项错误原因:
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** SELECT * FROM customers WHERE city = 'New York'
+- [x] **A.** SELECT * FROM customers WHERE city = 'New York'
 - [ ] **B.** SELECT * FROM customers WHERE state = 'NY'
 - [ ] **C.** SELECT * FROM customers WHERE city = 'NY'
 - [ ] **D.** SELECT * FROM customers WHERE state = 'New York'
@@ -1197,7 +1197,7 @@ ________________________________________
 
 - [ ] **A.** ALTER
 - [ ] **B.** DROP
-- [ ] **C.** REVOKE
+- [x] **C.** REVOKE
 - [ ] **D.** GRANT
 
 **我的回答**：
@@ -1226,7 +1226,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** SHOW GLOBAL STATUS LIKE ‘Key_%‘;
-- [ ] **B.** SHOW GLOBAL STATUS LIKE ‘Qcache_%‘;
+- [x] **B.** SHOW GLOBAL STATUS LIKE ‘Qcache_%‘;
 - [ ] **C.** SHOW GLOBAL STATUS LIKE ‘memory_%‘;
 - [ ] **D.** SHOW GLOBAL STATUS LIKE ‘Sort_%‘;
 
@@ -1257,7 +1257,7 @@ ________________________________________
 
 - [ ] **A.** 处理死锁的检测机制不同
 - [ ] **B.** 是否允许脏写（Dirty Write）
-- [ ] **C.** 对不可重复读（Non-Repeatable Read）的防护能力
+- [x] **C.** 对不可重复读（Non-Repeatable Read）的防护能力
 - [ ] **D.** 事务回滚时日志写入策略
 
 **我的回答**：
@@ -1287,7 +1287,7 @@ ________________________________________
 
 - [ ] **A.** SELECT dept_id, name, salary FROM (SELECT *, ROW_NUMBER() OVER(PARTITION BY dept_id ORDER BY salary DESC) rn FROM emp) t WHERE rn=1;
 - [ ] **B.** SELECT dept_id, name, MAX(salary) FROM emp GROUP BY dept_id;
-- [ ] **C.** SELECT e.dept_id, e.name, e.salary FROM emp e JOIN (SELECT dept_id, MAX(salary) mx FROM emp GROUP BY dept_id) m ON e.dept_id=m.dept_id AND e.salary=m.mx;
+- [x] **C.** SELECT e.dept_id, e.name, e.salary FROM emp e JOIN (SELECT dept_id, MAX(salary) mx FROM emp GROUP BY dept_id) m ON e.dept_id=m.dept_id AND e.salary=m.mx;
 - [ ] **D.** SELECT name, salary FROM emp WHERE salary IN (SELECT MAX(salary) FROM emp);
 - [ ] **E.** SELECT name, salary FROM emp WHERE salary IN (SELECT AVG(salary) FROM emp);
 
@@ -1322,7 +1322,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 终止事务并丢弃所有更改
-- [ ] **B.** 确认事务中的所有更改永久生效
+- [x] **B.** 确认事务中的所有更改永久生效
 - [ ] **C.** 暂停事务以便进行其他操作
 - [ ] **D.** 回滚到事务开始时的状态
 
@@ -1352,7 +1352,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 死锁发生在两个事务相互等待对方释放锁资源时
-- [ ] **B.** 降低事务隔离级别可完全避免死锁发生
+- [x] **B.** 降低事务隔离级别可完全避免死锁发生
 - [ ] **C.** 数据库系统通常会自动检测并回滚其中一个事务
 - [ ] **D.** 按相同顺序访问资源可降低死锁概率
 
@@ -1381,7 +1381,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** GRADE < 60 OR GRADE > 90
+- [x] **A.** GRADE < 60 OR GRADE > 90
 - [ ] **B.** GRADE <= 60 OR GRADE >= 90
 - [ ] **C.** GRADE > 60 AND GRADE < 90
 - [ ] **D.** GRADE >= 60 AND GRADE <= 90
@@ -1393,13 +1393,13 @@ ________________________________________
 <details>
 <summary>💡 点击查看答案与解析</summary>
 
-**爬虫提交的答案**：GRADE < 60 OR GRADE > 90（仅用于触发解析，不一定正确）
+**爬虫提交的答案**：GRADE  小于 60 OR GRADE > 90（仅用于触发解析，不一定正确）
 
 **官方解析**：
 
 答案：A
 
-解析：本题考查SQLite中 SQL语句的基本使用，属于中等难度题。“BETWEEN 60 AND 90”表示60 <= GRADE <= 90, 故“NOT BETWEEN 60 AND 90”则表示 “BETWEEN 60 AND 90”的反面 ，即GRADE <= 60 OR GRADE >= 90
+解析：本题考查SQLite中 SQL语句的基本使用，属于中等难度题。“BETWEEN 60 AND 90”表示60 小于等于 GRADE 小于等于 90, 故“NOT BETWEEN 60 AND 90”则表示 “BETWEEN 60 AND 90”的反面 ，即GRADE 小于等于 60 OR GRADE >= 90
 
 </details>
 
@@ -1415,7 +1415,7 @@ ________________________________________
 
 - [ ] **A.** LEFT JOIN
 - [ ] **B.** FULL JOIN
-- [ ] **C.** INNER JOIN
+- [x] **C.** INNER JOIN
 - [ ] **D.** CROSS JOIN
 
 **我的回答**：
@@ -1443,7 +1443,7 @@ INNER JOIN 只返回两个表中连接列匹配的行。当连接列有NULL值�
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** ('2022'，'暖暖'，NULL，NULL)
+- [x] **A.** ('2022'，'暖暖'，NULL，NULL)
 - [ ] **B.** ('2022'，'暖暖'，女，10)
 - [ ] **C.** (NULL，'暖暖'，'女'，'10')
 - [ ] **D.** ('2022'，NULL，'女'，10)
@@ -1493,7 +1493,7 @@ D('2022'，NULL，'女'，10)不正确,因为:
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** SELECT SUM(商品数量 * 商品单价) AS 总金额, 订单编号 FROM 订单 GROUP BY 订单编号 ORDER BY 总金额 ASC;
+- [x] **A.** SELECT SUM(商品数量 * 商品单价) AS 总金额, 订单编号 FROM 订单 GROUP BY 订单编号 ORDER BY 总金额 ASC;
 - [ ] **B.** SELECT SUM(商品数量 * 商品单价) AS 总金额, 订单编号 FROM 订单 GROUP BY 订单编号 ORDER BY 总金额 DESC;
 - [ ] **C.** SELECT SUM(商品数量 * 商品单价) AS 总金额, 订单编号 FROM 订单 ORDER BY 订单编号 ASC;
 - [ ] **D.** SELECT SUM(商品数量 * 商品单价) AS 总金额, 订单编号 FROM 订单 ORDER BY 总金额 ASC;
@@ -1537,8 +1537,8 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** SELECT sex ,average(age) FROM student_table WHERE sex IS NOT NULL GROUP BY sex ;
-- [ ] **B.** SELECT sex ,avg(age) FROM student_table WHERE sex IS NOT NULL GROUP BY sex ;
-- [ ] **C.** SELECT sex ,sum(age)/count(*) FROM student_table WHERE sex IS NOT NULL GROUP BY sex ;
+- [x] **B.** SELECT sex ,avg(age) FROM student_table WHERE sex IS NOT NULL GROUP BY sex ;
+- [ ] **C.** SELECT sex ,sum(age)/count(\*) FROM student_table WHERE sex IS NOT NULL GROUP BY sex ;
 - [ ] **D.** SELECT sex ,sum(age)/count(sex) FROM student_table WHERE sex IS NOT NULL GROUP BY sex ;
 
 **我的回答**：
@@ -1607,7 +1607,7 @@ mysql> SELECT sex ,sum(age)/count(age) FROM student_table WHERE sex IS 
 
 - [ ] **A.** 相同 salary 值的行会获得不同序号
 - [ ] **B.** 不同 dept_id 的分区各自独立排序
-- [ ] **C.** ORDER BY 子句缺失会导致语法错误
+- [x] **C.** ORDER BY 子句缺失会导致语法错误
 - [ ] **D.** 结果集中每个分区的序号从1开始
 
 **我的回答**：
@@ -1636,7 +1636,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** SELECT user_id FROM orders WHERE amount > AVG(amount)
-- [ ] **B.** SELECT user_id FROM orders WHERE amount > (SELECT AVG(amount) FROM orders)
+- [x] **B.** SELECT user_id FROM orders WHERE amount > (SELECT AVG(amount) FROM orders)
 - [ ] **C.** SELECT user_id FROM orders GROUP BY user_id HAVING AVG(amount) > amount
 - [ ] **D.** SELECT user_id, AVG(amount) FROM orders GROUP BY user_id HAVING amount > AVG(amount)
 
@@ -1670,7 +1670,7 @@ ________________________________________
 - [ ] **A.** MODIFY TABLE TableName ADD COLUMN ColumnName
 - [ ] **B.** MODIFY TABLE TableName ADD ColumnName
 - [ ] **C.** ALTER TABLE TableName ADD COLUMN ColumnName
-- [ ] **D.** ALTER TABLE TableName ADD ColumnName Type
+- [x] **D.** ALTER TABLE TableName ADD ColumnName Type
 
 **我的回答**：
 
@@ -1714,7 +1714,7 @@ C选项错误：虽然使用了正确的ALTER TABLE关键字，但缺少必需�
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 索引减少了数据存储空间
-- [ ] **B.** 索引避免了全表扫描，通过树结构快速定位记录
+- [x] **B.** 索引避免了全表扫描，通过树结构快速定位记录
 - [ ] **C.** 索引自动修改数据物理顺序
 - [ ] **D.** 索引过滤了NULL值数据
 
@@ -1746,7 +1746,7 @@ ________________________________________
 - [ ] **A.** 左连接时，结果集数据的行数一定等于左表
 - [ ] **B.** 左连接时，结果集数据的行数一定等于右表
 - [ ] **C.** 右连接时，结果集数据的行数一定等于右表
-- [ ] **D.** 左连接时，结果集的行数可能大于左表的行数
+- [x] **D.** 左连接时，结果集的行数可能大于左表的行数
 
 **我的回答**：
 
@@ -1819,7 +1819,7 @@ CREATE TABLE `score_table` (
 - [ ] **A.** SELECT stu_id , subject_name ,score , 
 concat(round( quantile_rank() over(partition by subject_name order by score),4)*100,'%') AS percent 
 FROM score_table;
-- [ ] **B.** SELECT stu_id , subject_name ,score , 
+- [x] **B.** SELECT stu_id , subject_name ,score , 
 concat(round( percent_rank() over(partition by subject_name order by score),4)*100,'%') AS percent 
 FROM score_table;
 - [ ] **C.** SELECT stu_id , subject_name ,score , 
@@ -1897,7 +1897,7 @@ FROM scor' at line 2
 
 - [ ] **A.** 子查询总是比JOIN更高效，因为减少了连接次数。
 - [ ] **B.** JOIN总是优于子查询，因为避免了全表扫描。
-- [ ] **C.** 子查询可能导致更复杂执行计划，但在某些优化器下等价。
+- [x] **C.** 子查询可能导致更复杂执行计划，但在某些优化器下等价。
 - [ ] **D.** JOIN适用于简单连接，子查询仅用于聚合函数。
 
 **我的回答**：
@@ -1926,7 +1926,7 @@ SELECT CONV('5F',16,3); 的结果是（）？
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 10112
+- [x] **A.** 10112
 - [ ] **B.** 10110
 - [ ] **C.** 10211
 - [ ] **D.** 执行报错
@@ -1966,7 +1966,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 查询需要临时磁盘存储和外部排序
+- [x] **A.** 查询需要临时磁盘存储和外部排序
 - [ ] **B.** 数据库正在使用内存缓存加速
 - [ ] **C.** 表示索引被高效利用无性能风险
 - [ ] **D.** 触发了查询优化器的特殊执行模式
@@ -1997,7 +1997,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 使用WHERE子句
-- [ ] **B.** 在GROUP BY后面使用HAVING子句
+- [x] **B.** 在GROUP BY后面使用HAVING子句
 - [ ] **C.** 先使用WHERE子句，再使用HAVING子句
 - [ ] **D.** 先使用HAVING子句，再使用WHERE子句
 
@@ -2042,7 +2042,7 @@ D错误：这个选项在语法上是错误的。SQL语句的执行顺序是WHER
 
 - [ ] **A.** 仅在WHERE子句
 - [ ] **B.** 仅在SET子句
-- [ ] **C.** 在SET子句或WHERE子句
+- [x] **C.** 在SET子句或WHERE子句
 - [ ] **D.** UPDATE语句不允许使用子查询
 
 **我的回答**：
@@ -2073,7 +2073,7 @@ ________________________________________
 - [ ] **A.** INNER JOIN
 - [ ] **B.** LEFT JOIN
 - [ ] **C.** RIGHT JOIN
-- [ ] **D.** FULL JOIN
+- [x] **D.** FULL JOIN
 
 **我的回答**：
 
@@ -2103,7 +2103,7 @@ FULL JOIN 关键字只要其中某个表存在匹配，FULL JOIN 关键字就会
 - [ ] **A.** SIZE = 30 AND SIZE = 45
 - [ ] **B.** SIZE > 30 AND SIZE < 45
 - [ ] **C.** SIZE > 30 OR SIZE < 45
-- [ ] **D.** SIZE = 30 OR SIZE = 45
+- [x] **D.** SIZE = 30 OR SIZE = 45
 
 **我的回答**：
 
@@ -2116,7 +2116,7 @@ ________________________________________
 
 **官方解析**：
 
-在SQL语句中，SIZE IN (30, 45)的含义是 **SIZE 等于 30 或 SIZE 等于 45**。这对应于选项 **D. SIZE = 30 OR SIZE = 45**。       解释：           SQL 中的IN操作符用于检查某个列的值是否匹配给定列表中的任意一个值。如果列的值等于列表中的任何一个值，条件就为真。          因此，SIZE IN (30, 45)等价于SIZE = 30 OR SIZE = 45，表示 SIZE 可以是 30 或 45，但不同时（因为一个值不能同时是 30 和 45）。          错误选项分析：           **A. SIZE = 30 AND SIZE = 45**：这表示 SIZE 必须同时等于 30 和 45，但一个值不可能同时满足两个不同的数值，因此错误。          **B. SIZE > 30 AND SIZE < 45**：这表示 SIZE 在 30 和 45 之间（不包括 30 和 45），但IN (30, 45)明确包括 30 和 45，因此错误。          **C. SIZE > 30 OR SIZE < 45**：这表示 SIZE 大于 30 或小于 45，但实际上这会匹配几乎所有数值（例如，SIZE=25、30、35、45、50 都满足），而IN (30, 45)只匹配 30 和 45，因此错误。          总结：    
+在SQL语句中，SIZE IN (30, 45)的含义是 **SIZE 等于 30 或 SIZE 等于 45**。这对应于选项 **D. SIZE = 30 OR SIZE = 45**。       解释：           SQL 中的IN操作符用于检查某个列的值是否匹配给定列表中的任意一个值。如果列的值等于列表中的任何一个值，条件就为真。          因此，SIZE IN (30, 45)等价于SIZE = 30 OR SIZE = 45，表示 SIZE 可以是 30 或 45，但不同时（因为一个值不能同时是 30 和 45）。          错误选项分析：           **A. SIZE = 30 AND SIZE = 45**：这表示 SIZE 必须同时等于 30 和 45，但一个值不可能同时满足两个不同的数值，因此错误。          **B. SIZE > 30 AND SIZE 小于 45**：这表示 SIZE 在 30 和 45 之间（不包括 30 和 45），但IN (30, 45)明确包括 30 和 45，因此错误。          **C. SIZE > 30 OR SIZE 小于 45**：这表示 SIZE 大于 30 或小于 45，但实际上这会匹配几乎所有数值（例如，SIZE=25、30、35、45、50 都满足），而IN (30, 45)只匹配 30 和 45，因此错误。          总结：    
    在SQL查询中，SIZE IN (30, 45)的正确含义是 **D. SIZE = 30 OR SIZE = 45**。这是SQL标准语法，用于简化多个OR条件的写法。
 
 </details>
@@ -2131,7 +2131,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** CREATE INDEX
+- [x] **A.** CREATE INDEX
 - [ ] **B.** ADD INDEX
 - [ ] **C.** MAKE INDEX
 - [ ] **D.** BUILD INDEX
@@ -2161,7 +2161,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** SELECT name, pay_money FROM order WHERE (orderstate= '1' OR orderstate= '5') AND pay_money>=100;
+- [x] **A.** SELECT name, pay_money FROM order WHERE (orderstate= '1' OR orderstate= '5') AND pay_money>=100;
 - [ ] **B.** SELECT name, pay_money FROM order WHERE orderstate= '1' OR orderstate= '5' AND pay_money>=100;
 - [ ] **C.** SELECT name, pay_money; FROM order WHERE (orderstate= '1' OR orderstate= '5') AND pay_money>=100;
 - [ ] **D.** SELECT name, pay_money; FROM order WHERE orderstate= '1' OR orderstate= '5' AND pay_money>=100;
@@ -2208,7 +2208,7 @@ D选项错误:
 
 - [ ] **A.** 可能违反 ACID 的原子性
 - [ ] **B.** 需显式加表锁（LOCK TABLE）
-- [ ] **C.** 存在丢失更新（Lost Update）风险
+- [x] **C.** 存在丢失更新（Lost Update）风险
 - [ ] **D.** WHERE 条件必须包含主键
 
 **我的回答**：
@@ -2249,7 +2249,7 @@ PARTITION BY RANGE(create_date)
     PARTITION p2019q3 VALUES LESS THAN (TO_DAYS('2019-10-01')),
     PARTITION p2019q4 VALUES LESS THAN (TO_DAYS('2020-01-01'))
 );
-- [ ] **B.** CREATE TABLE `user_table` (
+- [x] **B.** CREATE TABLE `user_table` (
   `id` BIGINT(20)  NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(200) COMMENT '名称',
   `create_date` date NOT NULL COMMENT '日期',
@@ -2373,7 +2373,7 @@ Query OK, 0 rows affected, 2 warnings (0.12 sec)
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** 1
+- [x] **A.** 1
 - [ ] **B.** 2
 - [ ] **C.** 3
 - [ ] **D.** 4
@@ -2428,7 +2428,7 @@ B(2)、C(3)、D(4)都超出了实际匹配的记录数。这些选项没有考�
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** SELECT * FROM USER WHERE City BETWEEN ‘Beijing’ AND ‘Shanghai’;
+- [x] **A.** SELECT * FROM USER WHERE City BETWEEN ‘Beijing’ AND ‘Shanghai’;
 - [ ] **B.** SELECT * FROM USER WHERE City IN ‘Beijing’ AND ‘Shanghai’;
 - [ ] **C.** SELECT * FROM USER WHERE City > ‘Beijing’ < ‘Shanghai';
 - [ ] **D.** SELECT * FROM USER HAVING City BETWEEN ‘Beijing’ AND ‘Shanghai’;
@@ -2460,7 +2460,7 @@ ________________________________________
 
 - [ ] **A.** SELECT product_id FROM sales GROUP BY product_id WHERE SUM(amount) > 10000
 - [ ] **B.** SELECT product_id FROM sales WHERE SUM(amount) > 10000 GROUP BY product_id
-- [ ] **C.** SELECT product_id FROM sales GROUP BY product_id HAVING SUM(amount) > 10000
+- [x] **C.** SELECT product_id FROM sales GROUP BY product_id HAVING SUM(amount) > 10000
 - [ ] **D.** SELECT product_id FROM sales HAVING SUM(amount) > 10000 GROUP BY product_id
 
 **我的回答**：
@@ -2488,7 +2488,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** SELECT project_id, COUNT(*) FROM tasks WHERE status = 'pending' GROUP BY project_id
+- [x] **A.** SELECT project_id, COUNT(*) FROM tasks WHERE status = 'pending' GROUP BY project_id
 - [ ] **B.** SELECT project_id, COUNT(*) FROM tasks GROUP BY project_id HAVING status = 'pending'
 - [ ] **C.** SELECT project_id, SUM(*) FROM tasks WHERE status = 'pending' GROUP BY project_id
 - [ ] **D.** SELECT project_id, COUNT(*) FROM tasks GROUP BY project_id WHERE status = 'pending'
@@ -2519,7 +2519,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** truncate直接删除表结构，delete删除表中数据。
-- [ ] **B.** 在数据库表中，主键会唯一标识一条记录，且不允许为空。
+- [x] **B.** 在数据库表中，主键会唯一标识一条记录，且不允许为空。
 - [ ] **C.** 在没有groupby子句时，having子句将不起作用。
 - [ ] **D.** 和数据库表一样，视图可以存储和更新数据。
 
@@ -2550,7 +2550,7 @@ A选项，drop会删除表结构，truncate会删除表中所有数据，delete�
 
 - [ ] **A.** 需要实时更新的OLTP系统
 - [ ] **B.** 经常变更查询条件的报表系统
-- [ ] **C.** 对基础表聚合结果的快速查询
+- [x] **C.** 对基础表聚合结果的快速查询
 - [ ] **D.** 需要强一致性的交易系统
 
 **我的回答**：
@@ -2580,7 +2580,7 @@ ________________________________________
 
 - [ ] **A.** SELECT * FROM user WHERE name="zhangsan";
 - [ ] **B.** SELECT * FROM user WHERE  age=18 AND name="wangwu" ;
-- [ ] **C.** SELECT * FROM user WHERE  age=23";
+- [x] **C.** SELECT * FROM user WHERE  age=23";
 - [ ] **D.** SELECT * FROM user WHERE name="wangwu" AND age=18;
 
 **我的回答**：
@@ -2610,7 +2610,7 @@ ________________________________________
 
 - [ ] **A.** SELECT user_id, ARRAY_AGG(timestamp) OVER (ORDER BY timestamp DESC LIMIT 3) FROM logs
 - [ ] **B.** SELECT DISTINCT user_id, NTH_VALUE(timestamp, 3) OVER (PARTITION BY user_id ORDER BY timestamp DESC) FROM logs
-- [ ] **C.** SELECT user_id, timestamp FROM (SELECT user_id, timestamp, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY timestamp DESC) rn FROM logs) t WHERE rn <= 3
+- [x] **C.** SELECT user_id, timestamp FROM (SELECT user_id, timestamp, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY timestamp DESC) rn FROM logs) t WHERE rn <= 3
 - [ ] **D.** SELECT user_id, LAST(timestamp, 3) OVER (PARTITION BY user_id) FROM logs GROUP BY user_id
 
 **我的回答**：
@@ -2624,7 +2624,7 @@ ________________________________________
 
 **官方解析**：
 
-题目要求查询每个用户最近三次操作的时间戳。正确选项是C，因为它使用ROW_NUMBER()窗口函数为每个用户的操作按时间戳倒序编号（rn=1表示最新操作），然后通过WHERE rn <= 3筛选出每个用户的最远三次操作。其他选项错误：A在OVER子句中错误使用LIMIT（SQL语法不支持）；B使用NTH_VALUE只返回单个值（第三行时间戳），而不是全部最近三次操作；D使用非标准LAST函数，且GROUP BY与OVER PARTITION组合无效。题目无文字错误、逻辑矛盾、专业名称错误或规则破坏错误。
+题目要求查询每个用户最近三次操作的时间戳。正确选项是C，因为它使用ROW_NUMBER()窗口函数为每个用户的操作按时间戳倒序编号（rn=1表示最新操作），然后通过WHERE rn 小于等于 3筛选出每个用户的最远三次操作。其他选项错误：A在OVER子句中错误使用LIMIT（SQL语法不支持）；B使用NTH_VALUE只返回单个值（第三行时间戳），而不是全部最近三次操作；D使用非标准LAST函数，且GROUP BY与OVER PARTITION组合无效。题目无文字错误、逻辑矛盾、专业名称错误或规则破坏错误。
 
 </details>
 
@@ -2639,7 +2639,7 @@ ________________________________________
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** SELECT MOD（num,3）AS modulo, num FROM Numbers ORDER BY modulo,num;
+- [x] **A.** SELECT MOD（num,3）AS modulo, num FROM Numbers ORDER BY modulo,num;
 - [ ] **B.** SELECT num/3 AS modulo, num FROM Numbers ORDER BY modulo,num;
 - [ ] **C.** SELECT MOD（3,num）AS modulo, num FROM Numbers ORDER BY modulo,num;
 - [ ] **D.** SELECT MODS（num,3）AS modulo, num FROM Numbers ORDER BY modulo,num;
@@ -2670,9 +2670,9 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 带有IS NULL描述符的查询语句不可以使用索引
-- [ ] **B.** IN 操作符的语义等同于将多个等值判断(=)用OR拼接起来
+- [x] **B.** IN 操作符的语义等同于将多个等值判断(=)用OR拼接起来
 - [ ] **C.** LIKE操作符在条件左边出现%不会导致索引失效
-- [ ] **D.** 可以通过EXPLAIN查看语句的执行计划
+- [x] **D.** 可以通过EXPLAIN查看语句的执行计划
 
 **我的回答**：
 
@@ -2713,7 +2713,7 @@ C错误:LIKE操作符在条件左边出现%会导致索引失效。因为前缀�
 
 - [ ] **A.** 使用DECLARE语句声明参数类型
 - [ ] **B.** 在参数名前加上“@”符号来表示参数类型
-- [ ] **C.** 在参数名后加上数据类型来声明参数类型
+- [x] **C.** 在参数名后加上数据类型来声明参数类型
 - [ ] **D.** 在存储过程名后使用中括号来声明参数类型
 
 **我的回答**：
@@ -2744,7 +2744,7 @@ ________________________________________
 - [ ] **A.** 事务的所有操作要么全部成功要么全部回滚
 - [ ] **B.** 事务执行后数据库状态保持一致性
 - [ ] **C.** 并发事务之间互不干扰
-- [ ] **D.** 事务提交后即使系统故障，修改也不会丢失
+- [x] **D.** 事务提交后即使系统故障，修改也不会丢失
 
 **我的回答**：
 
@@ -2772,7 +2772,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 返回匹配记录的集合
-- [ ] **B.** 返回一个布尔值（true或false）
+- [x] **B.** 返回一个布尔值（true或false）
 - [ ] **C.** 返回聚合计算结果
 - [ ] **D.** 返回子查询的第一条记录
 
@@ -2817,7 +2817,7 @@ ________________________________________
 1 Bicycle 5003
 2 Seat 1023
 3 Break 5210
-- [ ] **C.** id description cost
+- [x] **C.** id description cost
 1 Bicycle 50034
 2 Seat 1023
 3 Break 521
@@ -2863,7 +2863,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** WHERE indexed_field LIKE 'prefix%'
-- [ ] **B.** WHERE ABS(indexed_field) = 10
+- [x] **B.** WHERE ABS(indexed_field) = 10
 - [ ] **C.** WHERE indexed_field BETWEEN 10 AND 100
 - [ ] **D.** WHERE indexed_field IN (1,2,3)
 
@@ -2915,7 +2915,7 @@ Transactions
 
 **选项**（勾选你的答案）：
 
-- [ ] **A.** SELECT customer_name, MAX(amount) FROM Customers JOIN Transactions ON Customers.customer_id = Transactions.customer_id GROUP BY customer_name;
+- [x] **A.** SELECT customer_name, MAX(amount) FROM Customers JOIN Transactions ON Customers.customer_id = Transactions.customer_id GROUP BY customer_name;
 - [ ] **B.** SELECT customer_id, SUM(amount) FROM Transactions GROUP BY customer_id;
 - [ ] **C.** SELECT customer_name, amount FROM Customers JOIN Transactions ON Customers.customer_id = Transactions.customer_id WHERE amount IS NOT NULL;
 - [ ] **D.** SELECT customer_name FROM Customers WHERE customer_id IN   (SELECT customer_id FROM Transactions    WHERE amount > 0);
@@ -2948,7 +2948,7 @@ ________________________________________
 - [ ] **A.** delete from tb_ack
 - [ ] **B.** delete from example.tb_ack
 - [ ] **C.** drop table tb_ack
-- [ ] **D.** drop table example.tb_ack
+- [x] **D.** drop table example.tb_ack
 
 **我的回答**：
 
@@ -2986,7 +2986,7 @@ C选项"drop table tb_ack"：虽然使用了正确的drop table命令，但没�
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 索引扫描通常比全表扫描高效
-- [ ] **B.** NESTED LOOP适用于大表关联
+- [x] **B.** NESTED LOOP适用于大表关联
 - [ ] **C.** HASH JOIN需要内存支持
 - [ ] **D.** SORT MERGE JOIN需要排序操作
 
@@ -3016,7 +3016,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 数据库抛出错误并终止操作
-- [ ] **B.** 语句成功执行，但没有行被更新
+- [x] **B.** 语句成功执行，但没有行被更新
 - [ ] **C.** 默认更新所有行以匹配SET条件
 - [ ] **D.** 事务自动回滚到上一个保存点
 
@@ -3046,7 +3046,7 @@ ________________________________________
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 删除NULL值行
-- [ ] **B.** 返回第一个非NULL值
+- [x] **B.** 返回第一个非NULL值
 - [ ] **C.** 将所有NULL转换为0
 - [ ] **D.** 计算NULL值的总数
 
@@ -3077,7 +3077,7 @@ COALESCE函数在SQL中用于处理缺失数据（NULL值），其作用是返�
 
 - [ ] **A.** COUNT()
 - [ ] **B.** SUM()
-- [ ] **C.** ROW_NUMBER()
+- [x] **C.** ROW_NUMBER()
 - [ ] **D.** MAX()
 
 **我的回答**：
@@ -3106,7 +3106,7 @@ ROW_NUMBER()窗口函数的主要用途是什么？
 **选项**（勾选你的答案）：
 
 - [ ] **A.** 返回分组的排名值
-- [ ] **B.** 为结果集中的每一行分配唯一序号
+- [x] **B.** 为结果集中的每一行分配唯一序号
 - [ ] **C.** 计算列的累计和
 - [ ] **D.** 自动过滤重复记录
 
@@ -3131,7 +3131,7 @@ ROW_NUMBER()窗口函数的主要用途是为结果集中的每一行分配一�
 ### 第 67 题  [单选]
 > 标签：`SQL` ｜ 类型：`单选`
 
-当一个关系被进行分区时，元组的分布可能存在偏斜，下列关于分区中出现的数据偏斜说法正确的是？（）
+当一个关系被进行分区时，元组的分布可能存在偏斜，下列关正于分区中出现的数据偏斜说法确的是？（）
 
 **选项**（勾选你的答案）：
 
